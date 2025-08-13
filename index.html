@@ -1,117 +1,276 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tuscany Driver eXperience – Gallery</title>
-    <style>
-      :root {
-        --gap: 16px;
-        --max-content: 1200px;
-        --bg: #faf9f7;
-        --text: #2c2f33;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tuscany Driver Experience - Tour Privati con Autista</title>
+  <meta name="description" content="Itinerari 100% personalizzati in Toscana con autista privato NCC. Arte e cultura, vino e gastronomia, mare e montagna, benessere termale e molto altro. Richiedi il tuo itinerario su misura." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0f12;
+      --text: #f5f5f7;
+      --muted: #b8b8bf;
+      --accent: #d4af37;
+      --card: #16181f;
+      --line: #242634;
+      --maxw: 1100px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-        color: var(--text);
-        background: var(--bg);
-      }
+    .btn, .cta {
+      display: inline-block; background: var(--accent); color: #1a1a1a; font-weight: 700;
+      padding: 14px 22px; border-radius: 10px; box-shadow: 0 8px 20px rgba(212,175,55,.25);
+      transition: transform .08s ease, box-shadow .2s ease;
+    }
+    .btn:hover, .cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(212,175,55,.35); }
 
-      .wrap {
-        max-width: var(--max-content);
-        margin: 0 auto;
-        padding: 24px 16px 40px;
-      }
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
 
-      h1 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin: 0 0 12px;
-      }
+    h1,h2,h3 { line-height: 1.2; margin: 0 0 10px; }
+    h1 { font-size: clamp(32px, 6vw, 56px); }
+    h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 16px; }
+    h3 { font-size: 18px; margin-bottom: 6px; }
+    p { margin: 0 0 12px; }
+    .muted { color: var(--muted); }
 
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--gap);
-        align-items: start;
-      }
+    /* HERO senza overlay, testi neri */
+    header.hero {
+      position: relative; min-height: 92vh; display: grid; place-items: center; text-align: center;
+      background: #000 url("assets/img/hero.png?v=8") center/cover no-repeat !important;
+    }
+    header.hero::after { content: ""; position: absolute; inset: 0; background: none; }
 
-      /* Immagini full-width del riquadro, mantengono proporzioni */
-      .gallery img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 10px;
-      }
+    .hero-inner { position: relative; z-index: 1; padding: 40px 0; }
+    .hero-inner, .hero-inner h1, .hero-inner .sub { color: #000 !important; text-shadow: none; }
+    .badge {
+      display: inline-block; padding: 6px 10px;
+      border: 1px solid rgba(0,0,0,.25); border-radius: 999px;
+      color: #000; font-size: 14px; margin-bottom: 14px;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(6px);
+    }
 
-      /* Tablet: 2 per riga */
-      @media (max-width: 1024px) {
-        .gallery {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
+    .sub { font-size: clamp(16px, 2.6vw, 20px); max-width: 860px; margin: 0 auto 24px; }
 
-      /* Mobile: 1 per riga (una sotto l'altra) */
-      @media (max-width: 680px) {
-        .gallery {
-          grid-template-columns: 1fr;
-        }
-      }
+    .section { padding: 56px 0; }
+    .section.alt { background: #121317; }
+    .cols-2 { display: grid; gap: 20px; grid-template-columns: 1fr; }
+    @media (min-width: 880px) { .cols-2 { grid-template-columns: 1.1fr .9fr; } }
 
-      /* Facoltativo: ombra leggera per staccare su sfondi chiari */
-      .card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
-        overflow: hidden;
-      }
+    .list { display: grid; gap: 10px; }
+    .pill { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; color: var(--muted); font-size: 14px; }
+    .itinerary-grid .card p { color: var(--muted); }
+    .how-steps { display: grid; gap: 14px; }
+    @media (min-width: 720px) { .how-steps { grid-template-columns: repeat(4, 1fr); } }
+    .testimonial { font-style: italic; color: #e6e6e6; }
 
-      .caption {
-        padding: 10px 12px;
-        font-size: 0.95rem;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="wrap">
-      <h1>Esperienze e Stagioni</h1>
+    footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
 
-      <section class="gallery">
-        <figure class="card">
-          <img
-            src="images/exp-1.jpg"
-            alt="Tuscany Driver Experience - Tour vino"
-            loading="lazy"
-            width="1200"
-            height="800"
-          />
-          <figcaption class="caption">Experience 1</figcaption>
-        </figure>
+    /* Righe di miniature: 3 su desktop, 2 su tablet, 1 su mobile */
+    .thumb-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+    @media (max-width: 980px) {
+      .thumb-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .thumb-row { grid-template-columns: 1fr; }
+    }
+    .thumb {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0e0f12;
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3; /* compatto e leggibile; puoi cambiare in 3/2 o 16/10 */
+      transition: transform .25s ease;
+    }
+    .thumb:hover img { transform: scale(1.04); }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <header class="hero" style="background: #000 url('assets/img/hero.png?v=8') center/cover no-repeat;">
+    <div class="container hero-inner">
+      <span class="badge">Autista privato • Tour su misura</span>
+      <h1>Tuscany Driver Experience</h1>
+      <p class="sub">Scopri la Toscana a modo tuo. Itinerari completamente personalizzati: dalle colline del Chianti alle coste incontaminate, dai borghi medievali alle terme naturali. Il tuo autista privato, i tuoi orari, il tuo viaggio indimenticabile.</p>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Richiedi il tuo itinerario personalizzato</a>
+    </div>
+  </header>
 
-        <figure class="card">
-          <img
-            src="images/exp-2.jpg"
-            alt="Tuscany Driver Experience - Colline al tramonto"
-            loading="lazy"
-            width="1200"
-            height="800"
-          />
-          <figcaption class="caption">Experience 2</figcaption>
-        </figure>
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container cols-2">
+      <div>
+        <h2>Vivi la Toscana oltre l'ordinario</h2>
+        <p>Creiamo itinerari su misura che mostrano l'incredibile diversità dei paesaggi e delle esperienze toscane, adattandoci ai tuoi desideri e interessi.</p>
+        <div class="list">
+          <span class="pill">Partenza ovunque (città, aeroporti, anche fuori regione)</span>
+          <span class="pill">Tappe ed esperienze a tua scelta</span>
+          <span class="pill">Durata e ritmi personalizzati</span>
+          <span class="pill">Autisti NCC professionali e multilingue</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="assets/img/about.jpg?v=2" alt="Paesaggi toscani" />
+      </div>
+    </div>
+  </section>
 
-        <figure class="card">
-          <img
-            src="images/season-1.jpg"
-            alt="Tuscany Driver Experience - Stagione vendemmia"
-            loading="lazy"
-            width="1200"
-            height="800"
-          />
-          <figcaption class="caption">Season</figcaption>
-        </figure>
-      </section>
-    </main>
-  </body>
+  <!-- ITINERARIES -->
+  <section class="section alt" id="esperienze">
+    <div class="container">
+      <h2>Esempi di Esperienze</h2>
+      <div class="grid itinerary-grid" style="margin-top:14px;">
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>🏛️ Arte e Cultura</h3>
+          <p>Rinascimento, architettura medievale e patrimonio artistico. Itinerari su misura secondo i tuoi interessi.</p>
+        </div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>🍷 Enogastronomia</h3>
+          <p>Dal Chianti a Montalcino, fino ai piccoli produttori nascosti. Degustazioni e sapori autentici.</p>
+        </div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>🌊 Active Escape</h3>
+          <p>Garfagnana, Alpi Apuane, Versilia, Costa degli Etruschi: avventure mare, montagna e collina.</p>
+        </div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>♨️ Benessere Termale</h3>
+          <p>Bagno Vignoni e altre gemme termali per un relax su misura.</p>
+        </div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>🏖️ Esperienze Costiere</h3>
+          <p>Versilia e oltre: scegli tu la località costiera che vuoi esplorare.</p>
+        </div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+          <h3>🏰 Toscana Classica (2-3 giorni)</h3>
+          <p>Val d'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.</p>
+        </div>
+      </div>
+
+      <!-- 3 immagini prima del bottone -->
+      <div class="thumb-row" aria-label="Galleria esperienze">
+        <div class="thumb"><img src="assets/img/exp1.jpg?v=1" alt="Esperienza 1"></div>
+        <div class="thumb"><img src="assets/img/exp2.jpg?v=1" alt="Esperienza 2"></div>
+        <div class="thumb"><img src="assets/img/exp3.jpg?v=1" alt="Esperienza 3"></div>
+      </div>
+
+      <div style="text-align:center; margin-top:18px;">
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Parlaci dei tuoi interessi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEASONAL -->
+  <section class="section" id="stagioni">
+    <div class="container">
+      <h2>Vivi la Toscana tutto l'anno</h2>
+      <div class="grid" style="margin-top:12px;">
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🌸 Primavera</strong><p class="muted">Paesaggi in fiore e clima mite in ogni angolo.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>☀️ Estate</strong><p class="muted">Fughe costiere e attività outdoor ovunque.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
+      </div>
+
+      <!-- 3 immagini dopo la sezione "tutto l'anno" -->
+      <div class="thumb-row" aria-label="Galleria stagioni">
+        <div class="thumb"><img src="assets/img/seasons1.jpg?v=1" alt="Stagioni 1"></div>
+        <div class="thumb"><img src="assets/img/seasons2.jpg?v=1" alt="Stagioni 2"></div>
+        <div class="thumb"><img src="assets/img/seasons3.jpg?v=1" alt="Stagioni 3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section alt" id="perche">
+    <div class="container">
+      <h2>Perché scegliere Tuscany Driver Experience</h2>
+      <div class="grid" style="margin-top:14px;">
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Completamente personalizzato</h3><p class="muted">Ogni itinerario nasce dai tuoi interessi specifici.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Infinite possibilità</h3><p class="muted">Qualsiasi destinazione toscana può essere inclusa.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Autisti NCC professionali</h3><p class="muted">Autorizzati, esperti, che parlano inglese.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Partenze flessibili</h3><p class="muted">Da qualsiasi località in Toscana o fuori regione.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Esperienze autentiche</h3><p class="muted">Dalla Toscana più famosa a quella più nascosta.</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Viaggi confortevoli</h3><p class="muted">Veicoli premium, max 8 ore di guida al giorno.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="container">
+      <h2>Semplice. Personale. Indimenticabile.</h2>
+      <div class="how-steps" style="margin-top:8px;">
+        <div class="card"><strong>1) Raccontaci i tuoi sogni</strong><p class="muted">Interessi, durata e punto di partenza.</p></div>
+        <div class="card"><strong>2) Ricevi il tuo itinerario</strong><p class="muted">Progettiamo la tua esperienza perfetta.</p></div>
+        <div class="card"><strong>3) Viaggia con stile</strong><p class="muted">L'autista si occupa di tutto, tu ti godi il viaggio.</p></div>
+        <div class="card"><strong>4) Crea ricordi</strong><p class="muted">La Toscana come l'hai sempre immaginata.</p></div>
+      </div>
+      <div style="text-align:center; margin-top:18px;">
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Inizia ora: richiedi il tuo itinerario</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section alt">
+    <div class="container">
+      <h2>Cosa dicono i nostri ospiti</h2>
+      <div class="grid" style="margin-top:12px;">
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Un modo incredibile per vedere la vera Toscana. Flessibilità totale e tappe perfette per noi."</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Autista preparato e discreto. Itinerario personalizzato arrivato in 24 ore."</p></div>
+        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Dalle montagne al mare in un viaggio straordinario. Consigliatissimi."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="container">
+      <div class="card" style="display:grid; gap:14px;">
+        <div>
+          <h2>Pronto per la tua avventura toscana?</h2>
+          <p>Ricevi una proposta di itinerario completamente personalizzata.</p>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Richiedi il tuo itinerario</a>
+          <div class="muted">Oppure contattaci:</div>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <span>Email: <a href="mailto:info@tuscanydriverexperience.com">info@tuscanydriverexperience.com</a></span>
+            <span>Telefono/WhatsApp:
+              <a href="https://wa.me/393892169474" target="_blank" rel="noopener">+39 389 216 9474 (Luca)</a> •
+              <a href="https://wa.me/393445815647" target="_blank" rel="noopener">+39 344 581 5647 (Michela)</a>
+            </span>
+            <span>Sito: <a href="https://www.tuscanydriverexperience.com" target="_blank" rel="noopener">www.tuscanydriverexperience.com</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="margin-bottom:6px;"><strong>Tuscany Driver Experience</strong> • La tua porta d'accesso alla Toscana autentica</div>
+      © <span id="year"></span> Tuscany Driver Experience - Servizio NCC Autorizzato • <a href="#" class="muted">Privacy Policy</a> | <a href="#" class="muted">Termini di Servizio</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
 </html>
