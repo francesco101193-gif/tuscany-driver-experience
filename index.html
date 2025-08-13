@@ -38,9 +38,10 @@
     .muted { color: var(--muted); }
     header.hero {
       position: relative; min-height: 92vh; display: grid; place-items: center; text-align: center;
-      background: #000 url("https://images.unsplash.com/photo-1530031713181-62b8d3d37e4b?q=80&w=1920&auto=format&fit=crop") center/cover no-repeat;
+      background: #000 url("assets/img/hero.png") center/cover no-repeat;
+      /* se il soggetto è in alto, prova: background-position: center 30%; */
     }
-    header.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.65)); }
+    header.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.75)); }
     .hero-inner { position: relative; z-index: 1; padding: 40px 0; }
     .badge { display: inline-block; padding: 6px 10px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: var(--muted); font-size: 14px; margin-bottom: 14px; backdrop-filter: blur(6px); }
     .sub { font-size: clamp(16px, 2.6vw, 20px); color: #eaeaea; max-width: 860px; margin: 0 auto 24px; }
