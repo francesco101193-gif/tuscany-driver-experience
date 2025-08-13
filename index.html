@@ -72,6 +72,32 @@
     .testimonial { font-style: italic; color: #e6e6e6; }
 
     footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
+
+    /* Righe di 3 miniature orizzontali (riutilizzabili) */
+    .thumb-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+    @media (max-width: 760px) {
+      .thumb-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    .thumb {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0e0f12;
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3; /* compatto e leggibile; puoi cambiare in 3/2 o 16/10 */
+      transition: transform .25s ease;
+    }
+    .thumb:hover img { transform: scale(1.04); }
   </style>
 </head>
 <body>
@@ -99,13 +125,13 @@
         </div>
       </div>
       <div class="card">
-        <img src="assets/img/about.jpg?v=1" alt="Paesaggi toscani" />
+        <img src="assets/img/about.jpg?v=2" alt="Paesaggi toscani" />
       </div>
     </div>
   </section>
 
   <!-- ITINERARIES -->
-  <section class="section alt">
+  <section class="section alt" id="esperienze">
     <div class="container">
       <h2>Esempi di Esperienze</h2>
       <div class="grid itinerary-grid" style="margin-top:14px;">
@@ -134,6 +160,14 @@
           <p>Val d'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.</p>
         </div>
       </div>
+
+      <!-- 3 immagini prima del bottone -->
+      <div class="thumb-row" aria-label="Galleria esperienze">
+        <div class="thumb"><img src="assets/img/exp1.jpg?v=1" alt="Esperienza 1"></div>
+        <div class="thumb"><img src="assets/img/exp2.jpg?v=1" alt="Esperienza 2"></div>
+        <div class="thumb"><img src="assets/img/exp3.jpg?v=1" alt="Esperienza 3"></div>
+      </div>
+
       <div style="text-align:center; margin-top:18px;">
         <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Parlaci dei tuoi interessi</a>
       </div>
@@ -141,7 +175,7 @@
   </section>
 
   <!-- SEASONAL -->
-  <section class="section">
+  <section class="section" id="stagioni">
     <div class="container">
       <h2>Vivi la Toscana tutto l'anno</h2>
       <div class="grid" style="margin-top:12px;">
@@ -150,11 +184,18 @@
         <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
         <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
       </div>
+
+      <!-- 3 immagini dopo la sezione "tutto l'anno" -->
+      <div class="thumb-row" aria-label="Galleria stagioni">
+        <div class="thumb"><img src="assets/img/seasons1.jpg?v=1" alt="Stagioni 1"></div>
+        <div class="thumb"><img src="assets/img/seasons2.jpg?v=1" alt="Stagioni 2"></div>
+        <div class="thumb"><img src="assets/img/seasons3.jpg?v=1" alt="Stagioni 3"></div>
+      </div>
     </div>
   </section>
 
   <!-- WHY US -->
-  <section class="section alt">
+  <section class="section alt" id="perche">
     <div class="container">
       <h2>Perché scegliere Tuscany Driver Experience</h2>
       <div class="grid" style="margin-top:14px;">
