@@ -40,20 +40,26 @@
     p { margin: 0 0 12px; }
     .muted { color: var(--muted); }
 
-    /* HERO senza overlay */
+    /* HERO senza overlay, testi neri */
     header.hero {
       position: relative; min-height: 92vh; display: grid; place-items: center; text-align: center;
-      background: #000 url("assets/img/hero.png?v=3") center/cover no-repeat !important;
+      background: #000 url("assets/img/hero.png?v=8") center/cover no-repeat !important;
     }
-    /* Nessun effetto fumo */
     header.hero::after { content: ""; position: absolute; inset: 0; background: none; }
 
     .hero-inner { position: relative; z-index: 1; padding: 40px 0; }
-    /* Leggera ombra solo sul testo per leggibilità, senza oscurare l’immagine */
-    .hero-inner h1, .hero-inner .sub { text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+    /* TESTI NERI nella hero */
+    .hero-inner, .hero-inner h1, .hero-inner .sub { color: #000 !important; text-shadow: none; }
+    /* Badge in nero, con leggero sfondo chiaro per leggibilità */
+    .badge { 
+      display: inline-block; padding: 6px 10px; 
+      border: 1px solid rgba(0,0,0,.25); border-radius: 999px; 
+      color: #000; font-size: 14px; margin-bottom: 14px; 
+      background: rgba(255,255,255,.65); 
+      backdrop-filter: blur(6px);
+    }
 
-    .badge { display: inline-block; padding: 6px 10px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: var(--muted); font-size: 14px; margin-bottom: 14px; backdrop-filter: blur(6px); }
-    .sub { font-size: clamp(16px, 2.6vw, 20px); color: #eaeaea; max-width: 860px; margin: 0 auto 24px; }
+    .sub { font-size: clamp(16px, 2.6vw, 20px); max-width: 860px; margin: 0 auto 24px; }
 
     .section { padding: 56px 0; }
     .section.alt { background: #121317; }
@@ -72,7 +78,7 @@
 </head>
 <body>
   <!-- HERO -->
-  <header class="hero" style="background: #000 url('assets/img/hero.png?v=3') center/cover no-repeat;">
+  <header class="hero" style="background: #000 url('assets/img/hero.png?v=8') center/cover no-repeat;">
     <div class="container hero-inner">
       <span class="badge">Autista privato • Tour su misura</span>
       <h1>Tuscany Driver Experience</h1>
@@ -168,7 +174,7 @@
   <section class="section">
     <div class="container">
       <h2>Semplice. Personale. Indimenticabile.</h2>
-      <div class="how-steps" style="margin-top:8px;">
+    <div class="how-steps" style="margin-top:8px;">
         <div class="card"><strong>1) Raccontaci i tuoi sogni</strong><p class="muted">Interessi, durata e punto di partenza.</p></div>
         <div class="card"><strong>2) Ricevi il tuo itinerario</strong><p class="muted">Progettiamo la tua esperienza perfetta.</p></div>
         <div class="card"><strong>3) Viaggia con stile</strong><p class="muted">L'autista si occupa di tutto, tu ti godi il viaggio.</p></div>
