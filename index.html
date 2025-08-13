@@ -73,7 +73,7 @@
 
     footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
 
-    /* Righe di miniature: 3 su desktop, 2 su tablet, 1 su mobile */
+    /* Mini-gallerie responsive: 3 colonne desktop, 2 tablet, 1 mobile */
     .thumb-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -97,8 +97,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      aspect-ratio: 4/3; /* compatto e leggibile; puoi cambiare in 3/2 o 16/10 */
+      aspect-ratio: 4/3;
       transition: transform .25s ease;
+      display: block;
     }
     .thumb:hover img { transform: scale(1.04); }
   </style>
@@ -138,27 +139,27 @@
     <div class="container">
       <h2>Esempi di Esperienze</h2>
       <div class="grid itinerary-grid" style="margin-top:14px;">
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>🏛️ Arte e Cultura</h3>
           <p>Rinascimento, architettura medievale e patrimonio artistico. Itinerari su misura secondo i tuoi interessi.</p>
         </div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>🍷 Enogastronomia</h3>
           <p>Dal Chianti a Montalcino, fino ai piccoli produttori nascosti. Degustazioni e sapori autentici.</p>
         </div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>🌊 Active Escape</h3>
           <p>Garfagnana, Alpi Apuane, Versilia, Costa degli Etruschi: avventure mare, montagna e collina.</p>
         </div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>♨️ Benessere Termale</h3>
           <p>Bagno Vignoni e altre gemme termali per un relax su misura.</p>
         </div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>🏖️ Esperienze Costiere</h3>
           <p>Versilia e oltre: scegli tu la località costiera che vuoi esplorare.</p>
         </div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 6;}">
+        <div class="card" style="grid-column: span 12;">
           <h3>🏰 Toscana Classica (2-3 giorni)</h3>
           <p>Val d'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.</p>
         </div>
@@ -166,9 +167,9 @@
 
       <!-- 3 immagini prima del bottone -->
       <div class="thumb-row" aria-label="Galleria esperienze">
-        <div class="thumb"><img src="assets/img/exp1.jpg?v=1" alt="Esperienza 1"></div>
-        <div class="thumb"><img src="assets/img/exp2.jpg?v=1" alt="Esperienza 2"></div>
-        <div class="thumb"><img src="assets/img/exp3.jpg?v=1" alt="Esperienza 3"></div>
+        <div class="thumb"><img src="assets/img/exp1.jpg?v=2" alt="Esperienza 1"></div>
+        <div class="thumb"><img src="assets/img/exp2.jpg?v=2" alt="Esperienza 2"></div>
+        <div class="thumb"><img src="assets/img/exp3.jpg?v=2" alt="Esperienza 3"></div>
       </div>
 
       <div style="text-align:center; margin-top:18px;">
@@ -182,17 +183,17 @@
     <div class="container">
       <h2>Vivi la Toscana tutto l'anno</h2>
       <div class="grid" style="margin-top:12px;">
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🌸 Primavera</strong><p class="muted">Paesaggi in fiore e clima mite in ogni angolo.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>☀️ Estate</strong><p class="muted">Fughe costiere e attività outdoor ovunque.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 3;}"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
+        <div class="card" style="grid-column: span 12;"><strong>🌸 Primavera</strong><p class="muted">Paesaggi in fiore e clima mite in ogni angolo.</p></div>
+        <div class="card" style="grid-column: span 12;"><strong>☀️ Estate</strong><p class="muted">Fughe costiere e attività outdoor ovunque.</p></div>
+        <div class="card" style="grid-column: span 12;"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
+        <div class="card" style="grid-column: span 12;"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
       </div>
 
       <!-- 3 immagini dopo la sezione "tutto l'anno" -->
       <div class="thumb-row" aria-label="Galleria stagioni">
-        <div class="thumb"><img src="assets/img/seasons1.jpg?v=1" alt="Stagioni 1"></div>
-        <div class="thumb"><img src="assets/img/seasons2.jpg?v=1" alt="Stagioni 2"></div>
-        <div class="thumb"><img src="assets/img/seasons3.jpg?v=1" alt="Stagioni 3"></div>
+        <div class="thumb"><img src="assets/img/seasons1.jpg?v=2" alt="Stagioni 1"></div>
+        <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
+        <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
     </div>
   </section>
@@ -202,12 +203,12 @@
     <div class="container">
       <h2>Perché scegliere Tuscany Driver Experience</h2>
       <div class="grid" style="margin-top:14px;">
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Completamente personalizzato</h3><p class="muted">Ogni itinerario nasce dai tuoi interessi specifici.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Infinite possibilità</h3><p class="muted">Qualsiasi destinazione toscana può essere inclusa.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Autisti NCC professionali</h3><p class="muted">Autorizzati, esperti, che parlano inglese.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Partenze flessibili</h3><p class="muted">Da qualsiasi località in Toscana o fuori regione.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Esperienze autentiche</h3><p class="muted">Dalla Toscana più famosa a quella più nascosta.</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><h3>Viaggi confortevoli</h3><p class="muted">Veicoli premium, max 8 ore di guida al giorno.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Completamente personalizzato</h3><p class="muted">Ogni itinerario nasce dai tuoi interessi specifici.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Infinite possibilità</h3><p class="muted">Qualsiasi destinazione toscana può essere inclusa.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Autisti NCC professionali</h3><p class="muted">Autorizzati, esperti, che parlano inglese.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Partenze flessibili</h3><p class="muted">Da qualsiasi località in Toscana o fuori regione.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Esperienze autentiche</h3><p class="muted">Dalla Toscana più famosa a quella più nascosta.</p></div>
+        <div class="card" style="grid-column: span 12;"><h3>Viaggi confortevoli</h3><p class="muted">Veicoli premium, max 8 ore di guida al giorno.</p></div>
       </div>
     </div>
   </section>
@@ -233,9 +234,9 @@
     <div class="container">
       <h2>Cosa dicono i nostri ospiti</h2>
       <div class="grid" style="margin-top:12px;">
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Un modo incredibile per vedere la vera Toscana. Flessibilità totale e tappe perfette per noi."</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Autista preparato e discreto. Itinerario personalizzato arrivato in 24 ore."</p></div>
-        <div class="card" style="grid-column: span 12;@media(min-width:720px){grid-column:span 4;}"><p class="testimonial">"Dalle montagne al mare in un viaggio straordinario. Consigliatissimi."</p></div>
+        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Un modo incredibile per vedere la vera Toscana. Flessibilità totale e tappe perfette per noi."</p></div>
+        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Autista preparato e discreto. Itinerario personalizzato arrivato in 24 ore."</p></div>
+        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Dalle montagne al mare in un viaggio straordinario. Consigliatissimi."</p></div>
       </div>
     </div>
   </section>
