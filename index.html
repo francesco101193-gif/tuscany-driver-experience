@@ -61,6 +61,63 @@
 
     .section { padding: 56px 0; }
     .section.alt { background: #121317; }
+    
+    /* Sfondi personalizzati per le sezioni */
+    /* Sezione About - prima sezione normale */
+    .section:nth-of-type(1) {
+      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
+                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Esperienze - prima sezione alt */
+    .section.alt:nth-of-type(1) {
+      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
+                  url('assets/img/esperienze.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Stagioni - seconda sezione normale */
+    .section:nth-of-type(2) {
+      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
+                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Galleria - seconda sezione alt */
+    .section.alt:nth-of-type(2) {
+      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
+                  url('assets/img/galleria.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Perché sceglierci - terza sezione alt */
+    .section.alt:nth-of-type(3) {
+      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
+                  url('assets/img/perche.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Come funziona - terza sezione normale */
+    .section:nth-of-type(3) {
+      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
+                  url('assets/img/semplicepersonaleindimenticabile.jpg') center/cover no-repeat;
+    }
+
+    /* Sezione Contatti - quarta sezione normale */
+    .section:nth-of-type(4) {
+      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
+                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat;
+    }
+
+    /* Stili aggiuntivi per migliorare la leggibilità del testo sugli sfondi */
+    .section h2,
+    .section h3,
+    .section p {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .section.alt h2,
+    .section.alt h3,
+    .section.alt p {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    
     .cols-2 { display: grid; gap: 20px; grid-template-columns: 1fr; }
     @media (min-width: 880px) { .cols-2 { grid-template-columns: 1.1fr .9fr; } }
 
@@ -106,10 +163,6 @@
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,.6);
     }
-    /* Testimonials */
-    .testimonials-grid .card { grid-column: span 12; }
-    .testimonials-grid .quote { font-style: italic; font-size: 18px; }
-    @media (min-width: 880px) { .testimonials-grid .card { grid-column: span 4; } }
   </style>
 </head>
 <body>
@@ -315,18 +368,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section" id="testimonianze">
-    <div class="container">
-      <h2>Cosa dicono i nostri ospiti</h2>
-      <div class="grid testimonials-grid" style="margin-top:12px;">
-        <div class="card"><p class="quote">"Un modo incredibile per vedere la vera Toscana..."</p></div>
-        <div class="card"><p class="quote">"Il nostro autista era preparato e la flessibilità è stata perfetta..."</p></div>
-        <div class="card"><p class="quote">"Dalle montagne al mare in un viaggio straordinario..."</p></div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section class="section">
     <div class="container">
@@ -366,20 +407,19 @@
   <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
   <script>
     (function () {
-      // Config: ogni voce può essere una stringa (basename) o un array di alternative
+      // Mappa: id del grid -> array di basename dei file (senza estensione)
       const IMAGE_CONFIG = {
         'grid-siena': ['sie','siee','sieee','sieeee'],
         'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
-
         'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
-        'grid-colline-chianti': ['chianti', ['chiantii','chaintii'], 'chiantiii', 'chiantiiii'],
+        'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
         'grid-scansano-terme': ['sc','scc','sccc','scccc'],
         'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
         'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
         'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
       };
 
-      const DIRS = ['assets/img', 'assets'];
+      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
       const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
 
       function inferRepoFromLocation() {
@@ -413,8 +453,7 @@
         return all;
       }
 
-      // Cerca SOLO nei file del repo; se non trovato, restituisce null
-      function findInFiles(files, base) {
+      function findUrlsForBase(files, base) {
         const b = escapeRegExp(base);
         const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
         const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
@@ -426,13 +465,11 @@
           if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
           if (full && thumb) break;
         }
-        if (!full) return null;
-        return { full: full, thumb: thumb || full };
-      }
+        if (full) return { full: full, thumb: thumb || full };
 
-      function localFallback(base) {
-        const p = DIRS[0] + '/' + base + '.jpg';
-        return { full: p, thumb: p };
+        // Fallback locale: assumo .jpg in assets/img
+        const local = DIRS[0] + '/' + base + '.jpg';
+        return { full: local, thumb: local };
       }
 
       function renderGrid(gridId, items) {
@@ -445,29 +482,17 @@
 
       async function populateAll() {
         let files = null;
-        try { files = await listRepoFiles(); } catch (e) { /* fallback locale */ }
+        try {
+          files = await listRepoFiles();
+        } catch (e) {
+          // Non su GitHub Pages o API rate-limited: useremo i path locali
+        }
 
         Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
           const bases = IMAGE_CONFIG[gridId];
           const items = bases.map(function (base) {
-            // Array di alternative o singola stringa
-            if (Array.isArray(base)) {
-              if (files) {
-                for (let i = 0; i < base.length; i++) {
-                  const found = findInFiles(files, base[i]);
-                  if (found) return found;
-                }
-                return localFallback(base[0]);
-              } else {
-                return localFallback(base[0]);
-              }
-            } else {
-              if (files) {
-                return findInFiles(files, base) || localFallback(base);
-              } else {
-                return localFallback(base);
-              }
-            }
+            return files ? findUrlsForBase(files, base)
+                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
           });
           renderGrid(gridId, items);
         });
