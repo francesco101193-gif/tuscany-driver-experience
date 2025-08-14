@@ -270,10 +270,10 @@
       <div class="gallery-section" aria-label="San Gimignano">
         <h3>San Gimignano</h3>
         <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="assets/img/gim.jpg" data-full="assets/img/gim.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
-          <div class="gallery-item"><img src="assets/img/gimm.jpg" data-full="assets/img/gimm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
-          <div class="gallery-item"><img src="assets/img/gimmm.jpg" data-full="assets/img/gimmm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
-          <div class="gallery-item"><img src="assets/img/gimmmm.jpg" data-full="assets/img/gimmmm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano"></div>
         </div>
       </div>
 
@@ -349,50 +349,128 @@
     <img alt="Anteprima immagine" />
   </div>
 
-  <!-- Script: galleria Siena (lista fissa con fallback di percorso) + lightbox -->
+  <!-- Script: popola Siena dal repo GitHub (con fallback locale) + lightbox -->
   <script>
-    (function renderSiena() {
-      var baseNames = ['sie', 'siee', 'sieee', 'sieeee'];
-      var grid = document.getElementById('grid-siena');
-      if (!grid) return;
-      grid.innerHTML = baseNames.map(function(name){
-        var srcImg = 'assets/img/' + name + '.jpg';
-        var srcAlt = 'assets/' + name + '.jpg';
-        return '<div class="gallery-item">\
-<img src="' + srcImg + '" data-full="' + srcImg + '" alt="Siena" loading="lazy" decoding="async" \
- onerror="this.onerror=null; this.src=\'' + srcAlt + '\'; this.setAttribute(\'data-full\', \'" + srcAlt + "\');"/>\
-</div>';
-      }).join('');
-    })();
+    (function () {
+      // Cartella delle foto nel repo (Siena e San Gimignano)
+      const DIR_PATH = 'assets';
+      const LIMIT = 4; // quante foto mostrare
 
-    // Lightbox semplice
-    (function simpleLightbox() {
-      var lb = document.getElementById('lightbox');
-      if (!lb) return;
-      var lbImg = lb.querySelector('img');
+      function inferRepoFromLocation() {
+        const host = location.hostname;
+        if (!host.endsWith('github.io')) return null;
+        const owner = host.split('.')[0];
+        const pathParts = location.pathname.split('/').filter(Boolean);
+        const repo = pathParts.length ? pathParts[0] : owner + '.github.io';
+        return { owner, repo };
+      }
 
-      document.addEventListener('click', function (e) {
-        var img = e.target.closest('.gallery-item img');
-        if (img) {
-          lbImg.src = img.getAttribute('data-full') || img.src;
-          lb.classList.add('show');
-          lb.setAttribute('aria-hidden', 'false');
+      // ------- SIENA (auto) -------
+      async function fetchSienaFromGitHub() {
+        const inferred = inferRepoFromLocation();
+        if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
+        const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIR_PATH;
+        const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+        if (!res.ok) throw new Error('GitHub API error ' + res.status);
+        const list = await res.json();
+        const imgs = list.filter(function (it) {
+          return it.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(it.name);
+        }).sort(function (a, b) {
+          return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+        }).slice(0, LIMIT);
+        return imgs.map(function (it) { return it.download_url; });
+      }
+
+      function renderSiena(urls) {
+        const grid = document.getElementById('grid-siena');
+        if (!grid) return;
+        grid.innerHTML = urls.map(function (u) {
+          return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="Siena" loading="lazy" decoding="async"></div>';
+        }).join('');
+      }
+
+      // Fallback locale (se l’API è limitata o non è su GitHub Pages)
+      const fallbackLocal = [
+        'assets/sie.jpg',
+        'assets/siee.jpg',
+        'assets/sieee.jpg',
+        'assets/sieeee.jpg'
+      ];
+
+      fetchSienaFromGitHub().then(renderSiena).catch(function () {
+        renderSiena(fallbackLocal);
+      });
+
+      // ------- SAN GIMIGNANO (usa file: gim, gimm, gimmm, gimmmm dal repo) -------
+      async function fetchSanGFromGitHub() {
+        const inferred = inferRepoFromLocation();
+        if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
+
+        // Prova sia /assets che /assets/img nel repo
+        const dirs = [DIR_PATH, DIR_PATH + '/img'];
+        const wanted = ['gim', 'gimm', 'gimmm', 'gimmmm'];
+
+        for (let d = 0; d < dirs.length; d++) {
+          const dir = dirs[d];
+          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + dir;
+          const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+          if (!res.ok) continue;
+
+          const list = await res.json();
+          const found = wanted.map(function (name) {
+            const re = new RegExp('^' + name + '\\.(?:jpe?g|png|webp|gif)$', 'i');
+            const it = list.find(function (f) { return f.type === 'file' && re.test(f.name); });
+            return it ? it.download_url : null;
+          }).filter(Boolean);
+
+          if (found.length) return found;
         }
+
+        throw new Error('Immagini San Gimignano non trovate nel repo.');
+      }
+
+      function renderSanG(urls) {
+        const grid = document.getElementById('grid-san-gimignano');
+        if (!grid) return;
+        grid.innerHTML = urls.map(function (u) {
+          return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="San Gimignano" loading="lazy" decoding="async"></div>';
+        }).join('');
+      }
+
+      // Sostituisce le immagini statiche della sezione San Gimignano solo se trova i file 'gim*' nel repo
+      fetchSanGFromGitHub().then(renderSanG).catch(function () {
+        // Nessuna azione: restano le immagini statiche già nel markup
       });
 
-      lb.addEventListener('click', function () {
-        lb.classList.remove('show');
-        lb.setAttribute('aria-hidden', 'true');
-        lbImg.src = '';
-      });
+      // ------- Lightbox -------
+      (function simpleLightbox() {
+        const lb = document.getElementById('lightbox');
+        if (!lb) return;
+        const lbImg = lb.querySelector('img');
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lb.classList.contains('show')) {
+        document.addEventListener('click', function (e) {
+          const img = e.target.closest('.gallery-item img');
+          if (img) {
+            lbImg.src = img.dataset.full || img.src;
+            lb.classList.add('show');
+            lb.setAttribute('aria-hidden', 'false');
+          }
+        });
+
+        lb.addEventListener('click', function () {
           lb.classList.remove('show');
           lb.setAttribute('aria-hidden', 'true');
           lbImg.src = '';
-        }
-      });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && lb.classList.contains('show')) {
+            lb.classList.remove('show');
+            lb.setAttribute('aria-hidden', 'true');
+            lbImg.src = '';
+          }
+        });
+      })();
     })();
   </script>
 
