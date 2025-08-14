@@ -36,7 +36,7 @@
     h1,h2,h3 { line-height: 1.2; margin: 0 0 10px; }
     h1 { font-size: clamp(32px, 6vw, 56px); }
     h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 16px; }
-    h3 { font-size: 18px; margin-bottom: 6px; }
+    h3 { font-size: 20px; margin-bottom: 10px; }
     p { margin: 0 0 12px; }
     .muted { color: var(--muted); }
 
@@ -79,38 +79,15 @@
 
     /* Sezione Galleria per città */
     .gallery-section { margin-top: 26px; }
-    .gallery-section h3 { margin: 0 0 10px; font-size: 20px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     @media (max-width: 1100px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 780px) { 
-      .gallery-grid { grid-template-columns: 1fr; } /* Mobile: una colonna verticale */
-    }
+    @media (max-width: 780px) { .gallery-grid { grid-template-columns: 1fr; } }
     .gallery-item { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: #0e0f12; cursor: zoom-in; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; transition: transform .25s ease; display: block; }
     .gallery-item:hover img { transform: scale(1.04); }
-    /* Mobile: immagini “verticali” */
     @media (max-width: 780px) {
       .gallery-item img { aspect-ratio: 3 / 4; object-position: center; }
     }
-
-    /* Modale Galleria */
-    .gallery-modal { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 20px; }
-    .gallery-modal.open { display: flex; }
-    .gallery-frame { position: relative; max-width: min(96vw, 1400px); width: min(96vw, 1200px); max-height: 86vh; display: grid; grid-template-rows: auto 1fr auto; gap: 10px; }
-    .gallery-header { display: flex; justify-content: space-between; align-items: center; color: #fff; }
-    .gallery-title { font-weight: 700; }
-    .gallery-close { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.25); padding: 8px 12px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(6px); }
-    .gallery-stage { position: relative; display: grid; place-items: center; overflow: hidden; background: #0b0b0e; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; }
-    .gallery-stage img { max-width: 100%; max-height: 78vh; object-fit: contain; display: block; }
-    .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.25); padding: 10px 14px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(6px); font-size: 18px; }
-    .gallery-prev { left: 12px; }
-    .gallery-next { right: 12px; }
-    .gallery-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; max-height: 18vh; overflow: auto; }
-    .gallery-thumb { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; overflow: hidden; cursor: pointer; opacity: .85; transition: transform .12s ease, opacity .12s ease, border-color .12s ease; position: relative; }
-    .gallery-thumb:hover { transform: translateY(-1px); opacity: 1; }
-    .gallery-thumb.active { border-color: #d4af37; opacity: 1; }
-    .gallery-thumb img { width: 100%; height: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
-    .thumb-label { position: absolute; left: 6px; bottom: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; padding: 3px 6px; border-radius: 999px; pointer-events: none; border: 1px solid rgba(255,255,255,.18); }
   </style>
 </head>
 <body>
@@ -185,9 +162,9 @@
         <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
 
-      <!-- Bottone Galleria Modale -->
+      <!-- Bottone Galleria semplice (ancora) -->
       <div style="text-align:center; margin-top:22px;">
-        <a class="btn" id="openGalleryBtn" href="#" role="button">Galleria</a>
+        <a class="btn" href="#galleria" role="button">Galleria</a>
       </div>
     </div>
   </section>
@@ -198,197 +175,96 @@
       <h2>Galleria</h2>
       <p class="muted">Clicca per ingrandire. Su mobile scorri verso il basso: le immagini sono disposte in verticale.</p>
 
-      <!-- Borghi Medievali -->
-      <div class="gallery-section" aria-label="Borghi Medievali">
-        <h3>Borghi medievali: immagine uno, due, tre, quattro</h3>
+      <!-- Borghi medievali -->
+      <div class="gallery-section" aria-label="Borghi medievali">
+        <h3>Borghi medievali</h3>
         <div class="gallery-grid" id="grid-borghi-medievali">
-          <div class="gallery-item"><img src="assets/img/borghi-medievali1_sm.jpg" data-full="assets/img/borghi-medievali1.jpg" alt="Borghi Medievali - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali2_sm.jpg" data-full="assets/img/borghi-medievali2.jpg" alt="Borghi Medievali - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali3_sm.jpg" data-full="assets/img/borghi-medievali3.jpg" alt="Borghi Medievali - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali4_sm.jpg" data-full="assets/img/borghi-medievali4.jpg" alt="Borghi Medievali - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali1_sm.jpg" data-full="assets/img/borghi-medievali1.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali2_sm.jpg" data-full="assets/img/borghi-medievali2.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali3_sm.jpg" data-full="assets/img/borghi-medievali3.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali4_sm.jpg" data-full="assets/img/borghi-medievali4.jpg" alt="Borghi medievali"></div>
         </div>
       </div>
 
       <!-- Colline del Chianti -->
       <div class="gallery-section" aria-label="Colline del Chianti">
-        <h3>Colline Chianti: immagine uno, due, tre, quattro</h3>
+        <h3>Colline del Chianti</h3>
         <div class="gallery-grid" id="grid-colline-chianti">
-          <div class="gallery-item"><img src="assets/img/colline-chianti1_sm.jpg" data-full="assets/img/colline-chianti1.jpg" alt="Colline Chianti - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti2_sm.jpg" data-full="assets/img/colline-chianti2.jpg" alt="Colline Chianti - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti3_sm.jpg" data-full="assets/img/colline-chianti3.jpg" alt="Colline Chianti - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti4_sm.jpg" data-full="assets/img/colline-chianti4.jpg" alt="Colline Chianti - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti1_sm.jpg" data-full="assets/img/colline-chianti1.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti2_sm.jpg" data-full="assets/img/colline-chianti2.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti3_sm.jpg" data-full="assets/img/colline-chianti3.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti4_sm.jpg" data-full="assets/img/colline-chianti4.jpg" alt="Colline del Chianti"></div>
         </div>
       </div>
 
       <!-- Scansano Terme -->
       <div class="gallery-section" aria-label="Scansano Terme">
-        <h3>Scansano Terme: immagine uno, due, tre, quattro</h3>
+        <h3>Scansano Terme</h3>
         <div class="gallery-grid" id="grid-scansano-terme">
-          <div class="gallery-item"><img src="assets/img/scansano-terme1_sm.jpg" data-full="assets/img/scansano-terme1.jpg" alt="Scansano Terme - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme2_sm.jpg" data-full="assets/img/scansano-terme2.jpg" alt="Scansano Terme - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme3_sm.jpg" data-full="assets/img/scansano-terme3.jpg" alt="Scansano Terme - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme4_sm.jpg" data-full="assets/img/scansano-terme4.jpg" alt="Scansano Terme - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme1_sm.jpg" data-full="assets/img/scansano-terme1.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme2_sm.jpg" data-full="assets/img/scansano-terme2.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme3_sm.jpg" data-full="assets/img/scansano-terme3.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme4_sm.jpg" data-full="assets/img/scansano-terme4.jpg" alt="Scansano Terme"></div>
         </div>
       </div>
 
       <!-- Forte dei Marmi -->
       <div class="gallery-section" aria-label="Forte dei Marmi">
-        <h3>Forte dei Marmi: immagine uno, due, tre, quattro</h3>
+        <h3>Forte dei Marmi</h3>
         <div class="gallery-grid" id="grid-forte-dei-marmi">
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi1_sm.jpg" data-full="assets/img/forte-dei-marmi1.jpg" alt="Forte dei Marmi - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi2_sm.jpg" data-full="assets/img/forte-dei-marmi2.jpg" alt="Forte dei Marmi - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi3_sm.jpg" data-full="assets/img/forte-dei-marmi3.jpg" alt="Forte dei Marmi - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi4_sm.jpg" data-full="assets/img/forte-dei-marmi4.jpg" alt="Forte dei Marmi - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi1_sm.jpg" data-full="assets/img/forte-dei-marmi1.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi2_sm.jpg" data-full="assets/img/forte-dei-marmi2.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi3_sm.jpg" data-full="assets/img/forte-dei-marmi3.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi4_sm.jpg" data-full="assets/img/forte-dei-marmi4.jpg" alt="Forte dei Marmi"></div>
         </div>
       </div>
 
       <!-- Pietrasanta -->
       <div class="gallery-section" aria-label="Pietrasanta">
-        <h3>Pietrasanta: immagine uno, due, tre, quattro</h3>
+        <h3>Pietrasanta</h3>
         <div class="gallery-grid" id="grid-pietrasanta">
-          <div class="gallery-item"><img src="assets/img/pietrasanta1_sm.jpg" data-full="assets/img/pietrasanta1.jpg" alt="Pietrasanta - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta2_sm.jpg" data-full="assets/img/pietrasanta2.jpg" alt="Pietrasanta - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta3_sm.jpg" data-full="assets/img/pietrasanta3.jpg" alt="Pietrasanta - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta4_sm.jpg" data-full="assets/img/pietrasanta4.jpg" alt="Pietrasanta - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta1_sm.jpg" data-full="assets/img/pietrasanta1.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta2_sm.jpg" data-full="assets/img/pietrasanta2.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta3_sm.jpg" data-full="assets/img/pietrasanta3.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta4_sm.jpg" data-full="assets/img/pietrasanta4.jpg" alt="Pietrasanta"></div>
         </div>
       </div>
 
-      <!-- Parco Orecchiella -->
-      <div class="gallery-section" aria-label="Parco Orecchiella">
-        <h3>Parco Orecchiella: immagine uno, due, tre, quattro</h3>
+      <!-- Parco dell'Orecchiella -->
+      <div class="gallery-section" aria-label="Parco dell'Orecchiella">
+        <h3>Parco dell'Orecchiella</h3>
         <div class="gallery-grid" id="grid-parco-orecchiella">
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella1_sm.jpg" data-full="assets/img/parco-orecchiella1.jpg" alt="Parco Orecchiella - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella2_sm.jpg" data-full="assets/img/parco-orecchiella2.jpg" alt="Parco Orecchiella - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella3_sm.jpg" data-full="assets/img/parco-orecchiella3.jpg" alt="Parco Orecchiella - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella4_sm.jpg" data-full="assets/img/parco-orecchiella4.jpg" alt="Parco Orecchiella - Immagine quattro"></div>
-        </div>
-      </div>
-
-      <!-- Rafting -->
-      <div class="gallery-section" aria-label="Rafting">
-        <h3>Rafting: immagine uno, due, tre, quattro</h3>
-        <div class="gallery-grid" id="grid-rafting">
-          <div class="gallery-item"><img src="assets/img/rafting1_sm.jpg" data-full="assets/img/rafting1.jpg" alt="Rafting - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/rafting2_sm.jpg" data-full="assets/img/rafting2.jpg" alt="Rafting - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/rafting3_sm.jpg" data-full="assets/img/rafting3.jpg" alt="Rafting - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/rafting4_sm.jpg" data-full="assets/img/rafting4.jpg" alt="Rafting - Immagine quattro"></div>
-        </div>
-      </div>
-
-      <!-- Parco Avventura -->
-      <div class="gallery-section" aria-label="Parco Avventura">
-        <h3>Parco avventura: immagine uno, due, tre, quattro</h3>
-        <div class="gallery-grid" id="grid-parco-avventura">
-          <div class="gallery-item"><img src="assets/img/parco-avventura1_sm.jpg" data-full="assets/img/parco-avventura1.jpg" alt="Parco avventura - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/parco-avventura2_sm.jpg" data-full="assets/img/parco-avventura2.jpg" alt="Parco avventura - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/parco-avventura3_sm.jpg" data-full="assets/img/parco-avventura3.jpg" alt="Parco avventura - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/parco-avventura4_sm.jpg" data-full="assets/img/parco-avventura4.jpg" alt="Parco avventura - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella1_sm.jpg" data-full="assets/img/parco-orecchiella1.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella2_sm.jpg" data-full="assets/img/parco-orecchiella2.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella3_sm.jpg" data-full="assets/img/parco-orecchiella3.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella4_sm.jpg" data-full="assets/img/parco-orecchiella4.jpg" alt="Parco dell'Orecchiella"></div>
         </div>
       </div>
 
       <!-- Siena -->
       <div class="gallery-section" aria-label="Siena">
-        <h3>Siena: immagine uno, due, tre, quattro</h3>
+        <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
-          <div class="gallery-item"><img src="assets/img/siena1_sm.jpg" data-full="assets/img/siena1.jpg" alt="Siena - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/siena2_sm.jpg" data-full="assets/img/siena2.jpg" alt="Siena - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/siena3_sm.jpg" data-full="assets/img/siena3.jpg" alt="Siena - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/siena4_sm.jpg" data-full="assets/img/siena4.jpg" alt="Siena - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/siena1_sm.jpg" data-full="assets/img/siena1.jpg" alt="Siena"></div>
+          <div class="gallery-item"><img src="assets/img/siena2_sm.jpg" data-full="assets/img/siena2.jpg" alt="Siena"></div>
+          <div class="gallery-item"><img src="assets/img/siena3_sm.jpg" data-full="assets/img/siena3.jpg" alt="Siena"></div>
+          <div class="gallery-item"><img src="assets/img/siena4_sm.jpg" data-full="assets/img/siena4.jpg" alt="Siena"></div>
         </div>
       </div>
 
       <!-- San Gimignano -->
       <div class="gallery-section" aria-label="San Gimignano">
-        <h3>San Gimignano: immagine uno, due, tre, quattro</h3>
+        <h3>San Gimignano</h3>
         <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano - Immagine uno"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano - Immagine due"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano - Immagine tre"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano - Immagine quattro"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano"></div>
         </div>
       </div>
 
     </div>
   </section>
-
-  <!-- LIGHTBOX (Modale Galleria) -->
-  <div class="gallery-modal" id="galleryModal" aria-hidden="true" role="dialog" aria-label="Galleria immagini">
-    <div class="gallery-frame" role="document">
-      <div class="gallery-header">
-        <div class="gallery-title">Galleria</div>
-        <button class="gallery-close" id="gmClose" aria-label="Chiudi">✕</button>
-      </div>
-
-      <div class="gallery-stage">
-        <button class="gallery-nav gallery-prev" id="gmPrev" aria-label="Precedente">◀</button>
-        <img id="gmImg" src="" alt="Immagine galleria">
-        <button class="gallery-nav gallery-next" id="gmNext" aria-label="Successiva">▶</button>
-      </div>
-
-      <!-- Thumbs della modale: stesse città (puoi ridurre/estendere) -->
-      <div class="gallery-thumbs" id="gmThumbs">
-        <!-- Borghi Medievali -->
-        <div class="gallery-thumb"><img src="assets/img/borghi-medievali1_sm.jpg" data-full="assets/img/borghi-medievali1.jpg" alt="Borghi Medievali - Immagine uno"><span class="thumb-label">Borghi</span></div>
-        <div class="gallery-thumb"><img src="assets/img/borghi-medievali2_sm.jpg" data-full="assets/img/borghi-medievali2.jpg" alt="Borghi Medievali - Immagine due"><span class="thumb-label">Borghi</span></div>
-        <div class="gallery-thumb"><img src="assets/img/borghi-medievali3_sm.jpg" data-full="assets/img/borghi-medievali3.jpg" alt="Borghi Medievali - Immagine tre"><span class="thumb-label">Borghi</span></div>
-        <div class="gallery-thumb"><img src="assets/img/borghi-medievali4_sm.jpg" data-full="assets/img/borghi-medievali4.jpg" alt="Borghi Medievali - Immagine quattro"><span class="thumb-label">Borghi</span></div>
-
-        <!-- Colline Chianti -->
-        <div class="gallery-thumb"><img src="assets/img/colline-chianti1_sm.jpg" data-full="assets/img/colline-chianti1.jpg" alt="Colline Chianti - Immagine uno"><span class="thumb-label">Chianti</span></div>
-        <div class="gallery-thumb"><img src="assets/img/colline-chianti2_sm.jpg" data-full="assets/img/colline-chianti2.jpg" alt="Colline Chianti - Immagine due"><span class="thumb-label">Chianti</span></div>
-        <div class="gallery-thumb"><img src="assets/img/colline-chianti3_sm.jpg" data-full="assets/img/colline-chianti3.jpg" alt="Colline Chianti - Immagine tre"><span class="thumb-label">Chianti</span></div>
-        <div class="gallery-thumb"><img src="assets/img/colline-chianti4_sm.jpg" data-full="assets/img/colline-chianti4.jpg" alt="Colline Chianti - Immagine quattro"><span class="thumb-label">Chianti</span></div>
-
-        <!-- Scansano Terme -->
-        <div class="gallery-thumb"><img src="assets/img/scansano-terme1_sm.jpg" data-full="assets/img/scansano-terme1.jpg" alt="Scansano Terme - Immagine uno"><span class="thumb-label">Scansano</span></div>
-        <div class="gallery-thumb"><img src="assets/img/scansano-terme2_sm.jpg" data-full="assets/img/scansano-terme2.jpg" alt="Scansano Terme - Immagine due"><span class="thumb-label">Scansano</span></div>
-        <div class="gallery-thumb"><img src="assets/img/scansano-terme3_sm.jpg" data-full="assets/img/scansano-terme3.jpg" alt="Scansano Terme - Immagine tre"><span class="thumb-label">Scansano</span></div>
-        <div class="gallery-thumb"><img src="assets/img/scansano-terme4_sm.jpg" data-full="assets/img/scansano-terme4.jpg" alt="Scansano Terme - Immagine quattro"><span class="thumb-label">Scansano</span></div>
-
-        <!-- Forte dei Marmi -->
-        <div class="gallery-thumb"><img src="assets/img/forte-dei-marmi1_sm.jpg" data-full="assets/img/forte-dei-marmi1.jpg" alt="Forte dei Marmi - Immagine uno"><span class="thumb-label">Forte</span></div>
-        <div class="gallery-thumb"><img src="assets/img/forte-dei-marmi2_sm.jpg" data-full="assets/img/forte-dei-marmi2.jpg" alt="Forte dei Marmi - Immagine due"><span class="thumb-label">Forte</span></div>
-        <div class="gallery-thumb"><img src="assets/img/forte-dei-marmi3_sm.jpg" data-full="assets/img/forte-dei-marmi3.jpg" alt="Forte dei Marmi - Immagine tre"><span class="thumb-label">Forte</span></div>
-        <div class="gallery-thumb"><img src="assets/img/forte-dei-marmi4_sm.jpg" data-full="assets/img/forte-dei-marmi4.jpg" alt="Forte dei Marmi - Immagine quattro"><span class="thumb-label">Forte</span></div>
-
-        <!-- Pietrasanta -->
-        <div class="gallery-thumb"><img src="assets/img/pietrasanta1_sm.jpg" data-full="assets/img/pietrasanta1.jpg" alt="Pietrasanta - Immagine uno"><span class="thumb-label">Pietrasanta</span></div>
-        <div class="gallery-thumb"><img src="assets/img/pietrasanta2_sm.jpg" data-full="assets/img/pietrasanta2.jpg" alt="Pietrasanta - Immagine due"><span class="thumb-label">Pietrasanta</span></div>
-        <div class="gallery-thumb"><img src="assets/img/pietrasanta3_sm.jpg" data-full="assets/img/pietrasanta3.jpg" alt="Pietrasanta - Immagine tre"><span class="thumb-label">Pietrasanta</span></div>
-        <div class="gallery-thumb"><img src="assets/img/pietrasanta4_sm.jpg" data-full="assets/img/pietrasanta4.jpg" alt="Pietrasanta - Immagine quattro"><span class="thumb-label">Pietrasanta</span></div>
-
-        <!-- Parco Orecchiella -->
-        <div class="gallery-thumb"><img src="assets/img/parco-orecchiella1_sm.jpg" data-full="assets/img/parco-orecchiella1.jpg" alt="Parco Orecchiella - Immagine uno"><span class="thumb-label">Orecchiella</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-orecchiella2_sm.jpg" data-full="assets/img/parco-orecchiella2.jpg" alt="Parco Orecchiella - Immagine due"><span class="thumb-label">Orecchiella</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-orecchiella3_sm.jpg" data-full="assets/img/parco-orecchiella3.jpg" alt="Parco Orecchiella - Immagine tre"><span class="thumb-label">Orecchiella</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-orecchiella4_sm.jpg" data-full="assets/img/parco-orecchiella4.jpg" alt="Parco Orecchiella - Immagine quattro"><span class="thumb-label">Orecchiella</span></div>
-
-        <!-- Rafting -->
-        <div class="gallery-thumb"><img src="assets/img/rafting1_sm.jpg" data-full="assets/img/rafting1.jpg" alt="Rafting - Immagine uno"><span class="thumb-label">Rafting</span></div>
-        <div class="gallery-thumb"><img src="assets/img/rafting2_sm.jpg" data-full="assets/img/rafting2.jpg" alt="Rafting - Immagine due"><span class="thumb-label">Rafting</span></div>
-        <div class="gallery-thumb"><img src="assets/img/rafting3_sm.jpg" data-full="assets/img/rafting3.jpg" alt="Rafting - Immagine tre"><span class="thumb-label">Rafting</span></div>
-        <div class="gallery-thumb"><img src="assets/img/rafting4_sm.jpg" data-full="assets/img/rafting4.jpg" alt="Rafting - Immagine quattro"><span class="thumb-label">Rafting</span></div>
-
-        <!-- Parco Avventura -->
-        <div class="gallery-thumb"><img src="assets/img/parco-avventura1_sm.jpg" data-full="assets/img/parco-avventura1.jpg" alt="Parco avventura - Immagine uno"><span class="thumb-label">Avventura</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-avventura2_sm.jpg" data-full="assets/img/parco-avventura2.jpg" alt="Parco avventura - Immagine due"><span class="thumb-label">Avventura</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-avventura3_sm.jpg" data-full="assets/img/parco-avventura3.jpg" alt="Parco avventura - Immagine tre"><span class="thumb-label">Avventura</span></div>
-        <div class="gallery-thumb"><img src="assets/img/parco-avventura4_sm.jpg" data-full="assets/img/parco-avventura4.jpg" alt="Parco avventura - Immagine quattro"><span class="thumb-label">Avventura</span></div>
-
-        <!-- Siena -->
-        <div class="gallery-thumb"><img src="assets/img/siena1_sm.jpg" data-full="assets/img/siena1.jpg" alt="Siena - Immagine uno"><span class="thumb-label">Siena</span></div>
-        <div class="gallery-thumb"><img src="assets/img/siena2_sm.jpg" data-full="assets/img/siena2.jpg" alt="Siena - Immagine due"><span class="thumb-label">Siena</span></div>
-        <div class="gallery-thumb"><img src="assets/img/siena3_sm.jpg" data-full="assets/img/siena3.jpg" alt="Siena - Immagine tre"><span class="thumb-label">Siena</span></div>
-        <div class="gallery-thumb"><img src="assets/img/siena4_sm.jpg" data-full="assets/img/siena4.jpg" alt="Siena - Immagine quattro"><span class="thumb-label">Siena</span></div>
-
-        <!-- San Gimignano -->
-        <div class="gallery-thumb"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano - Immagine uno"><span class="thumb-label">San G.</span></div>
-        <div class="gallery-thumb"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano - Immagine due"><span class="thumb-label">San G.</span></div>
-        <div class="gallery-thumb"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano - Immagine tre"><span class="thumb-label">San G.</span></div>
-        <div class="gallery-thumb"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano - Immagine quattro"><span class="thumb-label">San G.</span></div>
-      </div>
-    </div>
-  </div>
 
   <!-- WHY US -->
   <section class="section alt" id="perche">
@@ -417,18 +293,6 @@
       </div>
       <div style="text-align:center; margin-top:18px;">
         <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Inizia ora: richiedi il tuo itinerario</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="section alt">
-    <div class="container">
-      <h2>Cosa dicono i nostri ospiti</h2>
-      <div class="grid" style="margin-top:12px;">
-        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Un modo incredibile per vedere la vera Toscana. Flessibilità totale e tappe perfette per noi."</p></div>
-        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Autista preparato e discreto. Itinerario personalizzato arrivato in 24 ore."</p></div>
-        <div class="card" style="grid-column: span 12;"><p class="testimonial">"Dalle montagne al mare in un viaggio straordinario. Consigliatissimi."</p></div>
       </div>
     </div>
   </section>
@@ -465,98 +329,5 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
-  <!-- JS Modale Galleria -->
-  <script>
-    (function() {
-      const openBtn = document.getElementById('openGalleryBtn');
-      const modal = document.getElementById('galleryModal');
-      const imgStage = document.getElementById('gmImg');
-      const btnClose = document.getElementById('gmClose');
-      const btnPrev = document.getElementById('gmPrev');
-      const btnNext = document.getElementById('gmNext');
-      const thumbsWrap = document.getElementById('gmThumbs');
-
-      if (!openBtn || !modal || !thumbsWrap) return;
-
-      let images = [];
-      let index = 0;
-      let lastFocus = null;
-
-      function collectImages() {
-        images = Array.from(thumbsWrap.querySelectorAll('img')).map((img, i) => ({
-          full: img.getAttribute('data-full') || img.getAttribute('src'),
-          alt: img.getAttribute('alt') || ('Immagine ' + (i+1)),
-          el: img.parentElement
-        }));
-      }
-      collectImages();
-
-      function setActive(i) {
-        thumbsWrap.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-        const safe = ((i % images.length) + images.length) % images.length;
-        images[safe].el.classList.add('active');
-      }
-
-      function openAt(i = 0) {
-        if (!images.length) return;
-        index = ((i % images.length) + images.length) % images.length;
-        const item = images[index];
-        imgStage.src = item.full;
-        imgStage.alt = item.alt;
-        setActive(index);
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden', 'false');
-        lastFocus = document.activeElement;
-        btnClose.focus();
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal() {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-        imgStage.src = '';
-        document.body.style.overflow = '';
-        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-      }
-
-      function prev() { openAt(index - 1); }
-      function next() { openAt(index + 1); }
-
-      openBtn.addEventListener('click', (e) => { e.preventDefault(); openAt(0); });
-      btnClose.addEventListener('click', closeModal);
-      btnPrev.addEventListener('click', prev);
-      btnNext.addEventListener('click', next);
-
-      thumbsWrap.addEventListener('click', (e) => {
-        const t = e.target.closest('.gallery-thumb img');
-        if (!t) return;
-        const all = Array.from(thumbsWrap.querySelectorAll('img'));
-        const i = all.indexOf(t);
-        openAt(i);
-      });
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (!modal.classList.contains('open')) return;
-        if (e.key === 'Escape') closeModal();
-        if (e.key === 'ArrowLeft') prev();
-        if (e.key === 'ArrowRight') next();
-        // Focus trap semplice
-        if (e.key === 'Tab') {
-          const focusables = [btnClose, btnPrev, btnNext];
-          const idx = focusables.indexOf(document.activeElement);
-          if (e.shiftKey) {
-            if (idx <= 0) { e.preventDefault(); focusables[focusables.length - 1].focus(); }
-          } else {
-            if (idx === focusables.length - 1) { e.preventDefault(); focusables[0].focus(); }
-          }
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
