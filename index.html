@@ -245,10 +245,38 @@
       <div class="gallery-section" aria-label="Siena">
         <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
-          <div class="gallery-item"><img src="assets/img/sie.jpg" data-full="assets/img/sie.jpg" alt="Siena - Piazza del Campo"></div>
-          <div class="gallery-item"><img src="assets/img/siee.jpg" data-full="assets/img/siee.jpg" alt="Siena - Duomo"></div>
-          <div class="gallery-item"><img src="assets/img/sieee.jpg" data-full="assets/img/sieee.jpg" alt="Siena - Centro storico"></div>
-          <div class="gallery-item"><img src="assets/img/sieeee.jpg" data-full="assets/img/sieeee.jpg" alt="Siena - Panorama"></div>
+          <!-- Test diversi percorsi per le immagini -->
+          <div class="gallery-item">
+            <img src="sie.jpg" data-full="sie.jpg" alt="Siena - Piazza del Campo" 
+                 onerror="this.src='assets/img/sie.jpg'; this.onerror=function(){this.src='./sie.jpg'; this.onerror=function(){this.style.background='#333'; this.alt='Immagine non trovata: sie.jpg';};};">
+          </div>
+          <div class="gallery-item">
+            <img src="siee.jpg" data-full="siee.jpg" alt="Siena - Duomo"
+                 onerror="this.src='assets/img/siee.jpg'; this.onerror=function(){this.src='./siee.jpg'; this.onerror=function(){this.style.background='#333'; this.alt='Immagine non trovata: siee.jpg';};};">
+          </div>
+          <div class="gallery-item">
+            <img src="sieee.jpg" data-full="sieee.jpg" alt="Siena - Centro storico"
+                 onerror="this.src='assets/img/sieee.jpg'; this.onerror=function(){this.src='./sieee.jpg'; this.onerror=function(){this.style.background='#333'; this.alt='Immagine non trovata: sieee.jpg';};};">
+          </div>
+          <div class="gallery-item">
+            <img src="sieeee.jpg" data-full="sieeee.jpg" alt="Siena - Panorama"
+                 onerror="this.src='assets/img/sieeee.jpg'; this.onerror=function(){this.src='./sieeee.jpg'; this.onerror=function(){this.style.background='#333'; this.alt='Immagine non trovata: sieeee.jpg';};};">
+          </div>
+        </div>
+        
+        <!-- Sezione debug per verificare i percorsi -->
+        <div style="margin-top: 20px; padding: 15px; background: #222; border-radius: 8px; font-family: monospace; font-size: 12px;">
+          <h4 style="color: #d4af37; margin: 0 0 10px;">Debug - Percorsi testati:</h4>
+          <div style="color: #ccc;">
+            1. Percorso diretto: <span style="color: #4CAF50;">sie.jpg, siee.jpg, sieee.jpg, sieeee.jpg</span><br>
+            2. Percorso assets: <span style="color: #FF9800;">assets/img/sie.jpg, assets/img/siee.jpg, etc.</span><br>
+            3. Percorso relativo: <span style="color: #2196F3;">./sie.jpg, ./siee.jpg, etc.</span><br>
+            <br>
+            Se vedi questo messaggio ma non le immagini, controlla:<br>
+            • I file sono nella stessa cartella dell'HTML?<br>
+            • I nomi dei file sono esatti (sie.jpg, siee.jpg, sieee.jpg, sieeee.jpg)?<br>
+            • Le estensioni sono corrette (.jpg)?
+          </div>
         </div>
       </div>
 
