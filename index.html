@@ -258,11 +258,11 @@
         </div>
       </div>
 
-      <!-- Siena (AUTO da repo) -->
+      <!-- Siena (auto) -->
       <div class="gallery-section" aria-label="Siena">
         <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
-          <!-- Popolata via JS dal repo GitHub -->
+          <!-- Popolata via JS -->
         </div>
       </div>
 
@@ -279,8 +279,6 @@
 
     </div>
   </section>
-
-  <!-- CONTACT/WHY/ETC restano invariati -->
 
   <!-- WHY US -->
   <section class="section alt" id="perche">
@@ -349,124 +347,102 @@
     <img alt="Anteprima immagine" />
   </div>
 
-  <!-- Script: popola Siena dal repo GitHub (con fallback locale) + lightbox -->
+  <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
   <script>
     (function () {
-      // Cartella delle foto nel repo (Siena e San Gimignano)
-      const DIR_PATH = 'assets';
-      const LIMIT = 4; // quante foto mostrare
+      // Mappa: id del grid -> array di basename dei file (senza estensione)
+      const IMAGE_CONFIG = {
+        'grid-siena': ['sie','siee','sieee','sieeee'],
+        'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
+        'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
+        'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
+        'grid-scansano-terme': ['sc','scc','sccc','scccc'],
+        'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
+        'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
+        'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
+      };
+
+      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
+      const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
 
       function inferRepoFromLocation() {
         const host = location.hostname;
         if (!host.endsWith('github.io')) return null;
         const owner = host.split('.')[0];
-        const pathParts = location.pathname.split('/').filter(Boolean);
-        const repo = pathParts.length ? pathParts[0] : owner + '.github.io';
+        const parts = location.pathname.split('/').filter(Boolean);
+        const repo = parts.length ? parts[0] : owner + '.github.io';
         return { owner, repo };
       }
 
-      // ------- SIENA (auto) -------
-      async function fetchSienaFromGitHub() {
-        const inferred = inferRepoFromLocation();
-        if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
-
-        // Cerca file specifici di Siena: sie, siee, sieee, sieeee
-        const dirs = [DIR_PATH, DIR_PATH + '/img'];
-        const wanted = ['sie', 'siee', 'sieee', 'sieeee'];
-
-        for (let d = 0; d < dirs.length; d++) {
-          const dir = dirs[d];
-          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + dir;
-          const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-          if (!res.ok) continue;
-
-          const list = await res.json();
-
-          // Prova a prendere i file con i nomi esatti in ordine
-          const found = wanted.map(function (name) {
-            const re = new RegExp('^' + name + '\\.(?:jpe?g|png|webp|gif)$', 'i');
-            const it = list.find(function (f) { return f.type === 'file' && re.test(f.name); });
-            return it ? it.download_url : null;
-          }).filter(Boolean);
-
-          if (found.length) return found;
-
-          // Altrimenti prendi i file che iniziano con "sie"
-          const alt = list.filter(function (f) {
-            return f.type === 'file' && /^sie.*\.(?:jpe?g|png|webp|gif)$/i.test(f.name);
-          }).sort(function (a, b) {
-            return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
-          }).slice(0, LIMIT).map(function (f) { return f.download_url; });
-
-          if (alt.length) return alt;
-        }
-
-        throw new Error('Immagini Siena non trovate nel repo.');
+      function escapeRegExp(s) {
+        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       }
 
-      function renderSiena(urls) {
-        const grid = document.getElementById('grid-siena');
+      async function listRepoFiles() {
+        const inferred = inferRepoFromLocation();
+        if (!inferred) throw new Error('Non su GitHub Pages');
+        const headers = { 'Accept': 'application/vnd.github.v3+json' };
+        const all = [];
+        for (let i = 0; i < DIRS.length; i++) {
+          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIRS[i];
+          const res = await fetch(api, { headers });
+          if (!res.ok) continue;
+          const list = await res.json();
+          list.forEach(function (it) {
+            if (it.type === 'file' && EXT_RE.test(it.name)) all.push(it);
+          });
+        }
+        if (!all.length) throw new Error('Nessun file immagine trovato via API');
+        return all;
+      }
+
+      function findUrlsForBase(files, base) {
+        const b = escapeRegExp(base);
+        const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
+        const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
+
+        let full = null, thumb = null;
+        for (let i = 0; i < files.length; i++) {
+          const f = files[i];
+          if (!full && reFull.test(f.name)) full = f.download_url;
+          if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
+          if (full && thumb) break;
+        }
+        if (full) return { full: full, thumb: thumb || full };
+
+        // Fallback locale: assumo .jpg in assets/img
+        const local = DIRS[0] + '/' + base + '.jpg';
+        return { full: local, thumb: local };
+      }
+
+      function renderGrid(gridId, items) {
+        const grid = document.getElementById(gridId);
         if (!grid) return;
-        grid.innerHTML = urls.map(function (u) {
-          return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="Siena" loading="lazy" decoding="async"></div>';
+        grid.innerHTML = items.map(function (it) {
+          return '<div class="gallery-item"><img src="' + it.thumb + '" data-full="' + it.full + '" alt="' + gridId.replace(/^grid-/, '').replace(/-/g, ' ') + '" loading="lazy" decoding="async"></div>';
         }).join('');
       }
 
-      // Fallback locale (se l’API è limitata o non è su GitHub Pages)
-      const fallbackLocal = [
-        'assets/sie.jpg',
-        'assets/siee.jpg',
-        'assets/sieee.jpg',
-        'assets/sieeee.jpg'
-      ];
-
-      fetchSienaFromGitHub().then(renderSiena).catch(function () {
-        renderSiena(fallbackLocal);
-      });
-
-      // ------- SAN GIMIGNANO (usa file: gim, gimm, gimmm, gimmmm dal repo) -------
-      async function fetchSanGFromGitHub() {
-        const inferred = inferRepoFromLocation();
-        if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
-
-        // Prova sia /assets che /assets/img nel repo
-        const dirs = [DIR_PATH, DIR_PATH + '/img'];
-        const wanted = ['gim', 'gimm', 'gimmm', 'gimmmm'];
-
-        for (let d = 0; d < dirs.length; d++) {
-          const dir = dirs[d];
-          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + dir;
-          const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-          if (!res.ok) continue;
-
-          const list = await res.json();
-          const found = wanted.map(function (name) {
-            const re = new RegExp('^' + name + '\\.(?:jpe?g|png|webp|gif)$', 'i');
-            const it = list.find(function (f) { return f.type === 'file' && re.test(f.name); });
-            return it ? it.download_url : null;
-          }).filter(Boolean);
-
-          if (found.length) return found;
+      async function populateAll() {
+        let files = null;
+        try {
+          files = await listRepoFiles();
+        } catch (e) {
+          // Non su GitHub Pages o API rate-limited: useremo i path locali
         }
 
-        throw new Error('Immagini San Gimignano non trovate nel repo.');
+        Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
+          const bases = IMAGE_CONFIG[gridId];
+          const items = bases.map(function (base) {
+            return files ? findUrlsForBase(files, base)
+                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
+          });
+          renderGrid(gridId, items);
+        });
       }
 
-      function renderSanG(urls) {
-        const grid = document.getElementById('grid-san-gimignano');
-        if (!grid) return;
-        grid.innerHTML = urls.map(function (u) {
-          return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="San Gimignano" loading="lazy" decoding="async"></div>';
-        }).join('');
-      }
-
-      // Sostituisce le immagini statiche della sezione San Gimignano solo se trova i file 'gim*' nel repo
-      fetchSanGFromGitHub().then(renderSanG).catch(function () {
-        // Nessuna azione: restano le immagini statiche già nel markup
-      });
-
-      // ------- Lightbox -------
-      (function simpleLightbox() {
+      // Lightbox
+      function simpleLightbox() {
         const lb = document.getElementById('lightbox');
         if (!lb) return;
         const lbImg = lb.querySelector('img');
@@ -493,7 +469,9 @@
             lbImg.src = '';
           }
         });
-      })();
+      }
+
+      populateAll().then(simpleLightbox).catch(simpleLightbox);
     })();
   </script>
 
