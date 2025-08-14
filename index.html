@@ -106,75 +106,11 @@
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,.6);
     }
-
-    /* ---------- Sfondi immagini per sezioni (mappa ai file che hai caricato) ---------- */
-    #esperienze {
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                  url("assets/img/esperienze.jpg?v=1") center/cover no-repeat;
-    }
-    #stagioni {
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                  url("assets/img/vivilatoscana.jpg?v=1") center/cover no-repeat;
-    }
-    #galleria {
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                  url("assets/img/galleria.jpg?v=1") center/cover no-repeat;
-    }
-    #perche {
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                  url("assets/img/perch%C3%A8.jpeg?v=1") center/cover no-repeat;
-    }
-    /* sezione “Semplice. Personale. Indimenticabile.” */
-    #semplice {
-      background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                  url("assets/img/semplicepersonaleindimenticabile.jpg?v=1") center/cover no-repeat;
-    }
+    /* Testimonials */
+    .testimonials-grid .card { grid-column: span 12; }
+    .testimonials-grid .quote { font-style: italic; font-size: 18px; }
+    @media (min-width: 880px) { .testimonials-grid .card { grid-column: span 4; } }
   </style>
-
-    /* OVERRIDE robusto: prova prima assets/img, poi root (busta-cache ?v=2) */
-    #esperienze {
-      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                        url("assets/img/esperienze.jpg?v=2"),
-                        url("esperienze.jpg?v=2");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    #stagioni {
-      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                        url("assets/img/vivilatoscana.jpg?v=2"),
-                        url("vivilatoscana.jpg?v=2");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    #galleria {
-      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                        url("assets/img/galleria.jpg?v=2"),
-                        url("galleria.jpg?v=2");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    #perche {
-      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                        url("assets/img/perch%C3%A8.jpeg?v=2"),
-                        url("perch%C3%A8.jpeg?v=2"),
-                        url("assets/img/perche.jpg?v=2"),
-                        url("perche.jpg?v=2");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    #semplice {
-      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-                        url("assets/img/semplicepersonaleindimenticabile.jpg?v=2"),
-                        url("semplicepersonaleindimenticabile.jpg?v=2");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
 </head>
 <body>
   <!-- HERO -->
@@ -364,7 +300,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="section" id="semplice">
+  <section class="section">
     <div class="container">
       <h2>Semplice. Personale. Indimenticabile.</h2>
       <div class="how-steps" style="margin-top:8px;">
@@ -375,6 +311,18 @@
       </div>
       <div style="text-align:center; margin-top:18px;">
         <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Inizia ora: richiedi il tuo itinerario</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testimonianze">
+    <div class="container">
+      <h2>Cosa dicono i nostri ospiti</h2>
+      <div class="grid testimonials-grid" style="margin-top:12px;">
+        <div class="card"><p class="quote">"Un modo incredibile per vedere la vera Toscana..."</p></div>
+        <div class="card"><p class="quote">"Il nostro autista era preparato e la flessibilità è stata perfetta..."</p></div>
+        <div class="card"><p class="quote">"Dalle montagne al mare in un viaggio straordinario..."</p></div>
       </div>
     </div>
   </section>
@@ -418,19 +366,20 @@
   <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
   <script>
     (function () {
-      // Mappa: id del grid -> array di basename dei file (senza estensione)
+      // Config: ogni voce può essere una stringa (basename) o un array di alternative
       const IMAGE_CONFIG = {
         'grid-siena': ['sie','siee','sieee','sieeee'],
         'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
+
         'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
-        'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
+        'grid-colline-chianti': ['chianti', ['chiantii','chaintii'], 'chiantiii', 'chiantiiii'],
         'grid-scansano-terme': ['sc','scc','sccc','scccc'],
         'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
         'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
         'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
       };
 
-      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
+      const DIRS = ['assets/img', 'assets'];
       const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
 
       function inferRepoFromLocation() {
@@ -464,7 +413,8 @@
         return all;
       }
 
-      function findUrlsForBase(files, base) {
+      // Cerca SOLO nei file del repo; se non trovato, restituisce null
+      function findInFiles(files, base) {
         const b = escapeRegExp(base);
         const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
         const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
@@ -476,11 +426,13 @@
           if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
           if (full && thumb) break;
         }
-        if (full) return { full: full, thumb: thumb || full };
+        if (!full) return null;
+        return { full: full, thumb: thumb || full };
+      }
 
-        // Fallback locale: assumo .jpg in assets/img
-        const local = DIRS[0] + '/' + base + '.jpg';
-        return { full: local, thumb: local };
+      function localFallback(base) {
+        const p = DIRS[0] + '/' + base + '.jpg';
+        return { full: p, thumb: p };
       }
 
       function renderGrid(gridId, items) {
@@ -493,17 +445,29 @@
 
       async function populateAll() {
         let files = null;
-        try {
-          files = await listRepoFiles();
-        } catch (e) {
-          // Non su GitHub Pages o API rate-limited: useremo i path locali
-        }
+        try { files = await listRepoFiles(); } catch (e) { /* fallback locale */ }
 
         Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
           const bases = IMAGE_CONFIG[gridId];
           const items = bases.map(function (base) {
-            return files ? findUrlsForBase(files, base)
-                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
+            // Array di alternative o singola stringa
+            if (Array.isArray(base)) {
+              if (files) {
+                for (let i = 0; i < base.length; i++) {
+                  const found = findInFiles(files, base[i]);
+                  if (found) return found;
+                }
+                return localFallback(base[0]);
+              } else {
+                return localFallback(base[0]);
+              }
+            } else {
+              if (files) {
+                return findInFiles(files, base) || localFallback(base);
+              } else {
+                return localFallback(base);
+              }
+            }
           });
           renderGrid(gridId, items);
         });
