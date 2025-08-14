@@ -88,6 +88,24 @@
     @media (max-width: 780px) {
       .gallery-item img { aspect-ratio: 3 / 4; object-position: center; }
     }
+
+    /* Lightbox semplice per ingrandimento immagini */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.8);
+      display: none;
+      place-items: center;
+      z-index: 9999;
+      padding: 24px;
+    }
+    .lightbox.show { display: grid; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.6);
+    }
   </style>
 </head>
 <body>
@@ -149,7 +167,7 @@
   <section class="section" id="stagioni">
     <div class="container">
       <h2>Vivi la Toscana tutto l'anno</h2>
-    <div class="grid" style="margin-top:12px;">
+      <div class="grid" style="margin-top:12px;">
         <div class="card" style="grid-column: span 12;"><strong>🌸 Primavera</strong><p class="muted">Paesaggi in fiore e clima mite in ogni angolo.</p></div>
         <div class="card" style="grid-column: span 12;"><strong>☀️ Estate</strong><p class="muted">Fughe costiere e attività outdoor ovunque.</p></div>
         <div class="card" style="grid-column: span 12;"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
@@ -162,7 +180,6 @@
         <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
 
-      <!-- Bottone Galleria semplice (ancora) -->
       <div style="text-align:center; margin-top:22px;">
         <a class="btn" href="#galleria" role="button">Galleria</a>
       </div>
@@ -241,35 +258,11 @@
         </div>
       </div>
 
-      <!-- Siena -->
+      <!-- Siena (AUTO da repo) -->
       <div class="gallery-section" aria-label="Siena">
         <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
-          <div class="gallery-item">
-            <img src="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sie.jpg" 
-                 data-full="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sie.jpg" 
-                 alt="Siena - Piazza del Campo">
-          </div>
-          <div class="gallery-item">
-            <img src="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/siee.jpg" 
-                 data-full="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/siee.jpg" 
-                 alt="Siena - Duomo">
-          </div>
-          <div class="gallery-item">
-            <img src="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sieee.jpg" 
-                 data-full="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sieee.jpg" 
-                 alt="Siena - Centro storico">
-          </div>
-          <div class="gallery-item">
-            <img src="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sieeee.jpg" 
-                 data-full="https://francesco101193-gif.github.io/tuscany-driver-experience/assets/img/sieeee.jpg" 
-                 alt="Siena - Panorama">
-          </div>
-        </div>
-        
-        <!-- Messaggio di successo -->
-        <div style="margin-top: 20px; padding: 15px; background: #1a4d1a; border-radius: 8px; color: #90ee90; text-align: center;">
-          ✅ <strong>Problema risolto!</strong> Ora uso i link diretti GitHub che funzionano sempre.
+          <!-- Popolata via JS dal repo GitHub -->
         </div>
       </div>
 
@@ -286,6 +279,8 @@
 
     </div>
   </section>
+
+  <!-- CONTACT/WHY/ETC restano invariati -->
 
   <!-- WHY US -->
   <section class="section alt" id="perche">
@@ -349,82 +344,96 @@
     </div>
   </footer>
 
+  <!-- Lightbox container -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <img alt="Anteprima immagine" />
+  </div>
+
+  <!-- Script: popola Siena dal repo GitHub (con fallback locale) + lightbox -->
+  <script>
+    (function () {
+      // Cartella delle foto di Siena nel repo (modifica se le tue sono altrove)
+      const DIR_PATH = 'assets/img/siena';
+      const LIMIT = 4; // quante foto mostrare
+
+      function inferRepoFromLocation() {
+        const host = location.hostname;
+        if (!host.endsWith('github.io')) return null;
+        const owner = host.split('.')[0];
+        const pathParts = location.pathname.split('/').filter(Boolean);
+        const repo = pathParts.length ? pathParts[0] : owner + '.github.io';
+        return { owner, repo };
+      }
+
+      async function fetchSienaFromGitHub() {
+        const inferred = inferRepoFromLocation();
+        if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
+        const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIR_PATH;
+        const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+        if (!res.ok) throw new Error('GitHub API error ' + res.status);
+        const list = await res.json();
+        const imgs = list.filter(function (it) {
+          return it.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(it.name);
+        }).sort(function (a, b) {
+          return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+        }).slice(0, LIMIT);
+        return imgs.map(function (it) { return it.download_url; });
+      }
+
+      function renderSiena(urls) {
+        const grid = document.getElementById('grid-siena');
+        if (!grid) return;
+        grid.innerHTML = urls.map(function (u) {
+          return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="Siena" loading="lazy" decoding="async"></div>';
+        }).join('');
+      }
+
+      // Fallback locale (se l’API è limitata o non è su GitHub Pages)
+      const fallbackLocal = [
+        'assets/img/sie.jpg',
+        'assets/img/siee.jpg',
+        'assets/img/sieee.jpg',
+        'assets/img/sieeee.jpg'
+      ];
+
+      fetchSienaFromGitHub().then(renderSiena).catch(function () {
+        renderSiena(fallbackLocal);
+      });
+
+      // Lightbox semplice
+      (function simpleLightbox() {
+        const lb = document.getElementById('lightbox');
+        if (!lb) return;
+        const lbImg = lb.querySelector('img');
+
+        document.addEventListener('click', function (e) {
+          const img = e.target.closest('.gallery-item img');
+          if (img) {
+            lbImg.src = img.dataset.full || img.src;
+            lb.classList.add('show');
+            lb.setAttribute('aria-hidden', 'false');
+          }
+        });
+
+        lb.addEventListener('click', function () {
+          lb.classList.remove('show');
+          lb.setAttribute('aria-hidden', 'true');
+          lbImg.src = '';
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && lb.classList.contains('show')) {
+            lb.classList.remove('show');
+            lb.setAttribute('aria-hidden', 'true');
+            lbImg.src = '';
+          }
+        });
+      })();
+    })();
+  </script>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // Sistema di fallback per le immagini di Siena
-    const imagePaths = [
-      'assets/img/',
-      './',
-      '../assets/img/',
-      'img/',
-      ''
-    ];
-    
-    let debugInfo = [];
-    
-    function tryAlternativePaths(img, filename) {
-      const currentAttempt = img.dataset.attempt || 0;
-      const nextAttempt = parseInt(currentAttempt) + 1;
-      
-      if (nextAttempt < imagePaths.length) {
-        const newPath = imagePaths[nextAttempt] + filename;
-        img.dataset.attempt = nextAttempt;
-        debugInfo.push(`❌ Fallito: ${img.src}`);
-        debugInfo.push(`🔄 Tentativo ${nextAttempt + 1}: ${newPath}`);
-        img.src = newPath;
-        updateDebugInfo();
-      } else {
-        debugInfo.push(`❌ Tutti i percorsi falliti per ${filename}`);
-        img.style.background = '#333';
-        img.style.minHeight = '200px';
-        img.style.display = 'flex';
-        img.style.alignItems = 'center';
-        img.style.justifyContent = 'center';
-        img.innerHTML = `<div style="color: #999; text-align: center; padding: 20px;">❌<br>Immagine non trovata:<br>${filename}</div>`;
-        updateDebugInfo();
-      }
-    }
-    
-    function updateDebugInfo() {
-      const debugContent = document.getElementById('debug-content');
-      if (debugContent) {
-        debugContent.innerHTML = debugInfo.join('<br>') || 'Nessuna informazione di debug disponibile.';
-      }
-    }
-    
-    function testAllPaths() {
-      debugInfo = ['🔄 Test manuale avviato...'];
-      const images = ['sie.jpg', 'siee.jpg', 'sieee.jpg', 'sieeee.jpg'];
-      
-      images.forEach((filename, index) => {
-        imagePaths.forEach((path, pathIndex) => {
-          const testPath = path + filename;
-          const testImg = new Image();
-          testImg.onload = function() {
-            debugInfo.push(`✅ TROVATO: ${testPath}`);
-            updateDebugInfo();
-          };
-          testImg.onerror = function() {
-            debugInfo.push(`❌ Non trovato: ${testPath}`);
-            updateDebugInfo();
-          };
-          testImg.src = testPath;
-        });
-      });
-    }
-    
-    // Test iniziale al caricamento della pagina
-    window.addEventListener('load', function() {
-      setTimeout(() => {
-        debugInfo.push('📍 Pagina caricata. Percorso corrente: ' + window.location.href);
-        debugInfo.push('📁 Percorsi che verranno testati:');
-        imagePaths.forEach((path, index) => {
-          debugInfo.push(`   ${index + 1}. ${path || '(root)'}`);
-        });
-        updateDebugInfo();
-      }, 1000);
-    });
   </script>
 </body>
 </html>
