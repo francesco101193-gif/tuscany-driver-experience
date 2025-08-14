@@ -73,90 +73,75 @@
 
     footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
 
-    /* Mini-gallerie responsive: 3 colonne desktop, 2 tablet, 1 mobile */
+    /* Mini-gallerie responsive */
     .thumb-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin: 16px 0;
     }
-    @media (max-width: 980px) {
-      .thumb-row { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .thumb-row { grid-template-columns: 1fr; }
-    }
-    .thumb {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #0e0f12;
-    }
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      aspect-ratio: 4/3;
-      transition: transform .25s ease;
-      display: block;
-    }
+    @media (max-width: 980px) { .thumb-row { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .thumb-row { grid-template-columns: 1fr; } }
+    .thumb { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: #0e0f12; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: transform .25s ease; display: block; }
     .thumb:hover img { transform: scale(1.04); }
 
-    /* Galleria (grande) */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 1100px) {
-      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 780px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 520px) {
-      .gallery-grid { grid-template-columns: 1fr; }
-    }
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #0e0f12;
-      cursor: zoom-in;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      aspect-ratio: 4 / 3;
-      transition: transform .25s ease;
-      display: block;
-    }
-    .gallery-item:hover img { transform: scale(1.04); }
-
-    /* Lightbox */
-    .lightbox {
+    /* Modale Galleria */
+    .gallery-modal {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,.9);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      z-index: 10000;
       padding: 20px;
     }
-    .lightbox.open { display: flex; }
-    .lightbox img {
+    .gallery-modal.open { display: flex; }
+    .gallery-frame {
+      position: relative;
       max-width: min(96vw, 1400px);
+      width: min(96vw, 1200px);
       max-height: 86vh;
-      border-radius: 10px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
     }
-    .lightbox .close-btn, .lightbox .nav-btn {
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+    .gallery-title { font-weight: 700; }
+    .gallery-close {
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .gallery-stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #0b0b0e;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+    }
+    .gallery-stage img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+    }
+    .gallery-nav {
       position: absolute;
-      top: 16px;
+      top: 50%;
+      transform: translateY(-50%);
       background: rgba(255,255,255,.14);
       color: #fff;
       border: 1px solid rgba(255,255,255,.25);
@@ -164,16 +149,35 @@
       border-radius: 999px;
       cursor: pointer;
       backdrop-filter: blur(6px);
-    }
-    .lightbox .close-btn { right: 16px; }
-    .lightbox .nav-btn {
-      top: 50%;
-      transform: translateY(-50%);
       font-size: 18px;
-      padding: 10px 14px;
     }
-    .lightbox .prev { left: 16px; }
-    .lightbox .next { right: 16px; }
+    .gallery-prev { left: 12px; }
+    .gallery-next { right: 12px; }
+
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+      max-height: 18vh;
+      overflow: auto;
+    }
+    .gallery-thumb {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .85;
+      transition: transform .12s ease, opacity .12s ease, border-color .12s ease;
+    }
+    .gallery-thumb:hover { transform: translateY(-1px); opacity: 1; }
+    .gallery-thumb.active { border-color: #d4af37; opacity: 1; }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -237,7 +241,6 @@
         </div>
       </div>
 
-      <!-- 3 immagini prima del bottone -->
       <div class="thumb-row" aria-label="Galleria esperienze">
         <div class="thumb"><img src="assets/img/exp1.jpg?v=2" alt="Esperienza 1"></div>
         <div class="thumb"><img src="assets/img/exp2.jpg?v=2" alt="Esperienza 2"></div>
@@ -261,51 +264,18 @@
         <div class="card" style="grid-column: span 12;"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
       </div>
 
-      <!-- 3 immagini dopo la sezione "tutto l'anno" -->
       <div class="thumb-row" aria-label="Galleria stagioni">
         <div class="thumb"><img src="assets/img/seasons1.jpg?v=2" alt="Stagioni 1"></div>
         <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
         <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
 
-      <!-- Bottone Galleria sotto "Vivi la Toscana tutto l'anno" -->
+      <!-- Bottone Galleria Modale -->
       <div style="text-align:center; margin-top:22px;">
-        <a class="btn" href="#galleria">Galleria</a>
+        <a class="btn" id="openGalleryBtn" href="#" role="button">Galleria</a>
       </div>
     </div>
   </section>
-
-  <!-- GALLERY (inserita subito dopo la sezione stagioni) -->
-  <section class="section alt" id="galleria">
-    <div class="container">
-      <h2>Galleria</h2>
-      <p class="muted">Scorri alcune immagini delle esperienze in Toscana. Clicca per ingrandire.</p>
-
-      <div class="gallery-grid" style="margin-top:14px;" id="galleryGrid">
-        <!-- Sostituisci/duplica le immagini con i tuoi file reali -->
-        <div class="gallery-item"><img src="assets/img/gallery1.jpg" data-full="assets/img/gallery1.jpg" alt="Galleria 1"></div>
-        <div class="gallery-item"><img src="assets/img/gallery2.jpg" data-full="assets/img/gallery2.jpg" alt="Galleria 2"></div>
-        <div class="gallery-item"><img src="assets/img/gallery3.jpg" data-full="assets/img/gallery3.jpg" alt="Galleria 3"></div>
-        <div class="gallery-item"><img src="assets/img/gallery4.jpg" data-full="assets/img/gallery4.jpg" alt="Galleria 4"></div>
-        <div class="gallery-item"><img src="assets/img/gallery5.jpg" data-full="assets/img/gallery5.jpg" alt="Galleria 5"></div>
-        <div class="gallery-item"><img src="assets/img/gallery6.jpg" data-full="assets/img/gallery6.jpg" alt="Galleria 6"></div>
-        <div class="gallery-item"><img src="assets/img/gallery7.jpg" data-full="assets/img/gallery7.jpg" alt="Galleria 7"></div>
-        <div class="gallery-item"><img src="assets/img/gallery8.jpg" data-full="assets/img/gallery8.jpg" alt="Galleria 8"></div>
-        <div class="gallery-item"><img src="assets/img/gallery9.jpg" data-full="assets/img/gallery9.jpg" alt="Galleria 9"></div>
-        <div class="gallery-item"><img src="assets/img/gallery10.jpg" data-full="assets/img/gallery10.jpg" alt="Galleria 10"></div>
-        <div class="gallery-item"><img src="assets/img/gallery11.jpg" data-full="assets/img/gallery11.jpg" alt="Galleria 11"></div>
-        <div class="gallery-item"><img src="assets/img/gallery12.jpg" data-full="assets/img/gallery12.jpg" alt="Galleria 12"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
-    <button class="close-btn" id="lbClose" aria-label="Chiudi">✕</button>
-    <button class="nav-btn prev" id="lbPrev" aria-label="Precedente">◀</button>
-    <img id="lbImg" src="" alt="Immagine ingrandita">
-    <button class="nav-btn next" id="lbNext" aria-label="Successiva">▶</button>
-  </div>
 
   <!-- WHY US -->
   <section class="section alt" id="perche">
@@ -383,72 +353,127 @@
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
-  <!-- Lightbox JS -->
+  <!-- Modale Galleria -->
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true" role="dialog" aria-label="Galleria immagini">
+    <div class="gallery-frame" role="document">
+      <div class="gallery-header">
+        <div class="gallery-title">Galleria</div>
+        <button class="gallery-close" id="gmClose" aria-label="Chiudi">✕</button>
+      </div>
+
+      <div class="gallery-stage">
+        <button class="gallery-nav gallery-prev" id="gmPrev" aria-label="Precedente">◀</button>
+        <img id="gmImg" src="" alt="Immagine galleria">
+        <button class="gallery-nav gallery-next" id="gmNext" aria-label="Successiva">▶</button>
+      </div>
+
+      <!-- Thumbs: sostituisci src/data-full con i tuoi file reali -->
+      <div class="gallery-thumbs" id="gmThumbs">
+        <div class="gallery-thumb"><img src="assets/img/gallery1.jpg" data-full="assets/img/gallery1.jpg" alt="Galleria 1"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery2.jpg" data-full="assets/img/gallery2.jpg" alt="Galleria 2"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery3.jpg" data-full="assets/img/gallery3.jpg" alt="Galleria 3"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery4.jpg" data-full="assets/img/gallery4.jpg" alt="Galleria 4"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery5.jpg" data-full="assets/img/gallery5.jpg" alt="Galleria 5"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery6.jpg" data-full="assets/img/gallery6.jpg" alt="Galleria 6"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery7.jpg" data-full="assets/img/gallery7.jpg" alt="Galleria 7"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery8.jpg" data-full="assets/img/gallery8.jpg" alt="Galleria 8"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery9.jpg" data-full="assets/img/gallery9.jpg" alt="Galleria 9"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery10.jpg" data-full="assets/img/gallery10.jpg" alt="Galleria 10"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery11.jpg" data-full="assets/img/gallery11.jpg" alt="Galleria 11"></div>
+        <div class="gallery-thumb"><img src="assets/img/gallery12.jpg" data-full="assets/img/gallery12.jpg" alt="Galleria 12"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Modale Galleria -->
   <script>
     (function() {
-      const grid = document.getElementById('galleryGrid');
-      const lightbox = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lbImg');
-      const btnClose = document.getElementById('lbClose');
-      const btnPrev = document.getElementById('lbPrev');
-      const btnNext = document.getElementById('lbNext');
+      const openBtn = document.getElementById('openGalleryBtn');
+      const modal = document.getElementById('galleryModal');
+      const imgStage = document.getElementById('gmImg');
+      const btnClose = document.getElementById('gmClose');
+      const btnPrev = document.getElementById('gmPrev');
+      const btnNext = document.getElementById('gmNext');
+      const thumbsWrap = document.getElementById('gmThumbs');
 
-      if (!grid) return;
+      if (!openBtn || !modal || !thumbsWrap) return;
 
       let images = [];
       let index = 0;
+      let lastFocus = null;
 
       function collectImages() {
-        images = Array.from(grid.querySelectorAll('img')).map(img => ({
-          thumb: img.getAttribute('src'),
+        images = Array.from(thumbsWrap.querySelectorAll('img')).map((img, i) => ({
           full: img.getAttribute('data-full') || img.getAttribute('src'),
-          alt: img.getAttribute('alt') || ''
+          alt: img.getAttribute('alt') || ('Immagine ' + (i+1)),
+          el: img.parentElement
         }));
       }
       collectImages();
 
-      function openAt(i) {
+      function setActive(i) {
+        thumbsWrap.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        const safe = ((i % images.length) + images.length) % images.length;
+        images[safe].el.classList.add('active');
+      }
+
+      function openAt(i = 0) {
         if (!images.length) return;
         index = ((i % images.length) + images.length) % images.length;
         const item = images[index];
-        lbImg.src = item.full;
-        lbImg.alt = item.alt;
-        lightbox.classList.add('open');
-        lightbox.setAttribute('aria-hidden', 'false');
+        imgStage.src = item.full;
+        imgStage.alt = item.alt;
+        setActive(index);
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        lastFocus = document.activeElement;
+        btnClose.focus();
         document.body.style.overflow = 'hidden';
       }
 
-      function closeLb() {
-        lightbox.classList.remove('open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        lbImg.src = '';
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        imgStage.src = '';
         document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
       }
 
       function prev() { openAt(index - 1); }
       function next() { openAt(index + 1); }
 
-      grid.addEventListener('click', e => {
-        const img = e.target.closest('.gallery-item img');
-        if (!img) return;
-        const all = Array.from(grid.querySelectorAll('.gallery-item img'));
-        const i = all.indexOf(img);
-        openAt(i);
-      });
-
-      btnClose.addEventListener('click', closeLb);
+      openBtn.addEventListener('click', (e) => { e.preventDefault(); openAt(0); });
+      btnClose.addEventListener('click', closeModal);
       btnPrev.addEventListener('click', prev);
       btnNext.addEventListener('click', next);
 
-      lightbox.addEventListener('click', e => {
-        if (e.target === lightbox) closeLb();
+      thumbsWrap.addEventListener('click', (e) => {
+        const t = e.target.closest('.gallery-thumb img');
+        if (!t) return;
+        const all = Array.from(thumbsWrap.querySelectorAll('img'));
+        const i = all.indexOf(t);
+        openAt(i);
       });
 
-      document.addEventListener('keydown', e => {
-        if (!lightbox.classList.contains('open')) return;
-        if (e.key === 'Escape') closeLb();
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeModal();
         if (e.key === 'ArrowLeft') prev();
         if (e.key === 'ArrowRight') next();
+        // Focus trap semplice
+        if (e.key === 'Tab') {
+          const focusables = [btnClose, btnPrev, btnNext];
+          const idx = focusables.indexOf(document.activeElement);
+          if (e.shiftKey) {
+            if (idx <= 0) { e.preventDefault(); focusables[focusables.length - 1].focus(); }
+          } else {
+            if (idx === focusables.length - 1) { e.preventDefault(); focusables[0].focus(); }
+          }
+        }
       });
     })();
   </script>
