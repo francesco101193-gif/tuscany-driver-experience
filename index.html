@@ -246,17 +246,32 @@
         <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
           <div class="gallery-item">
-            <img src="assets/img/sie.jpg" data-full="assets/img/sie.jpg" alt="Siena - Piazza del Campo">
+            <img id="siena1" src="assets/img/sie.jpg" data-full="assets/img/sie.jpg" alt="Siena - Piazza del Campo" 
+                 onerror="tryAlternativePaths(this, 'sie.jpg')">
           </div>
           <div class="gallery-item">
-            <img src="assets/img/siee.jpg" data-full="assets/img/siee.jpg" alt="Siena - Duomo">
+            <img id="siena2" src="assets/img/siee.jpg" data-full="assets/img/siee.jpg" alt="Siena - Duomo"
+                 onerror="tryAlternativePaths(this, 'siee.jpg')">
           </div>
           <div class="gallery-item">
-            <img src="assets/img/sieee.jpg" data-full="assets/img/sieee.jpg" alt="Siena - Centro storico">
+            <img id="siena3" src="assets/img/sieee.jpg" data-full="assets/img/sieee.jpg" alt="Siena - Centro storico"
+                 onerror="tryAlternativePaths(this, 'sieee.jpg')">
           </div>
           <div class="gallery-item">
-            <img src="assets/img/sieeee.jpg" data-full="assets/img/sieeee.jpg" alt="Siena - Panorama">
+            <img id="siena4" src="assets/img/sieeee.jpg" data-full="assets/img/sieeee.jpg" alt="Siena - Panorama"
+                 onerror="tryAlternativePaths(this, 'sieeee.jpg')">
           </div>
+        </div>
+        
+        <!-- Debug info -->
+        <div id="debug-info" style="margin-top: 20px; padding: 15px; background: #222; border-radius: 8px; font-family: monospace; font-size: 12px;">
+          <h4 style="color: #d4af37; margin: 0 0 10px;">🔍 Debug Info - Stato caricamento immagini:</h4>
+          <div id="debug-content" style="color: #ccc;">
+            Caricamento in corso...
+          </div>
+          <button onclick="testAllPaths()" style="margin-top: 10px; padding: 5px 10px; background: #d4af37; color: #000; border: none; border-radius: 4px; cursor: pointer;">
+            🔄 Test tutti i percorsi
+          </button>
         </div>
       </div>
 
@@ -336,6 +351,82 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Sistema di fallback per le immagini di Siena
+    const imagePaths = [
+      'assets/img/',
+      './',
+      '../assets/img/',
+      'img/',
+      ''
+    ];
+    
+    let debugInfo = [];
+    
+    function tryAlternativePaths(img, filename) {
+      const currentAttempt = img.dataset.attempt || 0;
+      const nextAttempt = parseInt(currentAttempt) + 1;
+      
+      if (nextAttempt < imagePaths.length) {
+        const newPath = imagePaths[nextAttempt] + filename;
+        img.dataset.attempt = nextAttempt;
+        debugInfo.push(`❌ Fallito: ${img.src}`);
+        debugInfo.push(`🔄 Tentativo ${nextAttempt + 1}: ${newPath}`);
+        img.src = newPath;
+        updateDebugInfo();
+      } else {
+        debugInfo.push(`❌ Tutti i percorsi falliti per ${filename}`);
+        img.style.background = '#333';
+        img.style.minHeight = '200px';
+        img.style.display = 'flex';
+        img.style.alignItems = 'center';
+        img.style.justifyContent = 'center';
+        img.innerHTML = `<div style="color: #999; text-align: center; padding: 20px;">❌<br>Immagine non trovata:<br>${filename}</div>`;
+        updateDebugInfo();
+      }
+    }
+    
+    function updateDebugInfo() {
+      const debugContent = document.getElementById('debug-content');
+      if (debugContent) {
+        debugContent.innerHTML = debugInfo.join('<br>') || 'Nessuna informazione di debug disponibile.';
+      }
+    }
+    
+    function testAllPaths() {
+      debugInfo = ['🔄 Test manuale avviato...'];
+      const images = ['sie.jpg', 'siee.jpg', 'sieee.jpg', 'sieeee.jpg'];
+      
+      images.forEach((filename, index) => {
+        imagePaths.forEach((path, pathIndex) => {
+          const testPath = path + filename;
+          const testImg = new Image();
+          testImg.onload = function() {
+            debugInfo.push(`✅ TROVATO: ${testPath}`);
+            updateDebugInfo();
+          };
+          testImg.onerror = function() {
+            debugInfo.push(`❌ Non trovato: ${testPath}`);
+            updateDebugInfo();
+          };
+          testImg.src = testPath;
+        });
+      });
+    }
+    
+    // Test iniziale al caricamento della pagina
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        debugInfo.push('📍 Pagina caricata. Percorso corrente: ' + window.location.href);
+        debugInfo.push('📁 Percorsi che verranno testati:');
+        imagePaths.forEach((path, index) => {
+          debugInfo.push(`   ${index + 1}. ${path || '(root)'}`);
+        });
+        updateDebugInfo();
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
