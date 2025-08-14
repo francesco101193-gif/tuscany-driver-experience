@@ -270,10 +270,10 @@
       <div class="gallery-section" aria-label="San Gimignano">
         <h3>San Gimignano</h3>
         <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/gim.jpg" data-full="assets/img/gim.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
+          <div class="gallery-item"><img src="assets/img/gimm.jpg" data-full="assets/img/gimm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
+          <div class="gallery-item"><img src="assets/img/gimmm.jpg" data-full="assets/img/gimmm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
+          <div class="gallery-item"><img src="assets/img/gimmmm.jpg" data-full="assets/img/gimmmm.jpg" alt="San Gimignano" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
@@ -349,20 +349,19 @@
     <img alt="Anteprima immagine" />
   </div>
 
-  <!-- Script: galleria Siena (lista fissa) + lightbox -->
+  <!-- Script: galleria Siena (lista fissa con fallback di percorso) + lightbox -->
   <script>
-    // Popola la sezione Siena con una lista di file fissa (niente GitHub API)
     (function renderSiena() {
-      var SIENA_FILES = [
-        'assets/img/siena/sie.jpg',
-        'assets/img/siena/siee.jpg',
-        'assets/img/siena/sieee.jpg',
-        'assets/img/siena/sieeee.jpg'
-      ];
+      var baseNames = ['sie', 'siee', 'sieee', 'sieeee'];
       var grid = document.getElementById('grid-siena');
       if (!grid) return;
-      grid.innerHTML = SIENA_FILES.map(function (u) {
-        return '<div class="gallery-item"><img src="' + u + '" data-full="' + u + '" alt="Siena" loading="lazy" decoding="async"></div>';
+      grid.innerHTML = baseNames.map(function(name){
+        var srcImg = 'assets/img/' + name + '.jpg';
+        var srcAlt = 'assets/' + name + '.jpg';
+        return '<div class="gallery-item">\
+<img src="' + srcImg + '" data-full="' + srcImg + '" alt="Siena" loading="lazy" decoding="async" \
+ onerror="this.onerror=null; this.src=\'' + srcAlt + '\'; this.setAttribute(\'data-full\', \'" + srcAlt + "\');"/>\
+</div>';
       }).join('');
     })();
 
@@ -375,7 +374,7 @@
       document.addEventListener('click', function (e) {
         var img = e.target.closest('.gallery-item img');
         if (img) {
-          lbImg.src = img.dataset.full || img.src;
+          lbImg.src = img.getAttribute('data-full') || img.src;
           lb.classList.add('show');
           lb.setAttribute('aria-hidden', 'false');
         }
