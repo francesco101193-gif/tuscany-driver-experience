@@ -369,16 +369,39 @@
       async function fetchSienaFromGitHub() {
         const inferred = inferRepoFromLocation();
         if (!inferred) throw new Error('Non su GitHub Pages, salto fetch API.');
-        const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIR_PATH;
-        const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-        if (!res.ok) throw new Error('GitHub API error ' + res.status);
-        const list = await res.json();
-        const imgs = list.filter(function (it) {
-          return it.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(it.name);
-        }).sort(function (a, b) {
-          return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
-        }).slice(0, LIMIT);
-        return imgs.map(function (it) { return it.download_url; });
+
+        // Cerca file specifici di Siena: sie, siee, sieee, sieeee
+        const dirs = [DIR_PATH, DIR_PATH + '/img'];
+        const wanted = ['sie', 'siee', 'sieee', 'sieeee'];
+
+        for (let d = 0; d < dirs.length; d++) {
+          const dir = dirs[d];
+          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + dir;
+          const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+          if (!res.ok) continue;
+
+          const list = await res.json();
+
+          // Prova a prendere i file con i nomi esatti in ordine
+          const found = wanted.map(function (name) {
+            const re = new RegExp('^' + name + '\\.(?:jpe?g|png|webp|gif)$', 'i');
+            const it = list.find(function (f) { return f.type === 'file' && re.test(f.name); });
+            return it ? it.download_url : null;
+          }).filter(Boolean);
+
+          if (found.length) return found;
+
+          // Altrimenti prendi i file che iniziano con "sie"
+          const alt = list.filter(function (f) {
+            return f.type === 'file' && /^sie.*\.(?:jpe?g|png|webp|gif)$/i.test(f.name);
+          }).sort(function (a, b) {
+            return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+          }).slice(0, LIMIT).map(function (f) { return f.download_url; });
+
+          if (alt.length) return alt;
+        }
+
+        throw new Error('Immagini Siena non trovate nel repo.');
       }
 
       function renderSiena(urls) {
