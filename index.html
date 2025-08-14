@@ -1,540 +1,889 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tuscany Driver Experience - Tour Privati con Autista</title>
-  <meta name="description" content="Itinerari 100% personalizzati in Toscana con autista privato NCC. Arte e cultura, vino e gastronomia, mare e montagna, benessere termale e molto altro. Richiedi il tuo itinerario su misura." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0e0f12;
-      --text: #f5f5f7;
-      --muted: #b8b8bf;
-      --accent: #d4af37;
-      --card: #16181f;
-      --line: #242634;
-      --maxw: 1100px;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivi la Toscana - Esperienze Autentiche</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Stili generali */
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
 
-    .btn, .cta {
-      display: inline-block; background: var(--accent); color: #1a1a1a; font-weight: 700;
-      padding: 14px 22px; border-radius: 10px; box-shadow: 0 8px 20px rgba(212,175,55,.25);
-      transition: transform .08s ease, box-shadow .2s ease;
-    }
-    .btn:hover, .cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(212,175,55,.35); }
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('vivilatoscana.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
 
-    .grid { display: grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
 
-    h1,h2,h3 { line-height: 1.2; margin: 0 0 10px; }
-    h1 { font-size: clamp(32px, 6vw, 56px); }
-    h2 { font-size: clamp(24px, 3.6vw, 34px); margin-bottom: 16px; }
-    h3 { font-size: 20px; margin-bottom: 10px; }
-    p { margin: 0 0 12px; }
-    .muted { color: var(--muted); }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
 
-    /* HERO senza overlay, testi neri */
-    header.hero {
-      position: relative; min-height: 92vh; display: grid; place-items: center; text-align: center;
-      background: #000 url("assets/img/hero.png?v=8") center/cover no-repeat !important;
-    }
-    header.hero::after { content: ""; position: absolute; inset: 0; background: none; }
+        .btn-primary {
+            background-color: #8B4513;
+            border-color: #8B4513;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
 
-    .hero-inner { position: relative; z-index: 1; padding: 40px 0; }
-    .hero-inner, .hero-inner h1, .hero-inner .sub { color: #000 !important; text-shadow: none; }
-    .badge {
-      display: inline-block; padding: 6px 10px;
-      border: 1px solid rgba(0,0,0,.25); border-radius: 999px;
-      color: #000; font-size: 14px; margin-bottom: 14px;
-      background: rgba(255,255,255,.65);
-      backdrop-filter: blur(6px);
-    }
+        .btn-primary:hover {
+            background-color: #A0522D;
+            border-color: #A0522D;
+            transform: translateY(-2px);
+        }
 
-    .sub { font-size: clamp(16px, 2.6vw, 20px); max-width: 860px; margin: 0 auto 24px; }
+        .section {
+            padding: 80px 0;
+        }
 
-    .section { padding: 56px 0; }
-    .section.alt { background: #121317; }
-    
-    /* SFONDI PERSONALIZZATI PER LE SEZIONI */
-    
-    /* Sezione About (prima sezione) */
-    .section:first-of-type {
-      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
-                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat !important;
-    }
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #8B4513;
+        }
 
-    /* Sezione Esperienze */
-    #esperienze {
-      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
-                  url('assets/img/esperienze.jpg') center/cover no-repeat !important;
-    }
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
 
-    /* Sezione Stagioni */
-    #stagioni {
-      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
-                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat !important;
-    }
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-    /* Sezione Galleria */
-    #galleria {
-      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
-                  url('assets/img/galleria.jpg') center/cover no-repeat !important;
-    }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
 
-    /* Sezione Perché sceglierci */
-    #perche {
-      background: linear-gradient(rgba(18,19,23,0.85), rgba(18,19,23,0.85)),
-                  url('assets/img/perche.jpg') center/cover no-repeat !important;
-    }
+        .experience-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
 
-    /* Sezione Come funziona */
-    .section:nth-last-of-type(2) {
-      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
-                  url('assets/img/semplicepersonaleindimenticabile.jpg') center/cover no-repeat !important;
-    }
+        .season-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
 
-    /* Sezione Contatti (ultima sezione) */
-    .section:last-of-type {
-      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
-                  url('assets/img/vivilatoscana.jpg') center/cover no-repeat !important;
-    }
+        .season-item:hover {
+            transform: translateY(-5px);
+        }
 
-    /* Stili aggiuntivi per migliorare la leggibilità del testo sugli sfondi */
-    .section h2,
-    .section h3,
-    .section p {
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
+        .season-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
 
-    .section.alt h2,
-    .section.alt h3,
-    .section.alt p {
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-    
-    .cols-2 { display: grid; gap: 20px; grid-template-columns: 1fr; }
-    @media (min-width: 880px) { .cols-2 { grid-template-columns: 1.1fr .9fr; } }
+        .spring { color: #90EE90; }
+        .summer { color: #FFD700; }
+        .autumn { color: #FF8C00; }
+        .winter { color: #87CEEB; }
 
-    .list { display: grid; gap: 10px; }
-    .pill { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; color: var(--muted); font-size: 14px; }
+        .gallery-img {
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
 
-    footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
 
-    /* Mini-gallerie (sezioni sopra) */
-    .thumb-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
-    @media (max-width: 980px) { .thumb-row { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .thumb-row { grid-template-columns: 1fr; } }
-    .thumb { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: #0e0f12; }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: transform .25s ease; display: block; }
-    .thumb:hover img { transform: scale(1.04); }
+        .feature-box {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
 
-    /* Sezione Galleria per città */
-    .gallery-section { margin-top: 26px; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    @media (max-width: 1100px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 780px) { .gallery-grid { grid-template-columns: 1fr; } }
-    .gallery-item { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: #0e0f12; cursor: zoom-in; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; transition: transform .25s ease; display: block; }
-    .gallery-item:hover img { transform: scale(1.04); }
-    @media (max-width: 780px) {
-      .gallery-item img { aspect-ratio: 3 / 4; object-position: center; }
-    }
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
 
-    /* Lightbox semplice per ingrandimento immagini */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.8);
-      display: none;
-      place-items: center;
-      z-index: 9999;
-      padding: 24px;
-    }
-    .lightbox.show { display: grid; }
-    .lightbox img {
-      max-width: 92vw;
-      max-height: 92vh;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.6);
-    }
-  </style>
+        .feature-icon {
+            font-size: 3rem;
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        .step-box {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8B4513;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            margin-bottom: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: #8B4513;
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons a {
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #8B4513;
+        }
+
+        /* Sfondi personalizzati per le sezioni */
+
+        /* Sezione About */
+        #about {
+            background-image: url('vivilatoscana.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #about > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione Experiences */
+        #experiences {
+            background-image: url('esperienze.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #experiences::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #experiences > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione Seasons */
+        #seasons {
+            background-image: url('vivilatoscana.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #seasons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #seasons > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione Gallery */
+        #gallery {
+            background-image: url('galleria.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #gallery > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione Why Choose Us */
+        #why-choose-us {
+            background-image: url('perche.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #why-choose-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #why-choose-us > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione How It Works */
+        #how-it-works {
+            background-image: url('semplicepersonaleindimenticabile.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #how-it-works > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sezione Contact */
+        #contact {
+            background-image: url('vivilatoscana.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        #contact > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Miglioramenti per la leggibilità del testo */
+        .section h2,
+        .section h3,
+        .section p,
+        .section .btn {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        /* Assicurati che le card mantengano la loro leggibilità */
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .card h3,
+        .card p {
+            color: #333;
+            text-shadow: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- HERO -->
-  <header class="hero" style="background: #000 url('assets/img/hero.png?v=8') center/cover no-repeat;">
-    <div class="container hero-inner">
-      <span class="badge">Autista privato • Tour su misura</span>
-      <h1>Tuscany Driver Experience</h1>
-      <p class="sub">Scopri la Toscana a modo tuo. Itinerari completamente personalizzati: dalle colline del Chianti alle coste incontaminate, dai borghi medievali alle terme naturali. Il tuo autista privato, i tuoi orari, il tuo viaggio indimenticabile.</p>
-      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Richiedi il tuo itinerario personalizzato</a>
-    </div>
-  </header>
-
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="container cols-2">
-      <div>
-        <h2>Vivi la Toscana oltre l'ordinario</h2>
-        <p>Creiamo itinerari su misura che mostrano l'incredibile diversità dei paesaggi e delle esperienze toscane, adattandoci ai tuoi desideri e interessi.</p>
-        <div class="list">
-          <span class="pill">Partenza ovunque (città, aeroporti, anche fuori regione)</span>
-          <span class="pill">Tappe ed esperienze a tua scelta</span>
-          <span class="pill">Durata e ritmi personalizzati</span>
-          <span class="pill">Autisti NCC professionali e multilingue</span>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-leaf"></i> Vivi la Toscana</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Chi Siamo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experiences">Esperienze</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#seasons">Stagioni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Galleria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contatti</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="assets/img/about.jpg?v=2" alt="Paesaggi toscani" />
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- ITINERARIES -->
-  <section class="section alt" id="esperienze">
-    <div class="container">
-      <h2>Esempi di Esperienze</h2>
-      <div class="grid itinerary-grid" style="margin-top:14px;">
-        <div class="card" style="grid-column: span 12;"><h3>🏛️ Arte e Cultura</h3><p class="muted">Rinascimento, architettura medievale e patrimonio artistico. Itinerari su misura secondo i tuoi interessi.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>🍷 Enogastronomia</h3><p class="muted">Dal Chianti a Montalcino, fino ai piccoli produttori nascosti. Degustazioni e sapori autentici.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>🌊 Active Escape</h3><p class="muted">Garfagnana, Alpi Apuane, Versilia, Costa degli Etruschi: avventure mare, montagna e collina.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>♨️ Benessere Termale</h3><p class="muted">Bagno Vignoni e altre gemme termali per un relax su misura.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>🏖️ Esperienze Costiere</h3><p class="muted">Versilia e oltre: scegli tu la località costiera che vuoi esplorare.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>🏰 Toscana Classica (2-3 giorni)</h3><p class="muted">Val d'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.</p></div>
-      </div>
-
-      <div class="thumb-row" aria-label="Galleria esperienze">
-        <div class="thumb"><img src="assets/img/exp1.jpg?v=2" alt="Esperienza 1"></div>
-        <div class="thumb"><img src="assets/img/exp2.jpg?v=2" alt="Esperienza 2"></div>
-        <div class="thumb"><img src="assets/img/exp3.jpg?v=2" alt="Esperienza 3"></div>
-      </div>
-
-      <div style="text-align:center; margin-top:18px;">
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Parlaci dei tuoi interessi</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEASONAL -->
-  <section class="section" id="stagioni">
-    <div class="container">
-      <h2>Vivi la Toscana tutto l'anno</h2>
-      <div class="grid" style="margin-top:12px;">
-        <div class="card" style="grid-column: span 12;"><strong>🌸 Primavera</strong><p class="muted">Paesaggi in fiore e clima mite in ogni angolo.</p></div>
-        <div class="card" style="grid-column: span 12;"><strong>☀️ Estate</strong><p class="muted">Fughe costiere e attività outdoor ovunque.</p></div>
-        <div class="card" style="grid-column: span 12;"><strong>🍇 Autunno</strong><p class="muted">Vendemmie e sagre tra colline e borghi.</p></div>
-        <div class="card" style="grid-column: span 12;"><strong>🎭 Inverno</strong><p class="muted">Carnevale di Viareggio e benessere termale.</p></div>
-      </div>
-
-      <div class="thumb-row" aria-label="Galleria stagioni">
-        <div class="thumb"><img src="assets/img/seasons1.jpg?v=2" alt="Stagioni 1"></div>
-        <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
-        <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
-      </div>
-
-      <div style="text-align:center; margin-top:22px;">
-        <a class="btn" href="#galleria" role="button">Galleria</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERIA PER CITTÀ -->
-  <section class="section alt" id="galleria">
-    <div class="container">
-      <h2>Galleria</h2>
-      <p class="muted">Clicca per ingrandire. Su mobile scorri verso il basso: le immagini sono disposte in verticale.</p>
-
-      <!-- Borghi medievali -->
-      <div class="gallery-section" aria-label="Borghi medievali">
-        <h3>Borghi medievali</h3>
-        <div class="gallery-grid" id="grid-borghi-medievali">
-          <div class="gallery-item"><img src="assets/img/borghi-medievali1_sm.jpg" data-full="assets/img/borghi-medievali1.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali2_sm.jpg" data-full="assets/img/borghi-medievali2.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali3_sm.jpg" data-full="assets/img/borghi-medievali3.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borghi-medievali4_sm.jpg" data-full="assets/img/borghi-medievali4.jpg" alt="Borghi medievali"></div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1>Vivi la Toscana</h1>
+                    <p class="lead">Scopri esperienze autentiche nel cuore della Toscana. Dalla cucina tradizionale ai paesaggi mozzafiato, ogni momento sarà indimenticabile.</p>
+                    <a href="#experiences" class="btn btn-primary btn-lg">Scopri le Esperienze</a>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Colline del Chianti -->
-      <div class="gallery-section" aria-label="Colline del Chianti">
-        <h3>Colline del Chianti</h3>
-        <div class="gallery-grid" id="grid-colline-chianti">
-          <div class="gallery-item"><img src="assets/img/colline-chianti1_sm.jpg" data-full="assets/img/colline-chianti1.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti2_sm.jpg" data-full="assets/img/colline-chianti2.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti3_sm.jpg" data-full="assets/img/colline-chianti3.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/colline-chianti4_sm.jpg" data-full="assets/img/colline-chianti4.jpg" alt="Colline del Chianti"></div>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2>Chi Siamo</h2>
+                    <p class="lead">Siamo appassionati della Toscana e vogliamo condividere con te la bellezza autentica di questa terra. Le nostre esperienze sono pensate per farti vivere momenti unici, lontano dal turismo di massa.</p>
+                    <p>Con anni di esperienza nel settore turistico locale, creiamo percorsi personalizzati che ti permetteranno di scoprire i segreti meglio custoditi della nostra regione.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Scansano Terme -->
-      <div class="gallery-section" aria-label="Scansano Terme">
-        <h3>Scansano Terme</h3>
-        <div class="gallery-grid" id="grid-scansano-terme">
-          <div class="gallery-item"><img src="assets/img/scansano-terme1_sm.jpg" data-full="assets/img/scansano-terme1.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme2_sm.jpg" data-full="assets/img/scansano-terme2.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme3_sm.jpg" data-full="assets/img/scansano-terme3.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/scansano-terme4_sm.jpg" data-full="assets/img/scansano-terme4.jpg" alt="Scansano Terme"></div>
+    <!-- Experiences Section -->
+    <section id="experiences" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Le Nostre Esperienze</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Cooking Class">
+                        <div class="card-body">
+                            <h5 class="card-title">Cooking Class Tradizionale</h5>
+                            <p class="card-text">Impara a cucinare i piatti tipici toscani con ingredienti locali e ricette tramandate da generazioni.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Wine Tasting">
+                        <div class="card-body">
+                            <h5 class="card-title">Degustazione Vini</h5>
+                            <p class="card-text">Visita le cantine storiche e degusta i migliori vini toscani accompagnati da prodotti locali.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Hiking">
+                        <div class="card-body">
+                            <h5 class="card-title">Trekking Panoramico</h5>
+                            <p class="card-text">Esplora i sentieri nascosti della Toscana con guide esperte e goditi panorami mozzafiato.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Art Tour">
+                        <div class="card-body">
+                            <h5 class="card-title">Tour Artistico</h5>
+                            <p class="card-text">Scopri i tesori artistici nascosti nei borghi medievali con guide specializzate in storia dell'arte.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Farm Experience">
+                        <div class="card-body">
+                            <h5 class="card-title">Esperienza in Fattoria</h5>
+                            <p class="card-text">Vivi una giornata autentica in una fattoria biologica, partecipando alle attività quotidiane.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="https://placehold.co/400x200" class="card-img-top" alt="Artisan Workshop">
+                        <div class="card-body">
+                            <h5 class="card-title">Laboratorio Artigianale</h5>
+                            <p class="card-text">Impara le tecniche tradizionali dell'artigianato toscano direttamente dai maestri artigiani.</p>
+                            <a href="#" class="btn btn-primary">Scopri di più</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Forte dei Marmi -->
-      <div class="gallery-section" aria-label="Forte dei Marmi">
-        <h3>Forte dei Marmi</h3>
-        <div class="gallery-grid" id="grid-forte-dei-marmi">
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi1_sm.jpg" data-full="assets/img/forte-dei-marmi1.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi2_sm.jpg" data-full="assets/img/forte-dei-marmi2.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi3_sm.jpg" data-full="assets/img/forte-dei-marmi3.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/forte-dei-marmi4_sm.jpg" data-full="assets/img/forte-dei-marmi4.jpg" alt="Forte dei Marmi"></div>
+    <!-- Seasons Section -->
+    <section id="seasons" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Ogni Stagione ha la sua Magia</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="season-item">
+                        <div class="season-icon spring">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4>Primavera</h4>
+                        <p>Fioriture spettacolari, temperature miti e la rinascita della natura. Perfetta per trekking e visite ai giardini.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="season-item">
+                        <div class="season-icon summer">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <h4>Estate</h4>
+                        <p>Lunghe giornate di sole, festival all'aperto e la possibilità di godere appieno della vita all'aria aperta.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="season-item">
+                        <div class="season-icon autumn">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Autunno</h4>
+                        <p>Colori caldi, vendemmia, raccolta delle olive e sapori intensi. La stagione più romantica dell'anno.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="season-item">
+                        <div class="season-icon winter">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h4>Inverno</h4>
+                        <p>Atmosfere intime, caminetti accesi, tartufi e la magia del Natale nei borghi medievali.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Pietrasanta -->
-      <div class="gallery-section" aria-label="Pietrasanta">
-        <h3>Pietrasanta</h3>
-        <div class="gallery-grid" id="grid-pietrasanta">
-          <div class="gallery-item"><img src="assets/img/pietrasanta1_sm.jpg" data-full="assets/img/pietrasanta1.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta2_sm.jpg" data-full="assets/img/pietrasanta2.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta3_sm.jpg" data-full="assets/img/pietrasanta3.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/pietrasanta4_sm.jpg" data-full="assets/img/pietrasanta4.jpg" alt="Pietrasanta"></div>
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Galleria</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Paesaggio Toscano">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Borgo Medievale">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Cucina Tradizionale">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Vigneti">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Arte Locale">
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://placehold.co/400x250" class="img-fluid gallery-img" alt="Tramonto Toscano">
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Parco dell'Orecchiella -->
-      <div class="gallery-section" aria-label="Parco dell'Orecchiella">
-        <h3>Parco dell'Orecchiella</h3>
-        <div class="gallery-grid" id="grid-parco-orecchiella">
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella1_sm.jpg" data-full="assets/img/parco-orecchiella1.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella2_sm.jpg" data-full="assets/img/parco-orecchiella2.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella3_sm.jpg" data-full="assets/img/parco-orecchiella3.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/parco-orecchiella4_sm.jpg" data-full="assets/img/parco-orecchiella4.jpg" alt="Parco dell'Orecchiella"></div>
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Perché Scegliere Noi</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Passione Autentica</h4>
+                        <p>Amiamo profondamente la nostra terra e vogliamo condividere questa passione con ogni ospite.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Piccoli Gruppi</h4>
+                        <p>Esperienze intime con massimo 8 persone per garantire attenzione personalizzata a ogni partecipante.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h4>Guide Locali</h4>
+                        <p>Le nostre guide sono nate e cresciute qui, conoscono ogni segreto e ogni storia del territorio.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Sostenibilità</h4>
+                        <p>Rispettiamo l'ambiente e supportiamo l'economia locale collaborando con produttori del territorio.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Flessibilità</h4>
+                        <p>Adattiamo ogni esperienza alle tue esigenze e ai tuoi interessi per un viaggio su misura.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Qualità Garantita</h4>
+                        <p>Oltre 500 recensioni a 5 stelle testimoniano la qualità delle nostre esperienze.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Siena (auto) -->
-      <div class="gallery-section" aria-label="Siena">
-        <h3>Siena</h3>
-        <div class="gallery-grid" id="grid-siena">
-          <!-- Popolata via JS -->
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Come Funziona</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <h4>Scegli</h4>
+                        <p>Seleziona l'esperienza che più ti incuriosisce dal nostro catalogo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <h4>Prenota</h4>
+                        <p>Contattaci per verificare la disponibilità e personalizzare la tua esperienza.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <h4>Vivi</h4>
+                        <p>Goditi un'esperienza autentica e indimenticabile nel cuore della Toscana.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="step-box">
+                        <div class="step-number">4</div>
+                        <h4>Condividi</h4>
+                        <p>Racconta la tua esperienza e aiuta altri viaggiatori a scoprire la vera Toscana.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- San Gimignano -->
-      <div class="gallery-section" aria-label="San Gimignano">
-        <h3>San Gimignano</h3>
-        <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano"></div>
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Contattaci</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-form">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Nome" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="tel" class="form-control" placeholder="Telefono">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control">
+                                        <option>Seleziona un'esperienza</option>
+                                        <option>Cooking Class</option>
+                                        <option>Degustazione Vini</option>
+                                        <option>Trekking</option>
+                                        <option>Tour Artistico</option>
+                                        <option>Esperienza in Fattoria</option>
+                                        <option>Laboratorio Artigianale</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <textarea class="form-control" rows="5" placeholder="Raccontaci cosa ti interessa di più e come possiamo personalizzare la tua esperienza..."></textarea>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Invia Richiesta</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-4 text-center">
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt fa-2x mb-3" style="color: #8B4513;"></i>
+                        <h5>Indirizzo</h5>
+                        <p>Via del Borgo, 123<br>53100 Siena, Toscana</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="contact-info">
+                        <i class="fas fa-phone fa-2x mb-3" style="color: #8B4513;"></i>
+                        <h5>Telefono</h5>
+                        <p>+39 0577 123456<br>+39 347 1234567</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="contact-info">
+                        <i class="fas fa-envelope fa-2x mb-3" style="color: #8B4513;"></i>
+                        <h5>Email</h5>
+                        <p>info@vivilatoscana.it<br>esperienze@vivilatoscana.it</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- WHY US -->
-  <section class="section alt" id="perche">
-    <div class="container">
-      <h2>Perché scegliere Tuscany Driver Experience</h2>
-      <div class="grid" style="margin-top:14px;">
-        <div class="card" style="grid-column: span 12;"><h3>Completamente personalizzato</h3><p class="muted">Ogni itinerario nasce dai tuoi interessi specifici.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>Infinite possibilità</h3><p class="muted">Qualsiasi destinazione toscana può essere inclusa.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>Autisti NCC professionali</h3><p class="muted">Autorizzati, esperti, che parlano inglese.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>Partenze flessibili</h3><p class="muted">Da qualsiasi località in Toscana o fuori regione.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>Esperienze autentiche</h3><p class="muted">Dalla Toscana più famosa a quella più nascosta.</p></div>
-        <div class="card" style="grid-column: span 12;"><h3>Viaggi confortevoli</h3><p class="muted">Veicoli premium, max 8 ore di guida al giorno.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section" id="come-funziona">
-    <div class="container">
-      <h2>Semplice. Personale. Indimenticabile.</h2>
-      <div class="how-steps" style="margin-top:8px;">
-        <div class="card"><strong>1) Raccontaci i tuoi sogni</strong><p class="muted">Interessi, durata e punto di partenza.</p></div>
-        <div class="card"><strong>2) Ricevi il tuo itinerario</strong><p class="muted">Progettiamo la tua esperienza perfetta.</p></div>
-        <div class="card"><strong>3) Viaggia con stile</strong><p class="muted">L'autista si occupa di tutto, tu ti godi il viaggio.</p></div>
-        <div class="card"><strong>4) Crea ricordi</strong><p class="muted">La Toscana come l'hai sempre immaginata.</p></div>
-      </div>
-      <div style="text-align:center; margin-top:18px;">
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Inizia ora: richiedi il tuo itinerario</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section" id="contatti">
-    <div class="container">
-      <div class="card" style="display:grid; gap:14px;">
-        <div>
-          <h2>Pronto per la tua avventura toscana?</h2>
-          <p>Ricevi una proposta di itinerario completamente personalizzata.</p>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-leaf"></i> Vivi la Toscana</h5>
+                    <p>Esperienze autentiche nel cuore della Toscana. Scopri la vera essenza di questa terra meravigliosa attraverso i nostri tour personalizzati.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Esperienze</h6>
+                    <div class="footer-links">
+                        <a href="#">Cooking Class</a><br>
+                        <a href="#">Wine Tasting</a><br>
+                        <a href="#">Trekking</a><br>
+                        <a href="#">Arte e Cultura</a><br>
+                        <a href="#">Fattorie</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Destinazioni</h6>
+                    <div class="footer-links">
+                        <a href="#">Siena</a><br>
+                        <a href="#">Chianti</a><br>
+                        <a href="#">Val d'Orcia</a><br>
+                        <a href="#">Maremma</a><br>
+                        <a href="#">Versilia</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Servizi</h6>
+                    <div class="footer-links">
+                        <a href="#">Tour Privati</a><br>
+                        <a href="#">Gruppi</a><br>
+                        <a href="#">Eventi Aziendali</a><br>
+                        <a href="#">Matrimoni</a><br>
+                        <a href="#">Gift Card</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h6>Info</h6>
+                    <div class="footer-links">
+                        <a href="#">Chi Siamo</a><br>
+                        <a href="#">Contatti</a><br>
+                        <a href="#">FAQ</a><br>
+                        <a href="#">Privacy</a><br>
+                        <a href="#">Termini</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>&copy; 2024 Vivi la Toscana. Tutti i diritti riservati.</p>
+                </div>
+            </div>
         </div>
-        <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Richiedi il tuo itinerario</a>
-          <div class="muted">Oppure contattaci:</div>
-          <div style="display:flex; flex-direction:column; gap:4px;">
-            <span>Email: <a href="mailto:info@tuscanydriverexperience.com">info@tuscanydriverexperience.com</a></span>
-            <span>Telefono/WhatsApp:
-              <a href="https://wa.me/393892169474" target="_blank" rel="noopener">+39 389 216 9474 (Luca)</a> •
-              <a href="https://wa.me/393445815647" target="_blank" rel="noopener">+39 344 581 5647 (Michela)</a>
-            </span>
-            <span>Sito: <a href="https://www.tuscanydriverexperience.com" target="_blank" rel="noopener">www.tuscanydriverexperience.com</a></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <footer>
-    <div class="container">
-      <div style="margin-bottom:6px;"><strong>Tuscany Driver Experience</strong> • La tua porta d'accesso alla Toscana autentica</div>
-      © <span id="year"></span> Tuscany Driver Experience - Servizio NCC Autorizzato • <a href="#" class="muted">Privacy Policy</a> | <a href="#" class="muted">Termini di Servizio</a>
-    </div>
-  </footer>
-
-  <!-- Lightbox container -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <img alt="Anteprima immagine" />
-  </div>
-
-  <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
-  <script>
-    (function () {
-      // Mappa: id del grid -> array di basename dei file (senza estensione)
-      const IMAGE_CONFIG = {
-        'grid-siena': ['sie','siee','sieee','sieeee'],
-        'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
-        'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
-        'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
-        'grid-scansano-terme': ['sc','scc','sccc','scccc'],
-        'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
-        'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
-        'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
-      };
-
-      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
-      const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
-
-      function inferRepoFromLocation() {
-        const host = location.hostname;
-        if (!host.endsWith('github.io')) return null;
-        const owner = host.split('.')[0];
-        const parts = location.pathname.split('/').filter(Boolean);
-        const repo = parts.length ? parts[0] : owner + '.github.io';
-        return { owner, repo };
-      }
-
-      function escapeRegExp(s) {
-        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-
-      async function listRepoFiles() {
-        const inferred = inferRepoFromLocation();
-        if (!inferred) throw new Error('Non su GitHub Pages');
-        const headers = { 'Accept': 'application/vnd.github.v3+json' };
-        const all = [];
-        for (let i = 0; i < DIRS.length; i++) {
-          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIRS[i];
-          const res = await fetch(api, { headers });
-          if (!res.ok) continue;
-          const list = await res.json();
-          list.forEach(function (it) {
-            if (it.type === 'file' && EXT_RE.test(it.name)) all.push(it);
-          });
-        }
-        if (!all.length) throw new Error('Nessun file immagine trovato via API');
-        return all;
-      }
-
-      function findUrlsForBase(files, base) {
-        const b = escapeRegExp(base);
-        const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
-        const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
-
-        let full = null, thumb = null;
-        for (let i = 0; i < files.length; i++) {
-          const f = files[i];
-          if (!full && reFull.test(f.name)) full = f.download_url;
-          if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
-          if (full && thumb) break;
-        }
-        if (full) return { full: full, thumb: thumb || full };
-
-        // Fallback locale: assumo .jpg in assets/img
-        const local = DIRS[0] + '/' + base + '.jpg';
-        return { full: local, thumb: local };
-      }
-
-      function renderGrid(gridId, items) {
-        const grid = document.getElementById(gridId);
-        if (!grid) return;
-        grid.innerHTML = items.map(function (it) {
-          return '<div class="gallery-item"><img src="' + it.thumb + '" data-full="' + it.full + '" alt="' + gridId.replace(/^grid-/, '').replace(/-/g, ' ') + '" loading="lazy" decoding="async"></div>';
-        }).join('');
-      }
-
-      async function populateAll() {
-        let files = null;
-        try {
-          files = await listRepoFiles();
-        } catch (e) {
-          // Non su GitHub Pages o API rate-limited: useremo i path locali
-        }
-
-        Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
-          const bases = IMAGE_CONFIG[gridId];
-          const items = bases.map(function (base) {
-            return files ? findUrlsForBase(files, base)
-                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
-          });
-          renderGrid(gridId, items);
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
-      }
 
-      // Lightbox
-      function simpleLightbox() {
-        const lb = document.getElementById('lightbox');
-        if (!lb) return;
-        const lbImg = lb.querySelector('img');
-
-        document.addEventListener('click', function (e) {
-          const img = e.target.closest('.gallery-item img');
-          if (img) {
-            lbImg.src = img.dataset.full || img.src;
-            lb.classList.add('show');
-            lb.setAttribute('aria-hidden', 'false');
-          }
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(33, 37, 41, 0.95)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(33, 37, 41, 0.8)';
+            }
         });
 
-        lb.addEventListener('click', function () {
-          lb.classList.remove('show');
-          lb.setAttribute('aria-hidden', 'true');
-          lbImg.src = '';
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Grazie per il tuo interesse! Ti contatteremo presto per organizzare la tua esperienza in Toscana.');
         });
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && lb.classList.contains('show')) {
-            lb.classList.remove('show');
-            lb.setAttribute('aria-hidden', 'true');
-            lbImg.src = '';
-          }
-        });
-      }
-
-      populateAll().then(simpleLightbox).catch(simpleLightbox);
-    })();
-  </script>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    </script>
 </body>
 </html>
