@@ -102,6 +102,78 @@
       display: block;
     }
     .thumb:hover img { transform: scale(1.04); }
+
+    /* Galleria (grande) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1100px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 780px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0e0f12;
+      cursor: zoom-in;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+      transition: transform .25s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(96vw, 1400px);
+      max-height: 86vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+    .lightbox .close-btn, .lightbox .nav-btn {
+      position: absolute;
+      top: 16px;
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .lightbox .close-btn { right: 16px; }
+    .lightbox .nav-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      padding: 10px 14px;
+    }
+    .lightbox .prev { left: 16px; }
+    .lightbox .next { right: 16px; }
   </style>
 </head>
 <body>
@@ -195,8 +267,45 @@
         <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
         <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
+
+      <!-- Bottone Galleria sotto "Vivi la Toscana tutto l'anno" -->
+      <div style="text-align:center; margin-top:22px;">
+        <a class="btn" href="#galleria">Galleria</a>
+      </div>
     </div>
   </section>
+
+  <!-- GALLERY (inserita subito dopo la sezione stagioni) -->
+  <section class="section alt" id="galleria">
+    <div class="container">
+      <h2>Galleria</h2>
+      <p class="muted">Scorri alcune immagini delle esperienze in Toscana. Clicca per ingrandire.</p>
+
+      <div class="gallery-grid" style="margin-top:14px;" id="galleryGrid">
+        <!-- Sostituisci/duplica le immagini con i tuoi file reali -->
+        <div class="gallery-item"><img src="assets/img/gallery1.jpg" data-full="assets/img/gallery1.jpg" alt="Galleria 1"></div>
+        <div class="gallery-item"><img src="assets/img/gallery2.jpg" data-full="assets/img/gallery2.jpg" alt="Galleria 2"></div>
+        <div class="gallery-item"><img src="assets/img/gallery3.jpg" data-full="assets/img/gallery3.jpg" alt="Galleria 3"></div>
+        <div class="gallery-item"><img src="assets/img/gallery4.jpg" data-full="assets/img/gallery4.jpg" alt="Galleria 4"></div>
+        <div class="gallery-item"><img src="assets/img/gallery5.jpg" data-full="assets/img/gallery5.jpg" alt="Galleria 5"></div>
+        <div class="gallery-item"><img src="assets/img/gallery6.jpg" data-full="assets/img/gallery6.jpg" alt="Galleria 6"></div>
+        <div class="gallery-item"><img src="assets/img/gallery7.jpg" data-full="assets/img/gallery7.jpg" alt="Galleria 7"></div>
+        <div class="gallery-item"><img src="assets/img/gallery8.jpg" data-full="assets/img/gallery8.jpg" alt="Galleria 8"></div>
+        <div class="gallery-item"><img src="assets/img/gallery9.jpg" data-full="assets/img/gallery9.jpg" alt="Galleria 9"></div>
+        <div class="gallery-item"><img src="assets/img/gallery10.jpg" data-full="assets/img/gallery10.jpg" alt="Galleria 10"></div>
+        <div class="gallery-item"><img src="assets/img/gallery11.jpg" data-full="assets/img/gallery11.jpg" alt="Galleria 11"></div>
+        <div class="gallery-item"><img src="assets/img/gallery12.jpg" data-full="assets/img/gallery12.jpg" alt="Galleria 12"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+    <button class="close-btn" id="lbClose" aria-label="Chiudi">✕</button>
+    <button class="nav-btn prev" id="lbPrev" aria-label="Precedente">◀</button>
+    <img id="lbImg" src="" alt="Immagine ingrandita">
+    <button class="nav-btn next" id="lbNext" aria-label="Successiva">▶</button>
+  </div>
 
   <!-- WHY US -->
   <section class="section alt" id="perche">
@@ -273,5 +382,75 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <!-- Lightbox JS -->
+  <script>
+    (function() {
+      const grid = document.getElementById('galleryGrid');
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const btnClose = document.getElementById('lbClose');
+      const btnPrev = document.getElementById('lbPrev');
+      const btnNext = document.getElementById('lbNext');
+
+      if (!grid) return;
+
+      let images = [];
+      let index = 0;
+
+      function collectImages() {
+        images = Array.from(grid.querySelectorAll('img')).map(img => ({
+          thumb: img.getAttribute('src'),
+          full: img.getAttribute('data-full') || img.getAttribute('src'),
+          alt: img.getAttribute('alt') || ''
+        }));
+      }
+      collectImages();
+
+      function openAt(i) {
+        if (!images.length) return;
+        index = ((i % images.length) + images.length) % images.length;
+        const item = images[index];
+        lbImg.src = item.full;
+        lbImg.alt = item.alt;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLb() {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+
+      function prev() { openAt(index - 1); }
+      function next() { openAt(index + 1); }
+
+      grid.addEventListener('click', e => {
+        const img = e.target.closest('.gallery-item img');
+        if (!img) return;
+        const all = Array.from(grid.querySelectorAll('.gallery-item img'));
+        const i = all.indexOf(img);
+        openAt(i);
+      });
+
+      btnClose.addEventListener('click', closeLb);
+      btnPrev.addEventListener('click', prev);
+      btnNext.addEventListener('click', next);
+
+      lightbox.addEventListener('click', e => {
+        if (e.target === lightbox) closeLb();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') prev();
+        if (e.key === 'ArrowRight') next();
+      });
+    })();
+  </script>
 </body>
 </html>
