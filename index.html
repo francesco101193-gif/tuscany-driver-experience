@@ -353,7 +353,7 @@
   <script>
     (function () {
       // Cartella delle foto di Siena nel repo (modifica se le tue sono altrove)
-      const DIR_PATH = 'assets/img/siena';
+      const DIR_PATH = 'assets';
       const LIMIT = 4; // quante foto mostrare
 
       function inferRepoFromLocation() {
@@ -390,10 +390,10 @@
 
       // Fallback locale (se l’API è limitata o non è su GitHub Pages)
       const fallbackLocal = [
-        'assets/img/sie.jpg',
-        'assets/img/siee.jpg',
-        'assets/img/sieee.jpg',
-        'assets/img/sieeee.jpg'
+        'assets/sie.jpg',
+        'assets/siee.jpg',
+        'assets/sieee.jpg',
+        'assets/sieeee.jpg'
       ];
 
       fetchSienaFromGitHub().then(renderSiena).catch(function () {
