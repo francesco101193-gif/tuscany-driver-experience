@@ -941,9 +941,13 @@
     function updateFormLinks(lang) {
       const formUrl = formUrls[lang];
       // Update all CTA buttons and links that point to the form
-      const formLinks = document.querySelectorAll('a[href*="docs.google.com/forms"]');
+      // Select all links that contain Google Forms URLs
+      const formLinks = document.querySelectorAll('a.cta, a.btn');
       formLinks.forEach(link => {
-        link.href = formUrl;
+        // Check if this link points to a Google Form
+        if (link.href && link.href.includes('docs.google.com/forms')) {
+          link.href = formUrl;
+        }
       });
     }
 
@@ -1081,10 +1085,13 @@
       // Check for saved language preference or use browser language
       const savedLang = localStorage.getItem('preferredLanguage');
       const browserLang = navigator.language.toLowerCase().startsWith('it') ? 'it' : 'en';
-      const initialLang = savedLang || browserLang;
+      const initialLang = savedLang || 'it'; // Default to Italian if no preference
       
       // Set initial language
       setLanguage(initialLang);
+      
+      // Ensure form links are set correctly on initial load
+      updateFormLinks(initialLang);
     });
   </script>
 </body>
