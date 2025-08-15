@@ -905,6 +905,12 @@
       }
     };
 
+    // Form URLs for different languages
+    const formUrls = {
+      it: 'https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header',
+      en: 'https://docs.google.com/forms/d/e/1FAIpQLScbxGg-jm8mIaiUTLHlnoVWp0we_Kv4HhEyg7c0sEbH4b85xQ/viewform?usp=header'
+    };
+
     // Function to set language
     function setLanguage(lang) {
       // Update HTML lang attribute
@@ -924,8 +930,21 @@
       // Update all translatable elements
       updateTranslations(lang);
       
+      // Update all form links
+      updateFormLinks(lang);
+      
       // Save preference
       localStorage.setItem('preferredLanguage', lang);
+    }
+
+    // Function to update form links based on language
+    function updateFormLinks(lang) {
+      const formUrl = formUrls[lang];
+      // Update all CTA buttons and links that point to the form
+      const formLinks = document.querySelectorAll('a[href*="docs.google.com/forms"]');
+      formLinks.forEach(link => {
+        link.href = formUrl;
+      });
     }
 
     // Function to update all translations
