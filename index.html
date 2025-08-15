@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -223,9 +223,63 @@
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,.6);
     }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      background: rgba(255,255,255,.9);
+      padding: 8px;
+      border-radius: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      backdrop-filter: blur(10px);
+    }
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background .2s ease;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .lang-btn:hover {
+      background: rgba(0,0,0,.05);
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #1a1a1a;
+    }
+    .lang-flag {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="it" onclick="setLanguage('it')">
+      <span class="lang-flag">🇮🇹</span>
+      <span>IT</span>
+    </button>
+    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">
+      <span class="lang-flag">🇬🇧</span>
+      <span>EN</span>
+    </button>
+  </div>
+
   <!-- HERO -->
   <header class="hero" style="background: #000 url('assets/img/hero.png?v=8') center/cover no-repeat;">
     <div class="container hero-inner">
@@ -626,6 +680,393 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Translation system
+    const translations = {
+      it: {
+        // Meta
+        'page-title': 'Tuscany Driver Experience - Tour Privati con Autista',
+        'page-description': 'Itinerari 100% personalizzati in Toscana con autista privato NCC. Arte e cultura, vino e gastronomia, mare e montagna, benessere termale e molto altro. Richiedi il tuo itinerario su misura.',
+        
+        // Hero
+        'hero-badge': 'Autista privato • Tour su misura',
+        'hero-title': 'Tuscany Driver Experience',
+        'hero-subtitle': 'Scopri la Toscana a modo tuo. Itinerari completamente personalizzati: dalle colline del Chianti alle coste incontaminate, dai borghi medievali alle terme naturali. Il tuo autista privato, i tuoi orari, il tuo viaggio indimenticabile.',
+        'hero-cta': 'Richiedi il tuo itinerario personalizzato',
+        
+        // About
+        'about-title': 'Vivi la Toscana oltre l\'ordinario',
+        'about-text': 'Creiamo itinerari su misura che mostrano l\'incredibile diversità dei paesaggi e delle esperienze toscane, adattandoci ai tuoi desideri e interessi.',
+        'about-pill-1': 'Partenza ovunque (città, aeroporti, anche fuori regione)',
+        'about-pill-2': 'Tappe ed esperienze a tua scelta',
+        'about-pill-3': 'Durata e ritmi personalizzati',
+        'about-pill-4': 'Autisti NCC professionali e multilingue',
+        
+        // Experiences
+        'exp-title': 'Esempi di Esperienze',
+        'exp-art-title': '🏛️ Arte e Cultura',
+        'exp-art-text': 'Rinascimento, architettura medievale e patrimonio artistico. Itinerari su misura secondo i tuoi interessi.',
+        'exp-wine-title': '🍷 Enogastronomia',
+        'exp-wine-text': 'Dal Chianti a Montalcino, fino ai piccoli produttori nascosti. Degustazioni e sapori autentici.',
+        'exp-active-title': '🌊 Active Escape',
+        'exp-active-text': 'Garfagnana, Alpi Apuane, Versilia, Costa degli Etruschi: avventure mare, montagna e collina.',
+        'exp-spa-title': '♨️ Benessere Termale',
+        'exp-spa-text': 'Bagno Vignoni e altre gemme termali per un relax su misura.',
+        'exp-coast-title': '🏖️ Esperienze Costiere',
+        'exp-coast-text': 'Versilia e oltre: scegli tu la località costiera che vuoi esplorare.',
+        'exp-classic-title': '🏰 Toscana Classica (2-3 giorni)',
+        'exp-classic-text': 'Val d\'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.',
+        'exp-cta': 'Parlaci dei tuoi interessi',
+        
+        // Seasons
+        'seasons-title': 'Vivi la Toscana tutto l\'anno',
+        'season-spring': '🌸 Primavera',
+        'season-spring-text': 'Paesaggi in fiore e clima mite in ogni angolo.',
+        'season-summer': '☀️ Estate',
+        'season-summer-text': 'Fughe costiere e attività outdoor ovunque.',
+        'season-autumn': '🍇 Autunno',
+        'season-autumn-text': 'Vendemmie e sagre tra colline e borghi.',
+        'season-winter': '🎭 Inverno',
+        'season-winter-text': 'Carnevale di Viareggio e benessere termale.',
+        'gallery-btn': 'Galleria',
+        
+        // Gallery
+        'gallery-title': 'Galleria',
+        'gallery-subtitle': 'Clicca per ingrandire. Su mobile scorri verso il basso: le immagini sono disposte in verticale.',
+        'gallery-borghi': 'Borghi medievali',
+        'gallery-chianti': 'Colline del Chianti',
+        'gallery-terme': 'Scansano Terme',
+        'gallery-forte': 'Forte dei Marmi',
+        'gallery-pietrasanta': 'Pietrasanta',
+        'gallery-parco': 'Parco dell\'Orecchiella',
+        'gallery-siena': 'Siena',
+        'gallery-gimignano': 'San Gimignano',
+        
+        // Why Us
+        'why-title': 'Perché scegliere Tuscany Driver Experience',
+        'why-custom-title': 'Completamente personalizzato',
+        'why-custom-text': 'Ogni itinerario nasce dai tuoi interessi specifici.',
+        'why-infinite-title': 'Infinite possibilità',
+        'why-infinite-text': 'Qualsiasi destinazione toscana può essere inclusa.',
+        'why-drivers-title': 'Autisti NCC professionali',
+        'why-drivers-text': 'Autorizzati, esperti, che parlano inglese.',
+        'why-flexible-title': 'Partenze flessibili',
+        'why-flexible-text': 'Da qualsiasi località in Toscana o fuori regione.',
+        'why-authentic-title': 'Esperienze autentiche',
+        'why-authentic-text': 'Dalla Toscana più famosa a quella più nascosta.',
+        'why-comfort-title': 'Viaggi confortevoli',
+        'why-comfort-text': 'Veicoli premium, max 8 ore di guida al giorno.',
+        
+        // How it works
+        'how-title': 'Semplice. Personale. Indimenticabile.',
+        'how-step1-title': '1) Raccontaci i tuoi sogni',
+        'how-step1-text': 'Interessi, durata e punto di partenza.',
+        'how-step2-title': '2) Ricevi il tuo itinerario',
+        'how-step2-text': 'Progettiamo la tua esperienza perfetta.',
+        'how-step3-title': '3) Viaggia con stile',
+        'how-step3-text': 'L\'autista si occupa di tutto, tu ti godi il viaggio.',
+        'how-step4-title': '4) Crea ricordi',
+        'how-step4-text': 'La Toscana come l\'hai sempre immaginata.',
+        'how-cta': 'Inizia ora: richiedi il tuo itinerario',
+        
+        // Testimonials
+        'testimonials-title': 'Cosa Dicono i Nostri Ospiti',
+        'testimonial1-text': 'Esperienza indimenticabile! Il nostro autista Luca ci ha portato attraverso le colline del Chianti con una conoscenza locale impareggiabile. Ogni sosta era perfetta, dalle cantine nascoste ai panorami mozzafiato.',
+        'testimonial1-author': '— Marco e Giulia, Milano',
+        'testimonial2-text': 'Abbiamo personalizzato completamente il nostro tour di 3 giorni. Michela ha organizzato tutto perfettamente: dalle terme di Saturnia ai borghi medievali. Servizio impeccabile e grande flessibilità.',
+        'testimonial2-author': '— Sarah Thompson, USA',
+        'testimonial3-text': 'La nostra luna di miele in Toscana è stata magica grazie a Tuscany Driver Experience. Ogni dettaglio era curato, dall\'accoglienza all\'aeroporto fino all\'ultimo saluto. Consigliatissimo!',
+        'testimonial3-author': '— Pierre e Marie, Francia',
+        
+        // Contact
+        'contact-title': 'Pronto per la tua avventura toscana?',
+        'contact-subtitle': 'Ricevi una proposta di itinerario completamente personalizzata.',
+        'contact-cta': 'Richiedi il tuo itinerario',
+        'contact-or': 'Oppure contattaci:',
+        'contact-email': 'Email:',
+        'contact-phone': 'Telefono/WhatsApp:',
+        'contact-website': 'Sito:',
+        
+        // Footer
+        'footer-tagline': 'La tua porta d\'accesso alla Toscana autentica',
+        'footer-service': 'Servizio NCC Autorizzato',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Termini di Servizio'
+      },
+      en: {
+        // Meta
+        'page-title': 'Tuscany Driver Experience - Private Tours with Driver',
+        'page-description': '100% customized itineraries in Tuscany with private NCC driver. Art and culture, wine and gastronomy, sea and mountains, thermal wellness and much more. Request your tailor-made itinerary.',
+        
+        // Hero
+        'hero-badge': 'Private driver • Tailor-made tours',
+        'hero-title': 'Tuscany Driver Experience',
+        'hero-subtitle': 'Discover Tuscany your way. Completely customized itineraries: from the Chianti hills to pristine coasts, from medieval villages to natural hot springs. Your private driver, your schedule, your unforgettable journey.',
+        'hero-cta': 'Request your personalized itinerary',
+        
+        // About
+        'about-title': 'Experience Tuscany beyond the ordinary',
+        'about-text': 'We create tailor-made itineraries that showcase the incredible diversity of Tuscan landscapes and experiences, adapting to your desires and interests.',
+        'about-pill-1': 'Departure anywhere (cities, airports, even outside the region)',
+        'about-pill-2': 'Stops and experiences of your choice',
+        'about-pill-3': 'Customized duration and pace',
+        'about-pill-4': 'Professional multilingual NCC drivers',
+        
+        // Experiences
+        'exp-title': 'Experience Examples',
+        'exp-art-title': '🏛️ Art and Culture',
+        'exp-art-text': 'Renaissance, medieval architecture and artistic heritage. Tailor-made itineraries according to your interests.',
+        'exp-wine-title': '🍷 Wine and Gastronomy',
+        'exp-wine-text': 'From Chianti to Montalcino, to hidden small producers. Tastings and authentic flavors.',
+        'exp-active-title': '🌊 Active Escape',
+        'exp-active-text': 'Garfagnana, Apuan Alps, Versilia, Etruscan Coast: sea, mountain and hill adventures.',
+        'exp-spa-title': '♨️ Thermal Wellness',
+        'exp-spa-text': 'Bagno Vignoni and other thermal gems for tailor-made relaxation.',
+        'exp-coast-title': '🏖️ Coastal Experiences',
+        'exp-coast-text': 'Versilia and beyond: you choose the coastal location you want to explore.',
+        'exp-classic-title': '🏰 Classic Tuscany (2-3 days)',
+        'exp-classic-text': 'Val d\'Orcia, Siena, Pienza, Montalcino or the villages you dream of visiting.',
+        'exp-cta': 'Tell us about your interests',
+        
+        // Seasons
+        'seasons-title': 'Experience Tuscany all year round',
+        'season-spring': '🌸 Spring',
+        'season-spring-text': 'Blooming landscapes and mild climate everywhere.',
+        'season-summer': '☀️ Summer',
+        'season-summer-text': 'Coastal escapes and outdoor activities everywhere.',
+        'season-autumn': '🍇 Autumn',
+        'season-autumn-text': 'Harvests and festivals among hills and villages.',
+        'season-winter': '🎭 Winter',
+        'season-winter-text': 'Viareggio Carnival and thermal wellness.',
+        'gallery-btn': 'Gallery',
+        
+        // Gallery
+        'gallery-title': 'Gallery',
+        'gallery-subtitle': 'Click to enlarge. On mobile scroll down: images are arranged vertically.',
+        'gallery-borghi': 'Medieval villages',
+        'gallery-chianti': 'Chianti Hills',
+        'gallery-terme': 'Scansano Terme',
+        'gallery-forte': 'Forte dei Marmi',
+        'gallery-pietrasanta': 'Pietrasanta',
+        'gallery-parco': 'Orecchiella Park',
+        'gallery-siena': 'Siena',
+        'gallery-gimignano': 'San Gimignano',
+        
+        // Why Us
+        'why-title': 'Why choose Tuscany Driver Experience',
+        'why-custom-title': 'Completely customized',
+        'why-custom-text': 'Every itinerary is born from your specific interests.',
+        'why-infinite-title': 'Infinite possibilities',
+        'why-infinite-text': 'Any Tuscan destination can be included.',
+        'why-drivers-title': 'Professional NCC drivers',
+        'why-drivers-text': 'Licensed, experienced, English-speaking.',
+        'why-flexible-title': 'Flexible departures',
+        'why-flexible-text': 'From any location in Tuscany or outside the region.',
+        'why-authentic-title': 'Authentic experiences',
+        'why-authentic-text': 'From the most famous to the most hidden Tuscany.',
+        'why-comfort-title': 'Comfortable travel',
+        'why-comfort-text': 'Premium vehicles, max 8 hours driving per day.',
+        
+        // How it works
+        'how-title': 'Simple. Personal. Unforgettable.',
+        'how-step1-title': '1) Tell us your dreams',
+        'how-step1-text': 'Interests, duration and starting point.',
+        'how-step2-title': '2) Receive your itinerary',
+        'how-step2-text': 'We design your perfect experience.',
+        'how-step3-title': '3) Travel in style',
+        'how-step3-text': 'The driver takes care of everything, you enjoy the journey.',
+        'how-step4-title': '4) Create memories',
+        'how-step4-text': 'Tuscany as you\'ve always imagined it.',
+        'how-cta': 'Start now: request your itinerary',
+        
+        // Testimonials
+        'testimonials-title': 'What Our Guests Say',
+        'testimonial1-text': 'Unforgettable experience! Our driver Luca took us through the Chianti hills with unparalleled local knowledge. Every stop was perfect, from hidden wineries to breathtaking views.',
+        'testimonial1-author': '— Marco and Giulia, Milan',
+        'testimonial2-text': 'We completely customized our 3-day tour. Michela organized everything perfectly: from Saturnia hot springs to medieval villages. Impeccable service and great flexibility.',
+        'testimonial2-author': '— Sarah Thompson, USA',
+        'testimonial3-text': 'Our honeymoon in Tuscany was magical thanks to Tuscany Driver Experience. Every detail was taken care of, from airport welcome to final goodbye. Highly recommended!',
+        'testimonial3-author': '— Pierre and Marie, France',
+        
+        // Contact
+        'contact-title': 'Ready for your Tuscan adventure?',
+        'contact-subtitle': 'Receive a completely personalized itinerary proposal.',
+        'contact-cta': 'Request your itinerary',
+        'contact-or': 'Or contact us:',
+        'contact-email': 'Email:',
+        'contact-phone': 'Phone/WhatsApp:',
+        'contact-website': 'Website:',
+        
+        // Footer
+        'footer-tagline': 'Your gateway to authentic Tuscany',
+        'footer-service': 'Licensed NCC Service',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Terms of Service'
+      }
+    };
+
+    // Function to set language
+    function setLanguage(lang) {
+      // Update HTML lang attribute
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
+      
+      // Update language buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      
+      // Update page title and meta description
+      document.title = translations[lang]['page-title'];
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = translations[lang]['page-description'];
+      
+      // Update all translatable elements
+      updateTranslations(lang);
+      
+      // Save preference
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    // Function to update all translations
+    function updateTranslations(lang) {
+      const t = translations[lang];
+      
+      // Hero section
+      document.querySelector('.badge').textContent = t['hero-badge'];
+      document.querySelector('.hero-inner h1').textContent = t['hero-title'];
+      document.querySelector('.hero-inner .sub').textContent = t['hero-subtitle'];
+      document.querySelector('.hero-inner .cta').textContent = t['hero-cta'];
+      
+      // About section
+      document.querySelector('.section:nth-of-type(1) h2').textContent = t['about-title'];
+      document.querySelector('.section:nth-of-type(1) p').textContent = t['about-text'];
+      const aboutPills = document.querySelectorAll('.section:nth-of-type(1) .pill');
+      aboutPills[0].textContent = t['about-pill-1'];
+      aboutPills[1].textContent = t['about-pill-2'];
+      aboutPills[2].textContent = t['about-pill-3'];
+      aboutPills[3].textContent = t['about-pill-4'];
+      
+      // Experiences section
+      document.querySelector('#esperienze h2').textContent = t['exp-title'];
+      const expCards = document.querySelectorAll('#esperienze .card');
+      expCards[0].querySelector('h3').innerHTML = t['exp-art-title'];
+      expCards[0].querySelector('p').textContent = t['exp-art-text'];
+      expCards[1].querySelector('h3').innerHTML = t['exp-wine-title'];
+      expCards[1].querySelector('p').textContent = t['exp-wine-text'];
+      expCards[2].querySelector('h3').innerHTML = t['exp-active-title'];
+      expCards[2].querySelector('p').textContent = t['exp-active-text'];
+      expCards[3].querySelector('h3').innerHTML = t['exp-spa-title'];
+      expCards[3].querySelector('p').textContent = t['exp-spa-text'];
+      expCards[4].querySelector('h3').innerHTML = t['exp-coast-title'];
+      expCards[4].querySelector('p').textContent = t['exp-coast-text'];
+      expCards[5].querySelector('h3').innerHTML = t['exp-classic-title'];
+      expCards[5].querySelector('p').textContent = t['exp-classic-text'];
+      document.querySelector('#esperienze .btn').textContent = t['exp-cta'];
+      
+      // Seasons section
+      document.querySelector('#stagioni h2').textContent = t['seasons-title'];
+      const seasonCards = document.querySelectorAll('#stagioni .card');
+      seasonCards[0].querySelector('strong').innerHTML = t['season-spring'];
+      seasonCards[0].querySelector('p').textContent = t['season-spring-text'];
+      seasonCards[1].querySelector('strong').innerHTML = t['season-summer'];
+      seasonCards[1].querySelector('p').textContent = t['season-summer-text'];
+      seasonCards[2].querySelector('strong').innerHTML = t['season-autumn'];
+      seasonCards[2].querySelector('p').textContent = t['season-autumn-text'];
+      seasonCards[3].querySelector('strong').innerHTML = t['season-winter'];
+      seasonCards[3].querySelector('p').textContent = t['season-winter-text'];
+      document.querySelector('#stagioni .btn').textContent = t['gallery-btn'];
+      
+      // Gallery section
+      document.querySelector('#galleria h2').textContent = t['gallery-title'];
+      document.querySelector('#galleria .muted').textContent = t['gallery-subtitle'];
+      const galleryTitles = document.querySelectorAll('#galleria h3');
+      galleryTitles[0].textContent = t['gallery-borghi'];
+      galleryTitles[1].textContent = t['gallery-chianti'];
+      galleryTitles[2].textContent = t['gallery-terme'];
+      galleryTitles[3].textContent = t['gallery-forte'];
+      galleryTitles[4].textContent = t['gallery-pietrasanta'];
+      galleryTitles[5].textContent = t['gallery-parco'];
+      galleryTitles[6].textContent = t['gallery-siena'];
+      galleryTitles[7].textContent = t['gallery-gimignano'];
+      
+      // Why Us section
+      document.querySelector('#perche h2').textContent = t['why-title'];
+      const whyCards = document.querySelectorAll('#perche .card');
+      whyCards[0].querySelector('h3').textContent = t['why-custom-title'];
+      whyCards[0].querySelector('p').textContent = t['why-custom-text'];
+      whyCards[1].querySelector('h3').textContent = t['why-infinite-title'];
+      whyCards[1].querySelector('p').textContent = t['why-infinite-text'];
+      whyCards[2].querySelector('h3').textContent = t['why-drivers-title'];
+      whyCards[2].querySelector('p').textContent = t['why-drivers-text'];
+      whyCards[3].querySelector('h3').textContent = t['why-flexible-title'];
+      whyCards[3].querySelector('p').textContent = t['why-flexible-text'];
+      whyCards[4].querySelector('h3').textContent = t['why-authentic-title'];
+      whyCards[4].querySelector('p').textContent = t['why-authentic-text'];
+      whyCards[5].querySelector('h3').textContent = t['why-comfort-title'];
+      whyCards[5].querySelector('p').textContent = t['why-comfort-text'];
+      
+      // How it works section
+      document.querySelector('.section.alt:nth-of-type(2) h2').textContent = t['how-title'];
+      const howSteps = document.querySelectorAll('.how-steps .card');
+      howSteps[0].querySelector('strong').textContent = t['how-step1-title'];
+      howSteps[0].querySelector('p').textContent = t['how-step1-text'];
+      howSteps[1].querySelector('strong').textContent = t['how-step2-title'];
+      howSteps[1].querySelector('p').textContent = t['how-step2-text'];
+      howSteps[2].querySelector('strong').textContent = t['how-step3-title'];
+      howSteps[2].querySelector('p').textContent = t['how-step3-text'];
+      howSteps[3].querySelector('strong').textContent = t['how-step4-title'];
+      howSteps[3].querySelector('p').textContent = t['how-step4-text'];
+      document.querySelector('.section.alt:nth-of-type(2) .btn').textContent = t['how-cta'];
+      
+      // Testimonials section
+      document.querySelector('.section:nth-of-type(5) h2').textContent = t['testimonials-title'];
+      const testimonials = document.querySelectorAll('.testimonial-card');
+      testimonials[0].querySelector('.testimonial-text').textContent = t['testimonial1-text'];
+      testimonials[0].querySelector('.testimonial-author').textContent = t['testimonial1-author'];
+      testimonials[1].querySelector('.testimonial-text').textContent = t['testimonial2-text'];
+      testimonials[1].querySelector('.testimonial-author').textContent = t['testimonial2-author'];
+      testimonials[2].querySelector('.testimonial-text').textContent = t['testimonial3-text'];
+      testimonials[2].querySelector('.testimonial-author').textContent = t['testimonial3-author'];
+      
+      // Contact section
+      const contactSection = document.querySelector('.section.alt:last-of-type');
+      contactSection.querySelector('h2').textContent = t['contact-title'];
+      contactSection.querySelector('p').textContent = t['contact-subtitle'];
+      contactSection.querySelector('.btn').textContent = t['contact-cta'];
+      contactSection.querySelector('.muted').textContent = t['contact-or'];
+      const contactInfo = contactSection.querySelectorAll('span');
+      contactInfo[contactInfo.length - 3].innerHTML = t['contact-email'] + ' <a href="mailto:info@tuscanydriverexperience.com">info@tuscanydriverexperience.com</a>';
+      contactInfo[contactInfo.length - 2].innerHTML = t['contact-phone'] + ' <a href="https://wa.me/393892169474" target="_blank" rel="noopener">+39 389 216 9474 (Luca)</a> • <a href="https://wa.me/393445815647" target="_blank" rel="noopener">+39 344 581 5647 (Michela)</a>';
+      contactInfo[contactInfo.length - 1].innerHTML = t['contact-website'] + ' <a href="https://www.tuscanydriverexperience.com" target="_blank" rel="noopener">www.tuscanydriverexperience.com</a>';
+      
+      // Footer
+      const footer = document.querySelector('footer');
+      footer.querySelector('strong').textContent = 'Tuscany Driver Experience';
+      footer.querySelector('div').innerHTML = '<strong>Tuscany Driver Experience</strong> • ' + t['footer-tagline'];
+      const footerText = footer.innerHTML;
+      const yearSpan = '<span id="year"></span>';
+      footer.innerHTML = footerText.replace(
+        /© <span id="year"><\/span> Tuscany Driver Experience - .+? • /,
+        `© ${yearSpan} Tuscany Driver Experience - ${t['footer-service']} • `
+      );
+      footer.innerHTML = footer.innerHTML.replace('Privacy Policy', t['footer-privacy']);
+      footer.innerHTML = footer.innerHTML.replace('Termini di Servizio', t['footer-terms']);
+      
+      // Re-set the year after updating footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for saved language preference or use browser language
+      const savedLang = localStorage.getItem('preferredLanguage');
+      const browserLang = navigator.language.toLowerCase().startsWith('it') ? 'it' : 'en';
+      const initialLang = savedLang || browserLang;
+      
+      // Set initial language
+      setLanguage(initialLang);
+    });
   </script>
 </body>
 </html>
