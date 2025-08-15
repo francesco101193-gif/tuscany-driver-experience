@@ -798,7 +798,7 @@
       },
       en: {
         // Form URL
-        'form-url': 'https://docs.google.com/forms/d/e/1FAIpQLScbxGg-jm8mIaiUTLHlnoVWp0we_Kv4HhEyg7c0sEbH4b85xQ/viewform?usp=header',
+        'form-url': 'https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header',
         
         // Meta
         'page-title': 'Tuscany Driver Experience - Private Tours with Driver',
@@ -1015,8 +1015,9 @@
       whyCards[5].querySelector('p').textContent = t['why-comfort-text'];
       
       // How it works section
-      document.querySelector('.section.alt:nth-of-type(2) h2').textContent = t['how-title'];
-      const howSteps = document.querySelectorAll('.how-steps .card');
+      const howSection = document.querySelector('.section.alt h2[data-translate="how-title"]').closest('.section');
+      howSection.querySelector('h2').textContent = t['how-title'];
+      const howSteps = howSection.querySelectorAll('.how-steps .card');
       howSteps[0].querySelector('strong').textContent = t['how-step1-title'];
       howSteps[0].querySelector('p').textContent = t['how-step1-text'];
       howSteps[1].querySelector('strong').textContent = t['how-step2-title'];
@@ -1025,12 +1026,13 @@
       howSteps[2].querySelector('p').textContent = t['how-step3-text'];
       howSteps[3].querySelector('strong').textContent = t['how-step4-title'];
       howSteps[3].querySelector('p').textContent = t['how-step4-text'];
-      document.querySelector('.section.alt:nth-of-type(2) .btn').textContent = t['how-cta'];
-      document.querySelector('.section.alt:nth-of-type(2) .btn').href = t['form-url'];
+      howSection.querySelector('.btn').textContent = t['how-cta'];
+      howSection.querySelector('.btn').href = t['form-url'];
       
       // Testimonials section
-      document.querySelector('.section:nth-of-type(5) h2').textContent = t['testimonials-title'];
-      const testimonials = document.querySelectorAll('.testimonial-card');
+      const testimonialsSection = document.querySelector('h2[data-translate="testimonials-title"]').closest('.section');
+      testimonialsSection.querySelector('h2').textContent = t['testimonials-title'];
+      const testimonials = testimonialsSection.querySelectorAll('.testimonial-card');
       testimonials[0].querySelector('.testimonial-text').textContent = t['testimonial1-text'];
       testimonials[0].querySelector('.testimonial-author').textContent = t['testimonial1-author'];
       testimonials[1].querySelector('.testimonial-text').textContent = t['testimonial2-text'];
