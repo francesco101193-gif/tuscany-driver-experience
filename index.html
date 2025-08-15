@@ -940,14 +940,10 @@
     // Function to update form links based on language
     function updateFormLinks(lang) {
       const formUrl = formUrls[lang];
-      // Update all CTA buttons and links that point to the form
-      // Select all links that contain Google Forms URLs
-      const formLinks = document.querySelectorAll('a.cta, a.btn');
-      formLinks.forEach(link => {
-        // Check if this link points to a Google Form
-        if (link.href && link.href.includes('docs.google.com/forms')) {
-          link.href = formUrl;
-        }
+      // Update ALL links that point to Google Forms, regardless of class
+      const allLinks = document.querySelectorAll('a[href*="docs.google.com/forms"]');
+      allLinks.forEach(link => {
+        link.href = formUrl;
       });
     }
 
@@ -1090,8 +1086,10 @@
       // Set initial language
       setLanguage(initialLang);
       
-      // Ensure form links are set correctly on initial load
-      updateFormLinks(initialLang);
+      // Double-check form links after a short delay to ensure DOM is fully ready
+      setTimeout(() => {
+        updateFormLinks(initialLang);
+      }, 100);
     });
   </script>
 </body>
