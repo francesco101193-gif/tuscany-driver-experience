@@ -17,43 +17,43 @@
       --line: #d4c4b0;      /* Beige scuro per bordi */
       --maxw: 1100px;
     }
-
+    
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+    
+    body { 
+      margin: 0; 
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
+      background: var(--bg); 
+      color: var(--text); 
+      line-height: 1.6; 
     }
-
+    
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
     .btn, .cta {
-      display: inline-block;
-      background: var(--accent);
-      color: #1a1a1a;
+      display: inline-block; 
+      background: var(--accent); 
+      color: #1a1a1a; 
       font-weight: 700;
-      padding: 14px 22px;
-      border-radius: 10px;
+      padding: 14px 22px; 
+      border-radius: 10px; 
       box-shadow: 0 8px 20px rgba(212,175,55,.25);
       transition: transform .08s ease, box-shadow .2s ease;
     }
-    .btn:hover, .cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(212,175,55,.35);
+    .btn:hover, .cta:hover { 
+      transform: translateY(-1px); 
+      box-shadow: 0 12px 26px rgba(212,175,55,.35); 
     }
 
     .grid { display: grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
+    
+    .card { 
+      background: var(--card); 
+      border: 1px solid var(--line); 
+      border-radius: 14px; 
+      padding: 18px; 
     }
 
     h1,h2,h3 { line-height: 1.2; margin: 0 0 10px; color: var(--text); }
@@ -63,14 +63,14 @@
     p { margin: 0 0 12px; }
     .muted { color: var(--muted); }
 
-    /* HERO */
+    /* HERO - non tocchiamo, manteniamo come richiesto */
     header.hero {
-      position: relative;
-      min-height: 92vh;
-      display: grid;
-      place-items: center;
+      position: relative; 
+      min-height: 92vh; 
+      display: grid; 
+      place-items: center; 
       text-align: center;
-      background: #000 url("assets/img/vivilatoscana.jpg") center/cover no-repeat !important;
+      background: #000 url("assets/img/hero.png?v=8") center/cover no-repeat !important;
     }
     header.hero::after { content: ""; position: absolute; inset: 0; background: none; }
 
@@ -78,12 +78,12 @@
     .hero-inner, .hero-inner h1, .hero-inner .sub { color: #000 !important; text-shadow: none; }
     
     .badge {
-      display: inline-block;
+      display: inline-block; 
       padding: 6px 10px;
-      border: 1px solid rgba(0,0,0,.25);
+      border: 1px solid rgba(0,0,0,.25); 
       border-radius: 999px;
-      color: #000;
-      font-size: 14px;
+      color: #000; 
+      font-size: 14px; 
       margin-bottom: 14px;
       background: rgba(255,255,255,.65);
       backdrop-filter: blur(6px);
@@ -281,7 +281,7 @@
   </div>
 
   <!-- HERO -->
-  <header class="hero" style="background: #000 url('assets/img/vivilatoscana.jpg') center/cover no-repeat;">
+  <header class="hero" style="background: #000 url('assets/img/hero.png?v=8') center/cover no-repeat;">
     <div class="container hero-inner">
       <span class="badge">Autista privato • Tour su misura</span>
       <h1>Tuscany Driver Experience</h1>
@@ -304,7 +304,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="assets/img/semplicepersonaleindimenticabile.jpg" alt="Paesaggi toscani" />
+        <img src="assets/img/about.jpg?v=2" alt="Paesaggi toscani" />
       </div>
     </div>
   </section>
@@ -323,9 +323,9 @@
       </div>
 
       <div class="thumb-row" aria-label="Galleria esperienze">
-        <div class="thumb"><img src="assets/img/esperienze.jpg" alt="Esperienza 1"></div>
-        <div class="thumb"><img src="assets/img/chianti.jpg" alt="Esperienza 2"></div>
-        <div class="thumb"><img src="assets/img/bor.jpg" alt="Esperienza 3"></div>
+        <div class="thumb"><img src="assets/img/exp1.jpg?v=2" alt="Esperienza 1"></div>
+        <div class="thumb"><img src="assets/img/exp2.jpg?v=2" alt="Esperienza 2"></div>
+        <div class="thumb"><img src="assets/img/exp3.jpg?v=2" alt="Esperienza 3"></div>
       </div>
 
       <div style="text-align:center; margin-top:18px;">
@@ -346,9 +346,9 @@
       </div>
 
       <div class="thumb-row" aria-label="Galleria stagioni">
-        <div class="thumb"><img src="assets/img/seasons3.jpg" alt="Stagioni 1"></div>
-        <div class="thumb"><img src="assets/img/santap.jpg" alt="Stagioni 2"></div>
-        <div class="thumb"><img src="assets/img/or.jpg" alt="Stagioni 3"></div>
+        <div class="thumb"><img src="assets/img/seasons1.jpg?v=2" alt="Stagioni 1"></div>
+        <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
+        <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
 
       <div style="text-align:center; margin-top:22px;">
@@ -367,10 +367,10 @@
       <div class="gallery-section" aria-label="Borghi medievali">
         <h3>Borghi medievali</h3>
         <div class="gallery-grid" id="grid-borghi-medievali">
-          <div class="gallery-item"><img src="assets/img/bor.jpg" data-full="assets/img/bor.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borr.jpg" data-full="assets/img/borr.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borrr.jpg" data-full="assets/img/borrr.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="assets/img/borrrr.jpg" data-full="assets/img/borrrr.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali1_sm.jpg" data-full="assets/img/borghi-medievali1.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali2_sm.jpg" data-full="assets/img/borghi-medievali2.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali3_sm.jpg" data-full="assets/img/borghi-medievali3.jpg" alt="Borghi medievali"></div>
+          <div class="gallery-item"><img src="assets/img/borghi-medievali4_sm.jpg" data-full="assets/img/borghi-medievali4.jpg" alt="Borghi medievali"></div>
         </div>
       </div>
 
@@ -378,10 +378,10 @@
       <div class="gallery-section" aria-label="Colline del Chianti">
         <h3>Colline del Chianti</h3>
         <div class="gallery-grid" id="grid-colline-chianti">
-          <div class="gallery-item"><img src="assets/img/chianti.jpg" data-full="assets/img/chianti.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/chiantii.jpg" data-full="assets/img/chiantii.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/chiantiii.jpg" data-full="assets/img/chiantiii.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="assets/img/chiantiiii.jpg" data-full="assets/img/chiantiiii.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti1_sm.jpg" data-full="assets/img/colline-chianti1.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti2_sm.jpg" data-full="assets/img/colline-chianti2.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti3_sm.jpg" data-full="assets/img/colline-chianti3.jpg" alt="Colline del Chianti"></div>
+          <div class="gallery-item"><img src="assets/img/colline-chianti4_sm.jpg" data-full="assets/img/colline-chianti4.jpg" alt="Colline del Chianti"></div>
         </div>
       </div>
 
@@ -389,10 +389,10 @@
       <div class="gallery-section" aria-label="Scansano Terme">
         <h3>Scansano Terme</h3>
         <div class="gallery-grid" id="grid-scansano-terme">
-          <div class="gallery-item"><img src="assets/img/sc.jpg" data-full="assets/img/sc.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/scc.jpg" data-full="assets/img/scc.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/sccc.jpg" data-full="assets/img/sccc.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="assets/img/scccc.jpg" data-full="assets/img/scccc.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme1_sm.jpg" data-full="assets/img/scansano-terme1.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme2_sm.jpg" data-full="assets/img/scansano-terme2.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme3_sm.jpg" data-full="assets/img/scansano-terme3.jpg" alt="Scansano Terme"></div>
+          <div class="gallery-item"><img src="assets/img/scansano-terme4_sm.jpg" data-full="assets/img/scansano-terme4.jpg" alt="Scansano Terme"></div>
         </div>
       </div>
 
@@ -400,10 +400,10 @@
       <div class="gallery-section" aria-label="Forte dei Marmi">
         <h3>Forte dei Marmi</h3>
         <div class="gallery-grid" id="grid-forte-dei-marmi">
-          <div class="gallery-item"><img src="assets/img/marmi.jpg" data-full="assets/img/marmi.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/marmii.jpg" data-full="assets/img/marmii.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/marmiii.jpg" data-full="assets/img/marmiii.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="assets/img/marmiiii.jpg" data-full="assets/img/marmiiii.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi1_sm.jpg" data-full="assets/img/forte-dei-marmi1.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi2_sm.jpg" data-full="assets/img/forte-dei-marmi2.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi3_sm.jpg" data-full="assets/img/forte-dei-marmi3.jpg" alt="Forte dei Marmi"></div>
+          <div class="gallery-item"><img src="assets/img/forte-dei-marmi4_sm.jpg" data-full="assets/img/forte-dei-marmi4.jpg" alt="Forte dei Marmi"></div>
         </div>
       </div>
 
@@ -411,10 +411,10 @@
       <div class="gallery-section" aria-label="Pietrasanta">
         <h3>Pietrasanta</h3>
         <div class="gallery-grid" id="grid-pietrasanta">
-          <div class="gallery-item"><img src="assets/img/santap.jpg" data-full="assets/img/santap.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/santapp.jpg" data-full="assets/img/santapp.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/santappp.jpg" data-full="assets/img/santappp.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="assets/img/santapppp.jpg" data-full="assets/img/santapppp.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta1_sm.jpg" data-full="assets/img/pietrasanta1.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta2_sm.jpg" data-full="assets/img/pietrasanta2.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta3_sm.jpg" data-full="assets/img/pietrasanta3.jpg" alt="Pietrasanta"></div>
+          <div class="gallery-item"><img src="assets/img/pietrasanta4_sm.jpg" data-full="assets/img/pietrasanta4.jpg" alt="Pietrasanta"></div>
         </div>
       </div>
 
@@ -422,21 +422,18 @@
       <div class="gallery-section" aria-label="Parco dell'Orecchiella">
         <h3>Parco dell'Orecchiella</h3>
         <div class="gallery-grid" id="grid-parco-orecchiella">
-          <div class="gallery-item"><img src="assets/img/or.jpg" data-full="assets/img/or.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/orr.jpg" data-full="assets/img/orr.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/orrr.jpg" data-full="assets/img/orrr.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="assets/img/orrrr.jpg" data-full="assets/img/orrrr.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella1_sm.jpg" data-full="assets/img/parco-orecchiella1.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella2_sm.jpg" data-full="assets/img/parco-orecchiella2.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella3_sm.jpg" data-full="assets/img/parco-orecchiella3.jpg" alt="Parco dell'Orecchiella"></div>
+          <div class="gallery-item"><img src="assets/img/parco-orecchiella4_sm.jpg" data-full="assets/img/parco-orecchiella4.jpg" alt="Parco dell'Orecchiella"></div>
         </div>
       </div>
 
-      <!-- Siena -->
+      <!-- Siena (auto) -->
       <div class="gallery-section" aria-label="Siena">
         <h3>Siena</h3>
         <div class="gallery-grid" id="grid-siena">
-          <div class="gallery-item"><img src="assets/img/sie.jpg" data-full="assets/img/sie.jpg" alt="Siena"></div>
-          <div class="gallery-item"><img src="assets/img/siee.jpg" data-full="assets/img/siee.jpg" alt="Siena"></div>
-          <div class="gallery-item"><img src="assets/img/sieee.jpg" data-full="assets/img/sieee.jpg" alt="Siena"></div>
-          <div class="gallery-item"><img src="assets/img/sieeee.jpg" data-full="assets/img/sieeee.jpg" alt="Siena"></div>
+          <!-- Popolata via JS -->
         </div>
       </div>
 
@@ -444,10 +441,10 @@
       <div class="gallery-section" aria-label="San Gimignano">
         <h3>San Gimignano</h3>
         <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="assets/img/gim.jpg" data-full="assets/img/gim.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/gimm.jpg" data-full="assets/img/gimm.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/gimmm.jpg" data-full="assets/img/gimmm.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="assets/img/gimmmm.jpg" data-full="assets/img/gimmmm.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano1_sm.jpg" data-full="assets/img/san-gimignano1.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano2_sm.jpg" data-full="assets/img/san-gimignano2.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano3_sm.jpg" data-full="assets/img/san-gimignano3.jpg" alt="San Gimignano"></div>
+          <div class="gallery-item"><img src="assets/img/san-gimignano4_sm.jpg" data-full="assets/img/san-gimignano4.jpg" alt="San Gimignano"></div>
         </div>
       </div>
 
@@ -568,6 +565,85 @@
         'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
       };
 
+      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
+      const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
+
+      function inferRepoFromLocation() {
+        const host = location.hostname;
+        if (!host.endsWith('github.io')) return null;
+        const owner = host.split('.')[0];
+        const parts = location.pathname.split('/').filter(Boolean);
+        const repo = parts.length ? parts[0] : owner + '.github.io';
+        return { owner, repo };
+      }
+
+      function escapeRegExp(s) {
+        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+
+      async function listRepoFiles() {
+        const inferred = inferRepoFromLocation();
+        if (!inferred) throw new Error('Non su GitHub Pages');
+        const headers = { 'Accept': 'application/vnd.github.v3+json' };
+        const all = [];
+        for (let i = 0; i < DIRS.length; i++) {
+          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIRS[i];
+          const res = await fetch(api, { headers });
+          if (!res.ok) continue;
+          const list = await res.json();
+          list.forEach(function (it) {
+            if (it.type === 'file' && EXT_RE.test(it.name)) all.push(it);
+          });
+        }
+        if (!all.length) throw new Error('Nessun file immagine trovato via API');
+        return all;
+      }
+
+      function findUrlsForBase(files, base) {
+        const b = escapeRegExp(base);
+        const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
+        const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
+
+        let full = null, thumb = null;
+        for (let i = 0; i < files.length; i++) {
+          const f = files[i];
+          if (!full && reFull.test(f.name)) full = f.download_url;
+          if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
+          if (full && thumb) break;
+        }
+        if (full) return { full: full, thumb: thumb || full };
+
+        // Fallback locale: assumo .jpg in assets/img
+        const local = DIRS[0] + '/' + base + '.jpg';
+        return { full: local, thumb: local };
+      }
+
+      function renderGrid(gridId, items) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.innerHTML = items.map(function (it) {
+          return '<div class="gallery-item"><img src="' + it.thumb + '" data-full="' + it.full + '" alt="' + gridId.replace(/^grid-/, '').replace(/-/g, ' ') + '" loading="lazy" decoding="async"></div>';
+        }).join('');
+      }
+
+      async function populateAll() {
+        let files = null;
+        try {
+          files = await listRepoFiles();
+        } catch (e) {
+          // Non su GitHub Pages o API rate-limited: useremo i path locali
+        }
+
+        Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
+          const bases = IMAGE_CONFIG[gridId];
+          const items = bases.map(function (base) {
+            return files ? findUrlsForBase(files, base)
+                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
+          });
+          renderGrid(gridId, items);
+        });
+      }
+
       // Lightbox
       function simpleLightbox() {
         const lb = document.getElementById('lightbox');
@@ -598,7 +674,7 @@
         });
       }
 
-      simpleLightbox();
+      populateAll().then(simpleLightbox).catch(simpleLightbox);
     })();
   </script>
 
@@ -702,4 +778,307 @@
         'testimonial1-author': '— Marco e Giulia, Milano',
         'testimonial2-text': 'Abbiamo personalizzato completamente il nostro tour di 3 giorni. Michela ha organizzato tutto perfettamente: dalle terme di Saturnia ai borghi medievali. Servizio impeccabile e grande flessibilità.',
         'testimonial2-author': '— Sarah Thompson, USA',
-        'testimonial3-text': 'La nostra luna di miele in
+        'testimonial3-text': 'La nostra luna di miele in Toscana è stata magica grazie a Tuscany Driver Experience. Ogni dettaglio era curato, dall\'accoglienza all\'aeroporto fino all\'ultimo saluto. Consigliatissimo!',
+        'testimonial3-author': '— Pierre e Marie, Francia',
+        
+        // Contact
+        'contact-title': 'Pronto per la tua avventura toscana?',
+        'contact-subtitle': 'Ricevi una proposta di itinerario completamente personalizzata.',
+        'contact-cta': 'Richiedi il tuo itinerario',
+        'contact-or': 'Oppure contattaci:',
+        'contact-email': 'Email:',
+        'contact-phone': 'Telefono/WhatsApp:',
+        'contact-website': 'Sito:',
+        
+        // Footer
+        'footer-tagline': 'La tua porta d\'accesso alla Toscana autentica',
+        'footer-service': 'Servizio NCC Autorizzato',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Termini di Servizio'
+      },
+      en: {
+        // Form URL
+        'form-url': 'https://docs.google.com/forms/d/e/1FAIpQLScbxGg-jm8mIaiUTLHlnoVWp0we_Kv4HhEyg7c0sEbH4b85xQ/viewform?usp=header',
+        
+        // Meta
+        'page-title': 'Tuscany Driver Experience - Private Tours with Driver',
+        'page-description': '100% customized itineraries in Tuscany with private NCC driver. Art and culture, wine and gastronomy, sea and mountains, thermal wellness and much more. Request your tailor-made itinerary.',
+        
+        // Hero
+        'hero-badge': 'Private driver • Tailor-made tours',
+        'hero-title': 'Tuscany Driver Experience',
+        'hero-subtitle': 'Discover Tuscany your way. Completely customized itineraries: from the Chianti hills to pristine coasts, from medieval villages to natural hot springs. Your private driver, your schedule, your unforgettable journey.',
+        'hero-cta': 'Request your personalized itinerary',
+        
+        // About
+        'about-title': 'Experience Tuscany beyond the ordinary',
+        'about-text': 'We create tailor-made itineraries that showcase the incredible diversity of Tuscan landscapes and experiences, adapting to your desires and interests.',
+        'about-pill-1': 'Departure anywhere (cities, airports, even outside the region)',
+        'about-pill-2': 'Stops and experiences of your choice',
+        'about-pill-3': 'Customized duration and pace',
+        'about-pill-4': 'Professional multilingual NCC drivers',
+        
+        // Experiences
+        'exp-title': 'Experience Examples',
+        'exp-art-title': '🏛️ Art and Culture',
+        'exp-art-text': 'Renaissance, medieval architecture and artistic heritage. Tailor-made itineraries according to your interests.',
+        'exp-wine-title': '🍷 Wine and Gastronomy',
+        'exp-wine-text': 'From Chianti to Montalcino, to hidden small producers. Tastings and authentic flavors.',
+        'exp-active-title': '🌊 Active Escape',
+        'exp-active-text': 'Garfagnana, Apuan Alps, Versilia, Etruscan Coast: sea, mountain and hill adventures.',
+        'exp-spa-title': '♨️ Thermal Wellness',
+        'exp-spa-text': 'Bagno Vignoni and other thermal gems for tailor-made relaxation.',
+        'exp-coast-title': '🏖️ Coastal Experiences',
+        'exp-coast-text': 'Versilia and beyond: you choose the coastal location you want to explore.',
+        'exp-classic-title': '🏰 Classic Tuscany (2-3 days)',
+        'exp-classic-text': 'Val d\'Orcia, Siena, Pienza, Montalcino or the villages you dream of visiting.',
+        'exp-cta': 'Tell us about your interests',
+        
+        // Seasons
+        'seasons-title': 'Experience Tuscany all year round',
+        'season-spring': '🌸 Spring',
+        'season-spring-text': 'Blooming landscapes and mild climate everywhere.',
+        'season-summer': '☀️ Summer',
+        'season-summer-text': 'Coastal escapes and outdoor activities everywhere.',
+        'season-autumn': '🍇 Autumn',
+        'season-autumn-text': 'Harvests and festivals among hills and villages.',
+        'season-winter': '🎭 Winter',
+        'season-winter-text': 'Viareggio Carnival and thermal wellness.',
+        'gallery-btn': 'Gallery',
+        
+        // Gallery
+        'gallery-title': 'Gallery',
+        'gallery-subtitle': 'Click to enlarge. On mobile scroll down: images are arranged vertically.',
+        'gallery-borghi': 'Medieval villages',
+        'gallery-chianti': 'Chianti Hills',
+        'gallery-terme': 'Scansano Terme',
+        'gallery-forte': 'Forte dei Marmi',
+        'gallery-pietrasanta': 'Pietrasanta',
+        'gallery-parco': 'Orecchiella Park',
+        'gallery-siena': 'Siena',
+        'gallery-gimignano': 'San Gimignano',
+        
+        // Why Us
+        'why-title': 'Why choose Tuscany Driver Experience',
+        'why-custom-title': 'Completely customized',
+        'why-custom-text': 'Every itinerary is born from your specific interests.',
+        'why-infinite-title': 'Infinite possibilities',
+        'why-infinite-text': 'Any Tuscan destination can be included.',
+        'why-drivers-title': 'Professional NCC drivers',
+        'why-drivers-text': 'Licensed, experienced, English-speaking.',
+        'why-flexible-title': 'Flexible departures',
+        'why-flexible-text': 'From any location in Tuscany or outside the region.',
+        'why-authentic-title': 'Authentic experiences',
+        'why-authentic-text': 'From the most famous to the most hidden Tuscany.',
+        'why-comfort-title': 'Comfortable travel',
+        'why-comfort-text': 'Premium vehicles, max 8 hours driving per day.',
+        
+        // How it works
+        'how-title': 'Simple. Personal. Unforgettable.',
+        'how-step1-title': '1) Tell us your dreams',
+        'how-step1-text': 'Interests, duration and starting point.',
+        'how-step2-title': '2) Receive your itinerary',
+        'how-step2-text': 'We design your perfect experience.',
+        'how-step3-title': '3) Travel in style',
+        'how-step3-text': 'The driver takes care of everything, you enjoy the journey.',
+        'how-step4-title': '4) Create memories',
+        'how-step4-text': 'Tuscany as you\'ve always imagined it.',
+        'how-cta': 'Start now: request your itinerary',
+        
+        // Testimonials
+        'testimonials-title': 'What Our Guests Say',
+        'testimonial1-text': 'Unforgettable experience! Our driver Luca took us through the Chianti hills with unparalleled local knowledge. Every stop was perfect, from hidden wineries to breathtaking views.',
+        'testimonial1-author': '— Marco and Giulia, Milan',
+        'testimonial2-text': 'We completely customized our 3-day tour. Michela organized everything perfectly: from Saturnia hot springs to medieval villages. Impeccable service and great flexibility.',
+        'testimonial2-author': '— Sarah Thompson, USA',
+        'testimonial3-text': 'Our honeymoon in Tuscany was magical thanks to Tuscany Driver Experience. Every detail was taken care of, from airport welcome to final goodbye. Highly recommended!',
+        'testimonial3-author': '— Pierre and Marie, France',
+        
+        // Contact
+        'contact-title': 'Ready for your Tuscan adventure?',
+        'contact-subtitle': 'Receive a completely personalized itinerary proposal.',
+        'contact-cta': 'Request your itinerary',
+        'contact-or': 'Or contact us:',
+        'contact-email': 'Email:',
+        'contact-phone': 'Phone/WhatsApp:',
+        'contact-website': 'Website:',
+        
+        // Footer
+        'footer-tagline': 'Your gateway to authentic Tuscany',
+        'footer-service': 'Licensed NCC Service',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Terms of Service'
+      }
+    };
+
+    // Function to set language
+    function setLanguage(lang) {
+      // Update HTML lang attribute
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
+      
+      // Update language buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      
+      // Update page title and meta description
+      document.title = translations[lang]['page-title'];
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = translations[lang]['page-description'];
+      
+      // Update all translatable elements
+      updateTranslations(lang);
+      
+      // Save preference
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    // Function to update all translations
+    function updateTranslations(lang) {
+      const t = translations[lang];
+      
+      // Hero section
+      document.querySelector('.badge').textContent = t['hero-badge'];
+      document.querySelector('.hero-inner h1').textContent = t['hero-title'];
+      document.querySelector('.hero-inner .sub').textContent = t['hero-subtitle'];
+      document.querySelector('.hero-inner .cta').textContent = t['hero-cta'];
+      document.querySelector('.hero-inner .cta').href = t['form-url'];
+      
+      // About section
+      document.querySelector('.section:nth-of-type(1) h2').textContent = t['about-title'];
+      document.querySelector('.section:nth-of-type(1) p').textContent = t['about-text'];
+      const aboutPills = document.querySelectorAll('.section:nth-of-type(1) .pill');
+      aboutPills[0].textContent = t['about-pill-1'];
+      aboutPills[1].textContent = t['about-pill-2'];
+      aboutPills[2].textContent = t['about-pill-3'];
+      aboutPills[3].textContent = t['about-pill-4'];
+      
+      // Experiences section
+      document.querySelector('#esperienze h2').textContent = t['exp-title'];
+      const expCards = document.querySelectorAll('#esperienze .card');
+      expCards[0].querySelector('h3').innerHTML = t['exp-art-title'];
+      expCards[0].querySelector('p').textContent = t['exp-art-text'];
+      expCards[1].querySelector('h3').innerHTML = t['exp-wine-title'];
+      expCards[1].querySelector('p').textContent = t['exp-wine-text'];
+      expCards[2].querySelector('h3').innerHTML = t['exp-active-title'];
+      expCards[2].querySelector('p').textContent = t['exp-active-text'];
+      expCards[3].querySelector('h3').innerHTML = t['exp-spa-title'];
+      expCards[3].querySelector('p').textContent = t['exp-spa-text'];
+      expCards[4].querySelector('h3').innerHTML = t['exp-coast-title'];
+      expCards[4].querySelector('p').textContent = t['exp-coast-text'];
+      expCards[5].querySelector('h3').innerHTML = t['exp-classic-title'];
+      expCards[5].querySelector('p').textContent = t['exp-classic-text'];
+      document.querySelector('#esperienze .btn').textContent = t['exp-cta'];
+      document.querySelector('#esperienze .btn').href = t['form-url'];
+      
+      // Seasons section
+      document.querySelector('#stagioni h2').textContent = t['seasons-title'];
+      const seasonCards = document.querySelectorAll('#stagioni .card');
+      seasonCards[0].querySelector('strong').innerHTML = t['season-spring'];
+      seasonCards[0].querySelector('p').textContent = t['season-spring-text'];
+      seasonCards[1].querySelector('strong').innerHTML = t['season-summer'];
+      seasonCards[1].querySelector('p').textContent = t['season-summer-text'];
+      seasonCards[2].querySelector('strong').innerHTML = t['season-autumn'];
+      seasonCards[2].querySelector('p').textContent = t['season-autumn-text'];
+      seasonCards[3].querySelector('strong').innerHTML = t['season-winter'];
+      seasonCards[3].querySelector('p').textContent = t['season-winter-text'];
+      document.querySelector('#stagioni .btn').textContent = t['gallery-btn'];
+      
+      // Gallery section
+      document.querySelector('#galleria h2').textContent = t['gallery-title'];
+      document.querySelector('#galleria .muted').textContent = t['gallery-subtitle'];
+      const galleryTitles = document.querySelectorAll('#galleria h3');
+      galleryTitles[0].textContent = t['gallery-borghi'];
+      galleryTitles[1].textContent = t['gallery-chianti'];
+      galleryTitles[2].textContent = t['gallery-terme'];
+      galleryTitles[3].textContent = t['gallery-forte'];
+      galleryTitles[4].textContent = t['gallery-pietrasanta'];
+      galleryTitles[5].textContent = t['gallery-parco'];
+      galleryTitles[6].textContent = t['gallery-siena'];
+      galleryTitles[7].textContent = t['gallery-gimignano'];
+      
+      // Why Us section
+      document.querySelector('#perche h2').textContent = t['why-title'];
+      const whyCards = document.querySelectorAll('#perche .card');
+      whyCards[0].querySelector('h3').textContent = t['why-custom-title'];
+      whyCards[0].querySelector('p').textContent = t['why-custom-text'];
+      whyCards[1].querySelector('h3').textContent = t['why-infinite-title'];
+      whyCards[1].querySelector('p').textContent = t['why-infinite-text'];
+      whyCards[2].querySelector('h3').textContent = t['why-drivers-title'];
+      whyCards[2].querySelector('p').textContent = t['why-drivers-text'];
+      whyCards[3].querySelector('h3').textContent = t['why-flexible-title'];
+      whyCards[3].querySelector('p').textContent = t['why-flexible-text'];
+      whyCards[4].querySelector('h3').textContent = t['why-authentic-title'];
+      whyCards[4].querySelector('p').textContent = t['why-authentic-text'];
+      whyCards[5].querySelector('h3').textContent = t['why-comfort-title'];
+      whyCards[5].querySelector('p').textContent = t['why-comfort-text'];
+      
+      // How it works section
+      const howSection = document.querySelector('.section.alt h2[data-translate="how-title"]').closest('.section');
+      howSection.querySelector('h2').textContent = t['how-title'];
+      const howSteps = howSection.querySelectorAll('.how-steps .card');
+      howSteps[0].querySelector('strong').textContent = t['how-step1-title'];
+      howSteps[0].querySelector('p').textContent = t['how-step1-text'];
+      howSteps[1].querySelector('strong').textContent = t['how-step2-title'];
+      howSteps[1].querySelector('p').textContent = t['how-step2-text'];
+      howSteps[2].querySelector('strong').textContent = t['how-step3-title'];
+      howSteps[2].querySelector('p').textContent = t['how-step3-text'];
+      howSteps[3].querySelector('strong').textContent = t['how-step4-title'];
+      howSteps[3].querySelector('p').textContent = t['how-step4-text'];
+      howSection.querySelector('.btn').textContent = t['how-cta'];
+      howSection.querySelector('.btn').href = t['form-url'];
+      
+      // Testimonials section
+      const testimonialsSection = document.querySelector('h2[data-translate="testimonials-title"]').closest('.section');
+      testimonialsSection.querySelector('h2').textContent = t['testimonials-title'];
+      const testimonials = testimonialsSection.querySelectorAll('.testimonial-card');
+      testimonials[0].querySelector('.testimonial-text').textContent = t['testimonial1-text'];
+      testimonials[0].querySelector('.testimonial-author').textContent = t['testimonial1-author'];
+      testimonials[1].querySelector('.testimonial-text').textContent = t['testimonial2-text'];
+      testimonials[1].querySelector('.testimonial-author').textContent = t['testimonial2-author'];
+      testimonials[2].querySelector('.testimonial-text').textContent = t['testimonial3-text'];
+      testimonials[2].querySelector('.testimonial-author').textContent = t['testimonial3-author'];
+      
+      // Contact section
+      const contactSection = document.querySelector('.section.alt:last-of-type');
+      contactSection.querySelector('h2').textContent = t['contact-title'];
+      contactSection.querySelector('p').textContent = t['contact-subtitle'];
+      contactSection.querySelector('.btn').textContent = t['contact-cta'];
+      contactSection.querySelector('.btn').href = t['form-url'];
+      contactSection.querySelector('.muted').textContent = t['contact-or'];
+      const contactInfo = contactSection.querySelectorAll('span');
+      contactInfo[contactInfo.length - 3].innerHTML = t['contact-email'] + ' <a href="mailto:info@tuscanydriverexperience.com">info@tuscanydriverexperience.com</a>';
+      contactInfo[contactInfo.length - 2].innerHTML = t['contact-phone'] + ' <a href="https://wa.me/393892169474" target="_blank" rel="noopener">+39 389 216 9474 (Luca)</a> • <a href="https://wa.me/393445815647" target="_blank" rel="noopener">+39 344 581 5647 (Michela)</a>';
+      contactInfo[contactInfo.length - 1].innerHTML = t['contact-website'] + ' <a href="https://www.tuscanydriverexperience.com" target="_blank" rel="noopener">www.tuscanydriverexperience.com</a>';
+      
+      // Footer
+      const footer = document.querySelector('footer');
+      footer.querySelector('strong').textContent = 'Tuscany Driver Experience';
+      footer.querySelector('div').innerHTML = '<strong>Tuscany Driver Experience</strong> • ' + t['footer-tagline'];
+      const footerText = footer.innerHTML;
+      const yearSpan = '<span id="year"></span>';
+      footer.innerHTML = footerText.replace(
+        /© <span id="year"><\/span> Tuscany Driver Experience - .+? • /,
+        `© ${yearSpan} Tuscany Driver Experience - ${t['footer-service']} • `
+      );
+      footer.innerHTML = footer.innerHTML.replace('Privacy Policy', t['footer-privacy']);
+      footer.innerHTML = footer.innerHTML.replace('Termini di Servizio', t['footer-terms']);
+      
+      // Re-set the year after updating footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for saved language preference or use browser language
+      const savedLang = localStorage.getItem('preferredLanguage');
+      const browserLang = navigator.language.toLowerCase().startsWith('it') ? 'it' : 'en';
+      const initialLang = savedLang || browserLang;
+      
+      // Set initial language
+      setLanguage(initialLang);
+    });
+  </script>
+</body>
+</html>
