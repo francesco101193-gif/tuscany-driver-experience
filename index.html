@@ -553,16 +553,16 @@
   <!-- Script: popola le gallerie con immagini locali -->
   <script>
     (function () {
-      // Configurazione immagini per ogni galleria
+      // Configurazione immagini per ogni galleria - usa i nomi esatti delle tue immagini
       const IMAGE_CONFIG = {
-        'grid-siena': ['sie','siee','sieee','sieeee'],
-        'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
         'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
         'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
         'grid-scansano-terme': ['sc','scc','sccc','scccc'],
         'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
         'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
-        'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
+        'grid-parco-orecchiella': ['or','orr','orrr','orrrr'],
+        'grid-siena': ['sie','siee','sieee','sieeee'],
+        'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm']
       };
 
       function renderGrid(gridId, items) {
@@ -578,10 +578,11 @@
         Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
           const bases = IMAGE_CONFIG[gridId];
           const items = bases.map(function (base) {
-            // Usa _sm per le miniature e versione normale per full size
+            // Usa direttamente i nomi delle immagini senza _sm
+            // Se hai versioni thumbnail, puoi aggiungere _sm al nome
             return { 
               full: 'assets/img/' + base + '.jpg', 
-              thumb: 'assets/img/' + base + '_sm.jpg'
+              thumb: 'assets/img/' + base + '.jpg'  // Usa la stessa immagine per ora
             };
           });
           renderGrid(gridId, items);
