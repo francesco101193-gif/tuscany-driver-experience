@@ -9,23 +9,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f0e8;        /* Beige chiaro per sfondo principale */
-      --text: #1a1a1a;      /* Nero per testi principali */
-      --muted: #4a4a4a;     /* Grigio scuro per testi secondari */
-      --accent: #d4af37;    /* Oro - manteniamo per coerenza */
-      --card: #fff9f0;      /* Beige più chiaro per cards */
-      --line: #d4c4b0;      /* Beige scuro per bordi */
+      --bg: #f5f0e8;
+      --text: #1a1a1a;
+      --muted: #4a4a4a;
+      --accent: #d4af37;
+      --card: #fff9f0;
+      --line: #d4c4b0;
       --maxw: 1100px;
     }
 
     * { box-sizing: border-box; }
 
-    body { 
-      margin: 0; 
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
-      line-height: 1.6; 
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -33,27 +33,27 @@
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
     .btn, .cta {
-      display: inline-block; 
-      background: var(--accent); 
-      color: #1a1a1a; 
+      display: inline-block;
+      background: var(--accent);
+      color: #1a1a1a;
       font-weight: 700;
-      padding: 14px 22px; 
-      border-radius: 10px; 
+      padding: 14px 22px;
+      border-radius: 10px;
       box-shadow: 0 8px 20px rgba(212,175,55,.25);
       transition: transform .08s ease, box-shadow .2s ease;
     }
-    .btn:hover, .cta:hover { 
-      transform: translateY(-1px); 
-      box-shadow: 0 12px 26px rgba(212,175,55,.35); 
+    .btn:hover, .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(212,175,55,.35);
     }
 
     .grid { display: grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
 
-    .card { 
-      background: var(--card); 
-      border: 1px solid var(--line); 
-      border-radius: 14px; 
-      padding: 18px; 
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
     }
 
     h1,h2,h3 { line-height: 1.2; margin: 0 0 10px; color: var(--text); }
@@ -63,110 +63,101 @@
     p { margin: 0 0 12px; }
     .muted { color: var(--muted); }
 
-    /* HERO - non tocchiamo, manteniamo come richiesto */
     header.hero {
-      position: relative; 
-      min-height: 92vh; 
-      display: grid; 
-      place-items: center; 
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
       text-align: center;
-      background: #000 url("images/hero.png?v=8") center/cover no-repeat !important;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("assets/img/hero.jpg") center/cover no-repeat;
     }
-    header.hero::after { content: ""; position: absolute; inset: 0; background: none; }
 
-    .hero-inner { position: relative; z-index: 1; padding: 40px 0; }
-    .hero-inner, .hero-inner h1, .hero-inner .sub { color: #000 !important; text-shadow: none; }
+    .hero-inner { position: relative; z-index: 1; padding: 40px 0; color: white; }
+    .hero-inner h1, .hero-inner .sub { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
     .badge {
-      display: inline-block; 
+      display: inline-block;
       padding: 6px 10px;
-      border: 1px solid rgba(0,0,0,.25); 
+      border: 1px solid rgba(255,255,255,.5);
       border-radius: 999px;
-      color: #000; 
-      font-size: 14px; 
+      color: white;
+      font-size: 14px;
       margin-bottom: 14px;
-      background: rgba(255,255,255,.65);
+      background: rgba(255,255,255,.1);
       backdrop-filter: blur(6px);
     }
 
     .sub { font-size: clamp(16px, 2.6vw, 20px); max-width: 860px; margin: 0 auto 24px; }
 
     .section { padding: 56px 0; }
-
-    /* Sezioni alternate con beige leggermente più scuro */
-    .section.alt { 
-      background: #e8e0d5; 
-    }
+    .section.alt { background: #e8e0d5; }
 
     .cols-2 { display: grid; gap: 20px; grid-template-columns: 1fr; }
     @media (min-width: 880px) { .cols-2 { grid-template-columns: 1.1fr .9fr; } }
 
     .list { display: grid; gap: 10px; }
-    .pill { 
-      display: inline-block; 
-      border: 1px solid var(--line); 
-      border-radius: 999px; 
-      padding: 6px 10px; 
-      color: var(--muted); 
-      font-size: 14px; 
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    footer { 
-      text-align: center; 
-      color: var(--muted); 
-      font-size: 14px; 
-      padding: 28px 12px 40px; 
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 28px 12px 40px;
       background: #e8e0d5;
     }
 
-    /* Mini-gallerie (sezioni sopra) */
     .thumb-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
     @media (max-width: 980px) { .thumb-row { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) { .thumb-row { grid-template-columns: 1fr; } }
-    .thumb { 
-      position: relative; 
-      overflow: hidden; 
-      border-radius: 12px; 
-      border: 1px solid var(--line); 
-      background: var(--card); 
+    .thumb {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--card);
     }
-    .thumb img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      aspect-ratio: 4/3; 
-      transition: transform .25s ease; 
-      display: block; 
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      transition: transform .25s ease;
+      display: block;
     }
     .thumb:hover img { transform: scale(1.04); }
 
-    /* Sezione Galleria per città */
     .gallery-section { margin-top: 26px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     @media (max-width: 1100px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 780px) { .gallery-grid { grid-template-columns: 1fr; } }
-    .gallery-item { 
-      position: relative; 
-      overflow: hidden; 
-      border-radius: 12px; 
-      border: 1px solid var(--line); 
-      background: var(--card); 
-      cursor: zoom-in; 
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      cursor: zoom-in;
     }
-    .gallery-item img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      aspect-ratio: 4 / 3; 
-      transition: transform .25s ease; 
-      display: block; 
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+      transition: transform .25s ease;
+      display: block;
     }
     .gallery-item:hover img { transform: scale(1.04); }
     @media (max-width: 780px) {
       .gallery-item img { aspect-ratio: 3 / 4; object-position: center; }
     }
 
-    /* Sezione Testimonial */
     .testimonial-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -206,7 +197,6 @@
       margin-bottom: 10px;
     }
 
-    /* Lightbox semplice per ingrandimento immagini */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -224,7 +214,6 @@
       box-shadow: 0 10px 40px rgba(0,0,0,.6);
     }
 
-    /* Language Switcher */
     .lang-switcher {
       position: fixed;
       top: 20px;
@@ -281,7 +270,7 @@
   </div>
 
   <!-- HERO -->
-  <header class="hero" style="background: #000 url('images/hero.png?v=8') center/cover no-repeat;">
+  <header class="hero">
     <div class="container hero-inner">
       <span class="badge">Autista privato • Tour su misura</span>
       <h1>Tuscany Driver Experience</h1>
@@ -304,7 +293,7 @@
         </div>
       </div>
       <div class="card">
-        <img src="images/about.jpg?v=2" alt="Paesaggi toscani" />
+        <img src="assets/img/about.jpg" alt="Paesaggi toscani" />
       </div>
     </div>
   </section>
@@ -323,9 +312,9 @@
       </div>
 
       <div class="thumb-row" aria-label="Galleria esperienze">
-        <div class="thumb"><img src="images/exp1.jpg?v=2" alt="Esperienza 1"></div>
-        <div class="thumb"><img src="images/exp2.jpg?v=2" alt="Esperienza 2"></div>
-        <div class="thumb"><img src="images/exp3.jpg?v=2" alt="Esperienza 3"></div>
+        <div class="thumb"><img src="assets/img/esperienze.jpg" alt="Esperienza 1"></div>
+        <div class="thumb"><img src="assets/img/exp2.jpg" alt="Esperienza 2"></div>
+        <div class="thumb"><img src="assets/img/exp3.jpg" alt="Esperienza 3"></div>
       </div>
 
       <div style="text-align:center; margin-top:18px;">
@@ -346,9 +335,9 @@
       </div>
 
       <div class="thumb-row" aria-label="Galleria stagioni">
-        <div class="thumb"><img src="images/seasons1.jpg?v=2" alt="Stagioni 1"></div>
-        <div class="thumb"><img src="images/seasons2.jpg?v=2" alt="Stagioni 2"></div>
-        <div class="thumb"><img src="images/seasons3.jpg?v=2" alt="Stagioni 3"></div>
+        <div class="thumb"><img src="assets/img/seasons1.jpg" alt="Stagioni 1"></div>
+        <div class="thumb"><img src="assets/img/seasons2.jpg" alt="Stagioni 2"></div>
+        <div class="thumb"><img src="assets/img/seasons3.jpg" alt="Stagioni 3"></div>
       </div>
 
       <div style="text-align:center; margin-top:22px;">
@@ -366,85 +355,88 @@
       <!-- Borghi medievali -->
       <div class="gallery-section" aria-label="Borghi medievali">
         <h3>Borghi medievali</h3>
-        <div class="gallery-grid" id="grid-borghi-medievali">
-          <div class="gallery-item"><img src="images/borghi-medievali1_sm.jpg" data-full="images/borghi-medievali1.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="images/borghi-medievali2_sm.jpg" data-full="images/borghi-medievali2.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="images/borghi-medievali3_sm.jpg" data-full="images/borghi-medievali3.jpg" alt="Borghi medievali"></div>
-          <div class="gallery-item"><img src="images/borghi-medievali4_sm.jpg" data-full="images/borghi-medievali4.jpg" alt="Borghi medievali"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/bor.jpg" alt="Borghi medievali 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/borr.jpg" alt="Borghi medievali 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/borrr.jpg" alt="Borghi medievali 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/borrrr.jpg" alt="Borghi medievali 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- Colline del Chianti -->
       <div class="gallery-section" aria-label="Colline del Chianti">
         <h3>Colline del Chianti</h3>
-        <div class="gallery-grid" id="grid-colline-chianti">
-          <div class="gallery-item"><img src="images/colline-chianti1_sm.jpg" data-full="images/colline-chianti1.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="images/colline-chianti2_sm.jpg" data-full="images/colline-chianti2.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="images/colline-chianti3_sm.jpg" data-full="images/colline-chianti3.jpg" alt="Colline del Chianti"></div>
-          <div class="gallery-item"><img src="images/colline-chianti4_sm.jpg" data-full="images/colline-chianti4.jpg" alt="Colline del Chianti"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/chianti.jpg" alt="Chianti 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/chiantii.jpg" alt="Chianti 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/chiantiii.jpg" alt="Chianti 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/chiantiiii.jpg" alt="Chianti 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- Scansano Terme -->
       <div class="gallery-section" aria-label="Scansano Terme">
         <h3>Scansano Terme</h3>
-        <div class="gallery-grid" id="grid-scansano-terme">
-          <div class="gallery-item"><img src="images/scansano-terme1_sm.jpg" data-full="images/scansano-terme1.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="images/scansano-terme2_sm.jpg" data-full="images/scansano-terme2.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="images/scansano-terme3_sm.jpg" data-full="images/scansano-terme3.jpg" alt="Scansano Terme"></div>
-          <div class="gallery-item"><img src="images/scansano-terme4_sm.jpg" data-full="images/scansano-terme4.jpg" alt="Scansano Terme"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/sc.jpg" alt="Scansano 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/scc.jpg" alt="Scansano 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/sccc.jpg" alt="Scansano 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/scccc.jpg" alt="Scansano 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- Forte dei Marmi -->
       <div class="gallery-section" aria-label="Forte dei Marmi">
         <h3>Forte dei Marmi</h3>
-        <div class="gallery-grid" id="grid-forte-dei-marmi">
-          <div class="gallery-item"><img src="images/forte-dei-marmi1_sm.jpg" data-full="images/forte-dei-marmi1.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="images/forte-dei-marmi2_sm.jpg" data-full="images/forte-dei-marmi2.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="images/forte-dei-marmi3_sm.jpg" data-full="images/forte-dei-marmi3.jpg" alt="Forte dei Marmi"></div>
-          <div class="gallery-item"><img src="images/forte-dei-marmi4_sm.jpg" data-full="images/forte-dei-marmi4.jpg" alt="Forte dei Marmi"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/marmi.jpg" alt="Forte dei Marmi 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/marmii.jpg" alt="Forte dei Marmi 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/marmiii.jpg" alt="Forte dei Marmi 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/marmiiii.jpg" alt="Forte dei Marmi 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- Pietrasanta -->
       <div class="gallery-section" aria-label="Pietrasanta">
         <h3>Pietrasanta</h3>
-        <div class="gallery-grid" id="grid-pietrasanta">
-          <div class="gallery-item"><img src="images/pietrasanta1_sm.jpg" data-full="images/pietrasanta1.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="images/pietrasanta2_sm.jpg" data-full="images/pietrasanta2.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="images/pietrasanta3_sm.jpg" data-full="images/pietrasanta3.jpg" alt="Pietrasanta"></div>
-          <div class="gallery-item"><img src="images/pietrasanta4_sm.jpg" data-full="images/pietrasanta4.jpg" alt="Pietrasanta"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/santap.jpg" alt="Pietrasanta 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/santapp.jpg" alt="Pietrasanta 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/santappp.jpg" alt="Pietrasanta 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/santapppp.jpg" alt="Pietrasanta 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- Parco dell'Orecchiella -->
       <div class="gallery-section" aria-label="Parco dell'Orecchiella">
         <h3>Parco dell'Orecchiella</h3>
-        <div class="gallery-grid" id="grid-parco-orecchiella">
-          <div class="gallery-item"><img src="images/parco-orecchiella1_sm.jpg" data-full="images/parco-orecchiella1.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="images/parco-orecchiella2_sm.jpg" data-full="images/parco-orecchiella2.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="images/parco-orecchiella3_sm.jpg" data-full="images/parco-orecchiella3.jpg" alt="Parco dell'Orecchiella"></div>
-          <div class="gallery-item"><img src="images/parco-orecchiella4_sm.jpg" data-full="images/parco-orecchiella4.jpg" alt="Parco dell'Orecchiella"></div>
-        </div>
-      </div>
-
-      <!-- Siena (auto) -->
-      <div class="gallery-section" aria-label="Siena">
-        <h3>Siena</h3>
-        <div class="gallery-grid" id="grid-siena">
-          <!-- Popolata via JS -->
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/or.jpg" alt="Orecchiella 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/orr.jpg" alt="Orecchiella 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/orrr.jpg" alt="Orecchiella 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/orrrr.jpg" alt="Orecchiella 4" loading="lazy"></div>
         </div>
       </div>
 
       <!-- San Gimignano -->
       <div class="gallery-section" aria-label="San Gimignano">
         <h3>San Gimignano</h3>
-        <div class="gallery-grid" id="grid-san-gimignano">
-          <div class="gallery-item"><img src="images/san-gimignano1_sm.jpg" data-full="images/san-gimignano1.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="images/san-gimignano2_sm.jpg" data-full="images/san-gimignano2.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="images/san-gimignano3_sm.jpg" data-full="images/san-gimignano3.jpg" alt="San Gimignano"></div>
-          <div class="gallery-item"><img src="images/san-gimignano4_sm.jpg" data-full="images/san-gimignano4.jpg" alt="San Gimignano"></div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/gim.jpg" alt="San Gimignano 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/gimm.jpg" alt="San Gimignano 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/gimmm.jpg" alt="San Gimignano 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/gimmmm.jpg" alt="San Gimignano 4" loading="lazy"></div>
+        </div>
+      </div>
+
+      <!-- Siena -->
+      <div class="gallery-section" aria-label="Siena">
+        <h3>Siena</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/img/sie.jpg" alt="Siena 1" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/siee.jpg" alt="Siena 2" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/sieee.jpg" alt="Siena 3" loading="lazy"></div>
+          <div class="gallery-item"><img src="assets/img/sieeee.jpg" alt="Siena 4" loading="lazy"></div>
         </div>
       </div>
 
@@ -469,15 +461,15 @@
   <!-- HOW IT WORKS -->
   <section class="section alt">
     <div class="container">
-      <h2 data-translate="how-title">Semplice. Personale. Indimenticabile.</h2>
+      <h2>Semplice. Personale. Indimenticabile.</h2>
       <div class="how-steps" style="margin-top:8px;">
-        <div class="card"><strong data-translate="how-step1-title">1) Raccontaci i tuoi sogni</strong><p class="muted" data-translate="how-step1-text">Interessi, durata e punto di partenza.</p></div>
-        <div class="card"><strong data-translate="how-step2-title">2) Ricevi il tuo itinerario</strong><p class="muted" data-translate="how-step2-text">Progettiamo la tua esperienza perfetta.</p></div>
-        <div class="card"><strong data-translate="how-step3-title">3) Viaggia con stile</strong><p class="muted" data-translate="how-step3-text">L'autista si occupa di tutto, tu ti godi il viaggio.</p></div>
-        <div class="card"><strong data-translate="how-step4-title">4) Crea ricordi</strong><p class="muted" data-translate="how-step4-text">La Toscana come l'hai sempre immaginata.</p></div>
+        <div class="card"><strong>1) Raccontaci i tuoi sogni</strong><p class="muted">Interessi, durata e punto di partenza.</p></div>
+        <div class="card"><strong>2) Ricevi il tuo itinerario</strong><p class="muted">Progettiamo la tua esperienza perfetta.</p></div>
+        <div class="card"><strong>3) Viaggia con stile</strong><p class="muted">L'autista si occupa di tutto, tu ti godi il viaggio.</p></div>
+        <div class="card"><strong>4) Crea ricordi</strong><p class="muted">La Toscana come l'hai sempre immaginata.</p></div>
       </div>
       <div style="text-align:center; margin-top:18px;">
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener" data-translate="how-cta">Inizia ora: richiedi il tuo itinerario</a>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header" target="_blank" rel="noopener">Inizia ora: richiedi il tuo itinerario</a>
       </div>
     </div>
   </section>
@@ -485,30 +477,30 @@
   <!-- TESTIMONIALS -->
   <section class="section">
     <div class="container">
-      <h2 data-translate="testimonials-title">Cosa Dicono i Nostri Ospiti</h2>
+      <h2>Cosa Dicono i Nostri Ospiti</h2>
       <div class="testimonial-grid">
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
-          <p class="testimonial-text" data-translate="testimonial1-text">
+          <p class="testimonial-text">
             "Esperienza indimenticabile! Il nostro autista Luca ci ha portato attraverso le colline del Chianti con una conoscenza locale impareggiabile. Ogni sosta era perfetta, dalle cantine nascoste ai panorami mozzafiato."
           </p>
-          <div class="testimonial-author" data-translate="testimonial1-author">— Marco e Giulia, Milano</div>
+          <div class="testimonial-author">— Marco e Giulia, Milano</div>
         </div>
-    
+
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
-          <p class="testimonial-text" data-translate="testimonial2-text">
+          <p class="testimonial-text">
             "Abbiamo personalizzato completamente il nostro tour di 3 giorni. Michela ha organizzato tutto perfettamente: dalle terme di Saturnia ai borghi medievali. Servizio impeccabile e grande flessibilità."
           </p>
-          <div class="testimonial-author" data-translate="testimonial2-author">— Sarah Thompson, USA</div>
+          <div class="testimonial-author">— Sarah Thompson, USA</div>
         </div>
-    
+
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
-          <p class="testimonial-text" data-translate="testimonial3-text">
+          <p class="testimonial-text">
             "La nostra luna di miele in Toscana è stata magica grazie a Tuscany Driver Experience. Ogni dettaglio era curato, dall'accoglienza all'aeroporto fino all'ultimo saluto. Consigliatissimo!"
           </p>
-          <div class="testimonial-author" data-translate="testimonial3-author">— Pierre e Marie, Francia</div>
+          <div class="testimonial-author">— Pierre e Marie, Francia</div>
         </div>
       </div>
     </div>
@@ -550,153 +542,46 @@
     <img alt="Anteprima immagine" />
   </div>
 
-  <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
   <script>
-    (function () {
-      // Mappa: id del grid -> array di basename dei file (senza estensione)
-      const IMAGE_CONFIG = {
-        'grid-siena': ['sie','siee','sieee','sieeee'],
-        'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
-        'grid-borghi-medievali': ['bor','borr','borrr','borrrr'],
-        'grid-colline-chianti': ['chianti','chiantii','chiantiii','chiantiiii'],
-        'grid-scansano-terme': ['sc','scc','sccc','scccc'],
-        'grid-forte-dei-marmi': ['marmi','marmii','marmiii','marmiiii'],
-        'grid-pietrasanta': ['santap','santapp','santappp','santapppp'],
-        'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
-      };
-
-      const DIRS = ['images', 'assets']; // cerchiamo prima qui - CAMBIATO DA assets/img a images
-      const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
-
-      function inferRepoFromLocation() {
-        const host = location.hostname;
-        if (!host.endsWith('github.io')) return null;
-        const owner = host.split('.')[0];
-        const parts = location.pathname.split('/').filter(Boolean);
-        const repo = parts.length ? parts[0] : owner + '.github.io';
-        return { owner, repo };
-      }
-
-      function escapeRegExp(s) {
-        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-
-      async function listRepoFiles() {
-        const inferred = inferRepoFromLocation();
-        if (!inferred) throw new Error('Non su GitHub Pages');
-        const headers = { 'Accept': 'application/vnd.github.v3+json' };
-        const all = [];
-        for (let i = 0; i < DIRS.length; i++) {
-          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIRS[i];
-          const res = await fetch(api, { headers });
-          if (!res.ok) continue;
-          const list = await res.json();
-          list.forEach(function (it) {
-            if (it.type === 'file' && EXT_RE.test(it.name)) all.push(it);
-          });
-        }
-        if (!all.length) throw new Error('Nessun file immagine trovato via API');
-        return all;
-      }
-
-      function findUrlsForBase(files, base) {
-        const b = escapeRegExp(base);
-        const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
-        const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
-
-        let full = null, thumb = null;
-        for (let i = 0; i < files.length; i++) {
-          const f = files[i];
-          if (!full && reFull.test(f.name)) full = f.download_url;
-          if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
-          if (full && thumb) break;
-        }
-        if (full) return { full: full, thumb: thumb || full };
-
-        // Fallback locale: assumo .jpg in images - CAMBIATO
-        const local = DIRS[0] + '/' + base + '.jpg';
-        return { full: local, thumb: local };
-      }
-
-      function renderGrid(gridId, items) {
-        const grid = document.getElementById(gridId);
-        if (!grid) return;
-        grid.innerHTML = items.map(function (it) {
-          return '<div class="gallery-item"><img src="' + it.thumb + '" data-full="' + it.full + '" alt="' + gridId.replace(/^grid-/, '').replace(/-/g, ' ') + '" loading="lazy" decoding="async"></div>';
-        }).join('');
-      }
-
-      async function populateAll() {
-        let files = null;
-        try {
-          files = await listRepoFiles();
-        } catch (e) {
-          // Non su GitHub Pages o API rate-limited: useremo i path locali
-        }
-
-        Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
-          const bases = IMAGE_CONFIG[gridId];
-          const items = bases.map(function (base) {
-            return files ? findUrlsForBase(files, base)
-                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
-          });
-          renderGrid(gridId, items);
-        });
-      }
-
-      // Lightbox
-      function simpleLightbox() {
-        const lb = document.getElementById('lightbox');
-        if (!lb) return;
-        const lbImg = lb.querySelector('img');
-
-        document.addEventListener('click', function (e) {
-          const img = e.target.closest('.gallery-item img');
-          if (img) {
-            lbImg.src = img.dataset.full || img.src;
-            lb.classList.add('show');
-            lb.setAttribute('aria-hidden', 'false');
-          }
-        });
-
-        lb.addEventListener('click', function () {
-          lb.classList.remove('show');
-          lb.setAttribute('aria-hidden', 'true');
-          lbImg.src = '';
-        });
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && lb.classList.contains('show')) {
-            lb.classList.remove('show');
-            lb.setAttribute('aria-hidden', 'true');
-            lbImg.src = '';
-          }
-        });
-      }
-
-      populateAll().then(simpleLightbox).catch(simpleLightbox);
-    })();
-  </script>
-
-  <script>
+    // Anno corrente nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Translation system
+    // Lightbox semplice
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+
+    document.addEventListener('click', function(e) {
+      const img = e.target.closest('.gallery-item img');
+      if (img) {
+        lbImg.src = img.src;
+        lb.classList.add('show');
+        lb.setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    lb.addEventListener('click', function() {
+      lb.classList.remove('show');
+      lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lb.classList.contains('show')) {
+        lb.classList.remove('show');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+      }
+    });
+
+    // Sistema di traduzione
     const translations = {
       it: {
-        // Form URL
-        'form-url': 'https://docs.google.com/forms/d/e/1FAIpQLSd7jfkcP_KpGxCEdTSuEl7ZTzEvoEl6RJ9j-4DJYJ78Rnac3w/viewform?usp=header',
-    
-        // Meta
-        'page-title': 'Tuscany Driver Experience - Tour Privati con Autista',
-        'page-description': 'Itinerari 100% personalizzati in Toscana con autista privato NCC. Arte e cultura, vino e gastronomia, mare e montagna, benessere termale e molto altro. Richiedi il tuo itinerario su misura.',
-    
         // Hero
         'hero-badge': 'Autista privato • Tour su misura',
         'hero-title': 'Tuscany Driver Experience',
         'hero-subtitle': 'Scopri la Toscana a modo tuo. Itinerari completamente personalizzati: dalle colline del Chianti alle coste incontaminate, dai borghi medievali alle terme naturali. Il tuo autista privato, i tuoi orari, il tuo viaggio indimenticabile.',
         'hero-cta': 'Richiedi il tuo itinerario personalizzato',
-    
+
         // About
         'about-title': 'Vivi la Toscana oltre l\'ordinario',
         'about-text': 'Creiamo itinerari su misura che mostrano l\'incredibile diversità dei paesaggi e delle esperienze toscane, adattandoci ai tuoi desideri e interessi.',
@@ -704,26 +589,134 @@
         'about-pill-2': 'Tappe ed esperienze a tua scelta',
         'about-pill-3': 'Durata e ritmi personalizzati',
         'about-pill-4': 'Autisti NCC professionali e multilingue',
-    
+
         // Experiences
         'exp-title': 'Esempi di Esperienze',
-        'exp-art-title': '🏛️ Arte e Cultura',
-        'exp-art-text': 'Rinascimento, architettura medievale e patrimonio artistico. Itinerari su misura secondo i tuoi interessi.',
-        'exp-wine-title': '🍷 Enogastronomia',
-        'exp-wine-text': 'Dal Chianti a Montalcino, fino ai piccoli produttori nascosti. Degustazioni e sapori autentici.',
-        'exp-active-title': '🌊 Active Escape',
-        'exp-active-text': 'Garfagnana, Alpi Apuane, Versilia, Costa degli Etruschi: avventure mare, montagna e collina.',
-        'exp-spa-title': '♨️ Benessere Termale',
-        'exp-spa-text': 'Bagno Vignoni e altre gemme termali per un relax su misura.',
-        'exp-coast-title': '🏖️ Esperienze Costiere',
-        'exp-coast-text': 'Versilia e oltre: scegli tu la località costiera che vuoi esplorare.',
-        'exp-classic-title': '🏰 Toscana Classica (2-3 giorni)',
-        'exp-classic-text': 'Val d\'Orcia, Siena, Pienza, Montalcino o i borghi che sogni di visitare.',
         'exp-cta': 'Parlaci dei tuoi interessi',
-    
+
         // Seasons
         'seasons-title': 'Vivi la Toscana tutto l\'anno',
-        'season-spring': '🌸 Primavera',
-        'season-spring-text': 'Paesaggi in fiore e clima mite in ogni angolo.',
-        'season-summer': '☀️ Estate',
-        'season-summer-text': 'Fughe costiere e
+        'gallery-btn': 'Galleria',
+
+        // Gallery
+        'gallery-title': 'Galleria',
+        'gallery-subtitle': 'Clicca per ingrandire. Su mobile scorri verso il basso: le immagini sono disposte in verticale.',
+
+        // Why Us
+        'why-title': 'Perché scegliere Tuscany Driver Experience',
+
+        // How it works
+        'how-title': 'Semplice. Personale. Indimenticabile.',
+        'how-step1': '1) Raccontaci i tuoi sogni',
+        'how-step1-text': 'Interessi, durata e punto di partenza.',
+        'how-step2': '2) Ricevi il tuo itinerario',
+        'how-step2-text': 'Progettiamo la tua esperienza perfetta.',
+        'how-step3': '3) Viaggia con stile',
+        'how-step3-text': 'L\'autista si occupa di tutto, tu ti godi il viaggio.',
+        'how-step4': '4) Crea ricordi',
+        'how-step4-text': 'La Toscana come l\'hai sempre immaginata.',
+        'how-cta': 'Inizia ora: richiedi il tuo itinerario',
+
+        // Testimonials
+        'testimonials-title': 'Cosa Dicono i Nostri Ospiti',
+
+        // Contact
+        'contact-title': 'Pronto per la tua avventura toscana?',
+        'contact-subtitle': 'Ricevi una proposta di itinerario completamente personalizzata.',
+        'contact-cta': 'Richiedi il tuo itinerario',
+        'contact-or': 'Oppure contattaci:',
+
+        // Footer
+        'footer-tagline': 'La tua porta d\'accesso alla Toscana autentica',
+        'footer-rights': 'Servizio NCC Autorizzato'
+      },
+      en: {
+        // Hero
+        'hero-badge': 'Private driver • Tailored tours',
+        'hero-title': 'Tuscany Driver Experience',
+        'hero-subtitle': 'Discover Tuscany your way. Completely customized itineraries: from Chianti hills to pristine coasts, from medieval villages to natural spas. Your private driver, your schedule, your unforgettable journey.',
+        'hero-cta': 'Request your personalized itinerary',
+
+        // About
+        'about-title': 'Experience Tuscany beyond the ordinary',
+        'about-text': 'We create tailor-made itineraries that showcase the incredible diversity of Tuscan landscapes and experiences, adapting to your desires and interests.',
+        'about-pill-1': 'Departure anywhere (cities, airports, even outside the region)',
+        'about-pill-2': 'Stops and experiences of your choice',
+        'about-pill-3': 'Customized duration and pace',
+        'about-pill-4': 'Professional multilingual NCC drivers',
+
+        // Experiences
+        'exp-title': 'Experience Examples',
+        'exp-cta': 'Tell us about your interests',
+
+        // Seasons
+        'seasons-title': 'Experience Tuscany all year round',
+        'gallery-btn': 'Gallery',
+
+        // Gallery
+        'gallery-title': 'Gallery',
+        'gallery-subtitle': 'Click to enlarge. On mobile scroll down: images are arranged vertically.',
+
+        // Why Us
+        'why-title': 'Why choose Tuscany Driver Experience',
+
+        // How it works
+        'how-title': 'Simple. Personal. Unforgettable.',
+        'how-step1': '1) Tell us your dreams',
+        'how-step1-text': 'Interests, duration and starting point.',
+        'how-step2': '2) Receive your itinerary',
+        'how-step2-text': 'We design your perfect experience.',
+        'how-step3': '3) Travel in style',
+        'how-step3-text': 'The driver takes care of everything, you enjoy the journey.',
+        'how-step4': '4) Create memories',
+        'how-step4-text': 'Tuscany as you\'ve always imagined it.',
+        'how-cta': 'Start now: request your itinerary',
+
+        // Testimonials
+        'testimonials-title': 'What Our Guests Say',
+
+        // Contact
+        'contact-title': 'Ready for your Tuscan adventure?',
+        'contact-subtitle': 'Receive a completely personalized itinerary proposal.',
+        'contact-cta': 'Request your itinerary',
+        'contact-or': 'Or contact us:',
+
+        // Footer
+        'footer-tagline': 'Your gateway to authentic Tuscany',
+        'footer-rights': 'Authorized NCC Service'
+      }
+    };
+
+    function setLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      
+      // Update language buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      // Update translatable elements
+      const trans = translations[lang];
+      if (!trans) return;
+
+      // Update texts with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        if (trans[key]) {
+          el.textContent = trans[key];
+        }
+      });
+
+      // Update page title
+      if (lang === 'en') {
+        document.title = 'Tuscany Driver Experience - Private Driver Tours';
+      } else {
+        document.title = 'Tuscany Driver Experience - Tour Privati con Autista';
+      }
+    }
+
+    // Initialize with Italian
+    setLanguage('it');
+  </script>
+</body>
+</html>
