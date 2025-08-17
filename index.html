@@ -550,10 +550,10 @@
     <img alt="Anteprima immagine" />
   </div>
 
-  <!-- Script: popola tutte le gallerie dal repo GitHub (con fallback locale) -->
+  <!-- Script: popola le gallerie con immagini locali -->
   <script>
     (function () {
-      // Mappa: id del grid -> array di basename dei file (senza estensione)
+      // Configurazione immagini per ogni galleria
       const IMAGE_CONFIG = {
         'grid-siena': ['sie','siee','sieee','sieeee'],
         'grid-san-gimignano': ['gim','gimm','gimmm','gimmmm'],
@@ -565,59 +565,6 @@
         'grid-parco-orecchiella': ['or','orr','orrr','orrrr']
       };
 
-      const DIRS = ['assets/img', 'assets']; // cerchiamo prima qui
-      const EXT_RE = /\.(jpe?g|png|webp|gif)$/i;
-
-      function inferRepoFromLocation() {
-        const host = location.hostname;
-        if (!host.endsWith('github.io')) return null;
-        const owner = host.split('.')[0];
-        const parts = location.pathname.split('/').filter(Boolean);
-        const repo = parts.length ? parts[0] : owner + '.github.io';
-        return { owner, repo };
-      }
-
-      function escapeRegExp(s) {
-        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-
-      async function listRepoFiles() {
-        const inferred = inferRepoFromLocation();
-        if (!inferred) throw new Error('Non su GitHub Pages');
-        const headers = { 'Accept': 'application/vnd.github.v3+json' };
-        const all = [];
-        for (let i = 0; i < DIRS.length; i++) {
-          const api = 'https://api.github.com/repos/' + inferred.owner + '/' + inferred.repo + '/contents/' + DIRS[i];
-          const res = await fetch(api, { headers });
-          if (!res.ok) continue;
-          const list = await res.json();
-          list.forEach(function (it) {
-            if (it.type === 'file' && EXT_RE.test(it.name)) all.push(it);
-          });
-        }
-        if (!all.length) throw new Error('Nessun file immagine trovato via API');
-        return all;
-      }
-
-      function findUrlsForBase(files, base) {
-        const b = escapeRegExp(base);
-        const reFull = new RegExp('^' + b + '\\.(?:jpe?g|png|webp|gif)$', 'i');
-        const reThumb = new RegExp('^' + b + '_sm\\.(?:jpe?g|png|webp|gif)$', 'i');
-
-        let full = null, thumb = null;
-        for (let i = 0; i < files.length; i++) {
-          const f = files[i];
-          if (!full && reFull.test(f.name)) full = f.download_url;
-          if (!thumb && reThumb.test(f.name)) thumb = f.download_url;
-          if (full && thumb) break;
-        }
-        if (full) return { full: full, thumb: thumb || full };
-
-        // Fallback locale: assumo .jpg in assets/img
-        const local = DIRS[0] + '/' + base + '.jpg';
-        return { full: local, thumb: local };
-      }
-
       function renderGrid(gridId, items) {
         const grid = document.getElementById(gridId);
         if (!grid) return;
@@ -626,25 +573,22 @@
         }).join('');
       }
 
-      async function populateAll() {
-        let files = null;
-        try {
-          files = await listRepoFiles();
-        } catch (e) {
-          // Non su GitHub Pages o API rate-limited: useremo i path locali
-        }
-
+      function populateAll() {
+        // Usa sempre percorsi locali per le immagini
         Object.keys(IMAGE_CONFIG).forEach(function (gridId) {
           const bases = IMAGE_CONFIG[gridId];
           const items = bases.map(function (base) {
-            return files ? findUrlsForBase(files, base)
-                         : { full: DIRS[0] + '/' + base + '.jpg', thumb: DIRS[0] + '/' + base + '.jpg' };
+            // Usa _sm per le miniature e versione normale per full size
+            return { 
+              full: 'assets/img/' + base + '.jpg', 
+              thumb: 'assets/img/' + base + '_sm.jpg'
+            };
           });
           renderGrid(gridId, items);
         });
       }
 
-      // Lightbox
+      // Lightbox per ingrandire le immagini
       function simpleLightbox() {
         const lb = document.getElementById('lightbox');
         if (!lb) return;
@@ -674,7 +618,9 @@
         });
       }
 
-      populateAll().then(simpleLightbox).catch(simpleLightbox);
+      // Inizializza gallerie e lightbox
+      populateAll();
+      simpleLightbox();
     })();
   </script>
 
