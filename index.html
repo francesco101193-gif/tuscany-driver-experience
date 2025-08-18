@@ -16,7 +16,14 @@
       --card: #16181f;
       --line: #242634;
       --maxw: 1100px;
+
+      /* Colori sezione galleria (chiara) */
+      --gallery-bg: #e7e0d3;
+      --gallery-text: #1a1a1a;
+      --gallery-muted: #5e5e60;
+      --gallery-border: rgba(0,0,0,.12);
     }
+
     * { box-sizing: border-box; }
     body { margin: 0; font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     a { color: inherit; text-decoration: none; }
@@ -73,7 +80,7 @@
 
     footer { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 12px 40px; }
 
-    /* Mini-gallerie responsive: 3 colonne desktop, 2 tablet, 1 mobile */
+    /* Mini-gallerie responsive esistenti (3/2/1 colonne) */
     .thumb-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -86,22 +93,70 @@
     @media (max-width: 640px) {
       .thumb-row { grid-template-columns: 1fr; }
     }
-    .thumb {
+    .thumb { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: #0e0f12; }
+    .thumb img {
+      width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: transform .25s ease; display: block;
+    }
+    .thumb:hover img { transform: scale(1.04); }
+
+    /* ===========================
+       GALLERIA STATICA (4/2/1)
+       =========================== */
+    .gallery-section {
+      background: var(--gallery-bg);
+      color: var(--gallery-text);
+    }
+    .gallery-section h2,
+    .gallery-section h3 { color: var(--gallery-text); }
+    .gallery-section .note { color: var(--gallery-muted); margin-bottom: 18px; }
+
+    .gallery-category { margin-top: 18px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 12px 0 26px;
+    }
+    @media (max-width: 980px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+    .gallery-thumb {
       position: relative;
       overflow: hidden;
       border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #0e0f12;
+      border: 1px solid var(--gallery-border);
+      background: rgba(255,255,255,.6);
     }
-    .thumb img {
+    .gallery-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       aspect-ratio: 4/3;
       transition: transform .25s ease;
-      display: block;
+      cursor: zoom-in;
     }
-    .thumb:hover img { transform: scale(1.04); }
+    .gallery-thumb:hover img { transform: scale(1.03); }
+
+    /* Lightbox minimale */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
   </style>
 </head>
 <body>
@@ -195,6 +250,107 @@
         <div class="thumb"><img src="assets/img/seasons2.jpg?v=2" alt="Stagioni 2"></div>
         <div class="thumb"><img src="assets/img/seasons3.jpg?v=2" alt="Stagioni 3"></div>
       </div>
+
+      <!-- Bottone per scroll alla Galleria -->
+      <div style="text-align:center; margin-top:18px;">
+        <a class="btn" href="#galleria">Galleria</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERIA STATICA -->
+  <section class="section gallery-section" id="galleria" aria-label="Galleria fotografica">
+    <div class="container">
+      <h2>Galleria</h2>
+      <p class="note">Clicca per ingrandire. Su mobile scorri verso il basso: le immagini sono disposte in verticale.</p>
+
+      <!-- Borghi medievali -->
+      <div class="gallery-category">
+        <h3>Borghi medievali</h3>
+        <div class="gallery-grid" aria-label="Borghi medievali">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/bor.jpg" alt="Borghi medievali 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/borr.jpg" alt="Borghi medievali 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/borrr.jpg" alt="Borghi medievali 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/borrrr.jpg" alt="Borghi medievali 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Colline del Chianti -->
+      <div class="gallery-category">
+        <h3>Colline del Chianti</h3>
+        <div class="gallery-grid" aria-label="Colline del Chianti">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/chianti.jpg" alt="Colline del Chianti 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/chiantii.jpg" alt="Colline del Chianti 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/chiantiii.jpg" alt="Colline del Chianti 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/chiantiiii.jpg" alt="Colline del Chianti 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Scansano Terme -->
+      <div class="gallery-category">
+        <h3>Scansano Terme</h3>
+        <div class="gallery-grid" aria-label="Scansano Terme">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/sc.jpg" alt="Scansano Terme 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/scc.jpg" alt="Scansano Terme 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/sccc.jpg" alt="Scansano Terme 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/scccc.jpg" alt="Scansano Terme 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Forte dei Marmi -->
+      <div class="gallery-category">
+        <h3>Forte dei Marmi</h3>
+        <div class="gallery-grid" aria-label="Forte dei Marmi">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/marmi.jpg" alt="Forte dei Marmi 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/marmii.jpg" alt="Forte dei Marmi 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/marmiii.jpg" alt="Forte dei Marmi 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/marmiiii.jpg" alt="Forte dei Marmi 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Pietrasanta -->
+      <div class="gallery-category">
+        <h3>Pietrasanta</h3>
+        <div class="gallery-grid" aria-label="Pietrasanta">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/santap.jpg" alt="Pietrasanta 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/santapp.jpg" alt="Pietrasanta 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/santappp.jpg" alt="Pietrasanta 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/santapppp.jpg" alt="Pietrasanta 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Parco dell'Orecchiella -->
+      <div class="gallery-category">
+        <h3>Parco dell’Orecchiella</h3>
+        <div class="gallery-grid" aria-label="Parco dell’Orecchiella">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/or.jpg" alt="Parco dell’Orecchiella 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/orr.jpg" alt="Parco dell’Orecchiella 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/orrr.jpg" alt="Parco dell’Orecchiella 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/orrrr.jpg" alt="Parco dell’Orecchiella 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- Siena -->
+      <div class="gallery-category">
+        <h3>Siena</h3>
+        <div class="gallery-grid" aria-label="Siena">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/sie.jpg" alt="Siena 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/siee.jpg" alt="Siena 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/sieee.jpg" alt="Siena 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/sieeee.jpg" alt="Siena 4" data-lightbox></figure>
+        </div>
+      </div>
+
+      <!-- San Gimignano -->
+      <div class="gallery-category">
+        <h3>San Gimignano</h3>
+        <div class="gallery-grid" aria-label="San Gimignano">
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/gim.jpg" alt="San Gimignano 1" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/gimm.jpg" alt="San Gimignano 2" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/gimmm.jpg" alt="San Gimignano 3" data-lightbox></figure>
+          <figure class="gallery-thumb"><img loading="lazy" decoding="async" src="assets/img/gimmmm.jpg" alt="San Gimignano 4" data-lightbox></figure>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -272,6 +428,38 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <img src="" alt="Preview immagine galleria">
+  </div>
+
+  <script>
+    // Anno footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox statico
+    (function () {
+      const lb = document.getElementById('lightbox');
+      const lbImg = lb.querySelector('img');
+
+      document.querySelectorAll('.gallery-section img[data-lightbox]').forEach(img => {
+        img.addEventListener('click', () => {
+          lbImg.src = img.src;
+          lbImg.alt = img.alt || '';
+          lb.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Chiudi cliccando ovunque o con ESC
+      lb.addEventListener('click', () => {
+        lb.style.display = 'none';
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.style.display === 'flex') lb.click();
+      });
+    })();
+  </script>
 </body>
 </html>
